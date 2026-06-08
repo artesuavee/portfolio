@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:70px;padding:0 90px;
+    background:radial-gradient(circle at 80% 20%,#7a1240,transparent 50%),linear-gradient(135deg,#23060f,#350a18)}
+  .info{color:#fff;max-width:380px}
+  .info .badge{display:inline-block;background:rgba(236,72,153,.18);color:#f472b6;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:24px}
+  .info h1{font-size:62px;font-weight:900;line-height:1.05;margin-bottom:18px}
+  .info h1 span{color:#f472b6}
+  .info p{font-size:22px;color:#d9a8bd;line-height:1.5}
+  .info .tags{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#eccad9;font-size:16px;padding:8px 16px;border-radius:10px}
+  .phone{width:330px;height:690px;background:#fff;border:12px solid #1c0610;border-radius:46px;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);flex-shrink:0}
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#1c0610;border-radius:20px;z-index:5}
+  .scr{position:absolute;inset:0;background:#fff5f8;padding:54px 20px 80px;color:#2c0f1b;overflow:hidden}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .top .h{font-size:24px;font-weight:900}
+  .cart{position:relative;font-size:24px}
+  .cart .b{position:absolute;top:-6px;right:-8px;background:#ec4899;color:#fff;font-size:11px;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .search{background:#fff;border:1px solid #f3d9e4;border-radius:14px;padding:13px 16px;color:#bb8fa1;font-size:14px;margin-bottom:18px}
+  .hero{background:linear-gradient(135deg,#ec4899,#db2777);border-radius:20px;padding:22px;color:#fff;margin-bottom:20px;position:relative;overflow:hidden}
+  .hero .t{font-size:22px;font-weight:900;line-height:1.1}.hero .s{font-size:13px;opacity:.9;margin-top:4px}
+  .hero .e{position:absolute;right:12px;bottom:0;font-size:64px}
+  .sec-t{font-size:16px;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between}
+  .sec-t a{color:#ec4899;font-size:13px;font-weight:600}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .prod{background:#fff;border:1px solid #f3d9e4;border-radius:16px;padding:12px}
+  .prod .img{height:84px;border-radius:12px;background:linear-gradient(135deg,#ffe0ec,#ffc9de);display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:10px}
+  .prod .t1{font-size:13px;font-weight:700}.prod .t2{font-size:11px;color:#bb8fa1;margin:2px 0 6px}
+  .prod .row{display:flex;align-items:center;justify-content:space-between}
+  .prod .p{color:#db2777;font-weight:900;font-size:15px}
+  .prod .add{width:30px;height:30px;border-radius:10px;background:#ec4899;color:#fff;border:none;font-size:18px;display:flex;align-items:center;justify-content:center}
+  .nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:#fff;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #f3d9e4}
+  .nav span{font-size:22px;opacity:.35}.nav span.on{opacity:1}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">📱 Мобильное приложение</div>
+    <h1>Интернет-<span>магазин</span></h1>
+    <p>Приложение магазина: каталог, карточки товаров, корзина и заказы.</p>
+    <div class="tags"><div class="tag">Android</div><div class="tag">Каталог</div><div class="tag">Корзина</div></div>
+  </div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="scr">
+      <div class="top"><div class="h">Магазин</div><div class="cart">🛍️<div class="b">3</div></div></div>
+      <div class="search">🔍 Поиск товаров</div>
+      <div class="hero"><div class="t">Распродажа<br>до −50%</div><div class="s">Только до конца недели</div><div class="e">🛍️</div></div>
+      <div class="sec-t"><span>Популярное</span><a>Все</a></div>
+      <div class="grid">
+        <div class="prod"><div class="img">👟</div><div class="t1">Кроссовки</div><div class="t2">Спорт</div><div class="row"><span class="p">4 990₽</span><button class="add">+</button></div></div>
+        <div class="prod"><div class="img">🎧</div><div class="t1">Наушники</div><div class="t2">Аудио</div><div class="row"><span class="p">7 490₽</span><button class="add">+</button></div></div>
+        <div class="prod"><div class="img">⌚</div><div class="t1">Смарт-часы</div><div class="t2">Гаджеты</div><div class="row"><span class="p">9 990₽</span><button class="add">+</button></div></div>
+        <div class="prod"><div class="img">🎒</div><div class="t1">Рюкзак</div><div class="t2">Сумки</div><div class="row"><span class="p">3 290₽</span><button class="add">+</button></div></div>
+      </div>
+      <div class="nav"><span class="on">🏠</span><span>🔍</span><span>🛍️</span><span>👤</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

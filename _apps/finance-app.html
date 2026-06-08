@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:70px;padding:0 90px;
+    background:radial-gradient(circle at 80% 20%,#16306b,transparent 50%),linear-gradient(135deg,#0a1124,#0f1a3a)}
+  .info{color:#fff;max-width:380px}
+  .info .badge{display:inline-block;background:rgba(99,140,255,.18);color:#7c9cff;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:24px}
+  .info h1{font-size:62px;font-weight:900;line-height:1.05;margin-bottom:18px}
+  .info h1 span{color:#7c9cff}
+  .info p{font-size:22px;color:#9fb0d0;line-height:1.5}
+  .info .tags{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#cdd8ef;font-size:16px;padding:8px 16px;border-radius:10px}
+  .phone{width:330px;height:690px;background:#0c1326;border:12px solid #050a18;border-radius:46px;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);flex-shrink:0}
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#050a18;border-radius:20px;z-index:5}
+  .scr{position:absolute;inset:0;background:linear-gradient(180deg,#0c1326,#0f1830);padding:54px 22px 80px;color:#fff;overflow:hidden}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  .top .hi{font-size:12px;color:#7e8db0}.top .nm{font-size:18px;font-weight:800}
+  .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#638cff,#3d5fd6)}
+  .card{background:linear-gradient(135deg,#3d5fd6,#6b46e5);border-radius:22px;padding:22px;margin-bottom:20px;position:relative;overflow:hidden}
+  .card .lbl{font-size:12px;opacity:.8}.card .bal{font-size:40px;font-weight:900;margin:6px 0 16px}
+  .card .num{font-size:15px;letter-spacing:2px;opacity:.9}
+  .card .vs{position:absolute;top:20px;right:22px;font-size:26px;font-weight:900;font-style:italic;opacity:.9}
+  .acts{display:flex;gap:12px;margin-bottom:22px}
+  .act{flex:1;text-align:center;background:#16213f;border-radius:16px;padding:14px 0}
+  .act .e{font-size:22px;display:block;margin-bottom:6px}.act .k{font-size:12px;color:#9fb0d0}
+  .sec-t{font-size:16px;font-weight:800;margin-bottom:14px;display:flex;justify-content:space-between}
+  .sec-t a{color:#7c9cff;font-size:13px;font-weight:600}
+  .tx{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .tx .ic{width:44px;height:44px;border-radius:13px;background:#16213f;display:flex;align-items:center;justify-content:center;font-size:20px}
+  .tx .t1{font-size:14px;font-weight:700}.tx .t2{font-size:12px;color:#7e8db0}
+  .tx .a{margin-left:auto;font-weight:800;font-size:15px}.tx .a.minus{color:#ff6b6b}.tx .a.plus{color:#4ade80}
+  .nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:#0a1020;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #1a2440}
+  .nav span{font-size:22px;opacity:.4}.nav span.on{opacity:1}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">📱 Мобильное приложение</div>
+    <h1>Учёт <span>финансов</span></h1>
+    <p>Приложение для контроля денег: счета, расходы, аналитика и цели.</p>
+    <div class="tags"><div class="tag">Android</div><div class="tag">Графики</div><div class="tag">Безопасность</div></div>
+  </div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="scr">
+      <div class="top"><div><div class="hi">Добрый день</div><div class="nm">Артём</div></div><div class="av"></div></div>
+      <div class="card"><div class="vs">VISA</div><div class="lbl">Общий баланс</div><div class="bal">284 500 ₽</div><div class="num">•••• •••• •••• 6411</div></div>
+      <div class="acts">
+        <div class="act"><span class="e">⬆️</span><div class="k">Перевод</div></div>
+        <div class="act"><span class="e">⬇️</span><div class="k">Пополнить</div></div>
+        <div class="act"><span class="e">📊</span><div class="k">Аналитика</div></div>
+      </div>
+      <div class="sec-t"><span>Операции</span><a>Все</a></div>
+      <div class="tx"><div class="ic">🛒</div><div><div class="t1">Продукты</div><div class="t2">Сегодня · 14:20</div></div><div class="a minus">−1 240 ₽</div></div>
+      <div class="tx"><div class="ic">💼</div><div><div class="t1">Зарплата</div><div class="t2">Вчера</div></div><div class="a plus">+85 000 ₽</div></div>
+      <div class="tx"><div class="ic">☕</div><div><div class="t1">Кофейня</div><div class="t2">Вчера · 09:10</div></div><div class="a minus">−320 ₽</div></div>
+      <div class="nav"><span class="on">🏠</span><span>💳</span><span>📊</span><span>👤</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

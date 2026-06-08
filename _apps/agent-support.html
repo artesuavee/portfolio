@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:60px;padding:0 80px;
+    background:radial-gradient(circle at 80% 25%,rgba(34,211,238,.25),transparent 50%),linear-gradient(135deg,#070d1a,#0e1a33)}
+  .info{color:#fff;max-width:360px}
+  .info .badge{display:inline-block;background:rgba(34,211,238,.15);color:#67e8f9;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:22px}
+  .info h1{font-size:56px;font-weight:900;line-height:1.06;margin-bottom:16px}
+  .info h1 span{background:linear-gradient(135deg,#22d3ee,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .info p{font-size:21px;color:#9fb3cc;line-height:1.5}
+  .info .tags{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#cfe0f5;font-size:15px;padding:7px 14px;border-radius:9px}
+  .chat{width:430px;height:600px;background:#0f1830;border:1px solid #1e2c4a;border-radius:26px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);display:flex;flex-direction:column}
+  .chead{display:flex;align-items:center;gap:14px;padding:20px 22px;background:linear-gradient(90deg,#7c3aed,#22d3ee);color:#fff}
+  .chead .av{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:24px}
+  .chead .nm{font-size:18px;font-weight:800}.chead .st{font-size:12px;opacity:.9;display:flex;align-items:center;gap:6px}
+  .dot{width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block}
+  .body{flex:1;padding:22px;display:flex;flex-direction:column;gap:14px;overflow:hidden;background:#0c1426}
+  .msg{max-width:78%;padding:13px 16px;border-radius:16px;font-size:15px;line-height:1.45}
+  .bot{background:#1a2741;color:#e8eef9;align-self:flex-start;border-bottom-left-radius:4px}
+  .usr{background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .typing{align-self:flex-start;background:#1a2741;padding:14px 18px;border-radius:16px;display:flex;gap:5px}
+  .typing i{width:8px;height:8px;border-radius:50%;background:#67e8f9;display:inline-block;opacity:.7}
+  .foot{padding:16px 20px;background:#0f1830;border-top:1px solid #1e2c4a;display:flex;align-items:center;gap:12px}
+  .foot .inp{flex:1;background:#1a2741;border-radius:30px;padding:12px 18px;color:#7e8db0;font-size:14px}
+  .foot .snd{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:18px}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">🤖 ИИ-агент</div>
+    <h1>Агент <span>поддержки</span> 24/7</h1>
+    <p>Отвечает клиентам мгновенно, решает типовые вопросы и передаёт сложные оператору.</p>
+    <div class="tags"><div class="tag">GPT-4</div><div class="tag">База знаний</div><div class="tag">CRM</div></div>
+  </div>
+  <div class="chat">
+    <div class="chead"><div class="av">🤖</div><div><div class="nm">AI Ассистент</div><div class="st"><span class="dot"></span> онлайн · отвечает за 2 сек</div></div></div>
+    <div class="body">
+      <div class="msg bot">Здравствуйте! 👋 Я виртуальный помощник. Чем могу помочь?</div>
+      <div class="msg usr">Где мой заказ №4821?</div>
+      <div class="msg bot">Ваш заказ №4821 уже в пути 🚚 Курьер доставит сегодня до 18:00. Прислать трек-номер?</div>
+      <div class="msg usr">Да, пожалуйста</div>
+      <div class="msg bot">Готово! Трек: RU481200735. Отследить можно по ссылке. Ещё вопросы? 😊</div>
+      <div class="typing"><i></i><i></i><i></i></div>
+    </div>
+    <div class="foot"><div class="inp">Напишите сообщение…</div><div class="snd">➤</div></div>
+  </div>
+</div>
+</body></html>

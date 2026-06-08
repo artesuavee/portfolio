@@ -1,0 +1,10 @@
+# Служебные файлы
+.playwright-mcp/
+*.jpeg
+*.jpg
+*.png
+.DS_Store
+Thumbs.db
+
+# Внутренние обложки кворков (не для публичного репо)
+_covers/

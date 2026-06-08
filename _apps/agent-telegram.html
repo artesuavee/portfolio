@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:60px;padding:0 80px;
+    background:radial-gradient(circle at 80% 25%,rgba(56,139,253,.28),transparent 50%),linear-gradient(135deg,#0a1020,#0f1c38)}
+  .info{color:#fff;max-width:360px}
+  .info .badge{display:inline-block;background:rgba(56,139,253,.16);color:#7cb3ff;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:22px}
+  .info h1{font-size:54px;font-weight:900;line-height:1.06;margin-bottom:16px}
+  .info h1 span{background:linear-gradient(135deg,#38bdf8,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .info p{font-size:21px;color:#9fb3d6;line-height:1.5}
+  .info .tags{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#cfe0f5;font-size:15px;padding:7px 14px;border-radius:9px}
+  /* telegram phone */
+  .phone{width:340px;height:660px;background:#0e1621;border:12px solid #05media;border:12px solid #050a12;border-radius:46px;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.55)}
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:24px;background:#050a12;border-radius:18px;z-index:5}
+  .tg{position:absolute;inset:0;display:flex;flex-direction:column;background:#0e1621}
+  .tghead{padding:50px 18px 14px;background:#17212b;display:flex;align-items:center;gap:12px}
+  .tghead .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .tghead .nm{font-size:16px;font-weight:700;color:#fff}.tghead .st{font-size:12px;color:#5eead4}
+  .tgbody{flex:1;padding:18px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(180deg,#0e1621,#101b2a)}
+  .m{max-width:80%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.4}
+  .in{background:#182433;color:#e8eef9;align-self:flex-start;border-bottom-left-radius:4px}
+  .out{background:#2b5278;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .kb{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start;max-width:90%}
+  .btn{background:#182433;border:1px solid #2b5278;color:#7cb3ff;font-size:13px;padding:9px 14px;border-radius:10px}
+  .tgfoot{padding:12px 16px;background:#17212b;display:flex;align-items:center;gap:10px}
+  .tgfoot .inp{flex:1;color:#5b6b7d;font-size:14px}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">🤖 ИИ-агент</div>
+    <h1>ИИ-ассистент в <span>Telegram</span></h1>
+    <p>Умный бот, который понимает запросы человеческим языком и выполняет задачи прямо в чате.</p>
+    <div class="tags"><div class="tag">Telegram</div><div class="tag">GPT</div><div class="tag">Меню-кнопки</div></div>
+  </div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="tg">
+      <div class="tghead"><div class="av">🤖</div><div><div class="nm">AI Assistant Bot</div><div class="st">bot · отвечает мгновенно</div></div></div>
+      <div class="tgbody">
+        <div class="m out">Составь план поста про скидки</div>
+        <div class="m in">Готово! Вот структура: 🎯<br>1. Цепляющий заголовок<br>2. Суть акции и выгода<br>3. Сроки и условия<br>4. Призыв к действию</div>
+        <div class="m out">Сделай вариант текста</div>
+        <div class="m in">🔥 Только 3 дня! Скидки до 50% на всё. Успей забрать любимое по лучшей цене — жми «Купить» 👇</div>
+        <div class="kb"><div class="btn">📝 Ещё вариант</div><div class="btn">📅 Запланировать</div><div class="btn">⚙️ Настройки</div></div>
+      </div>
+      <div class="tgfoot"><div class="inp">Сообщение…</div><div>🎤</div></div>
+    </div>
+  </div>
+</div>
+</body></html>

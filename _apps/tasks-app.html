@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:70px;padding:0 90px;
+    background:radial-gradient(circle at 80% 20%,#3b1d6e,transparent 50%),linear-gradient(135deg,#150e26,#1e1238)}
+  .info{color:#fff;max-width:380px}
+  .info .badge{display:inline-block;background:rgba(168,85,247,.18);color:#c084fc;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:24px}
+  .info h1{font-size:62px;font-weight:900;line-height:1.05;margin-bottom:18px}
+  .info h1 span{color:#c084fc}
+  .info p{font-size:22px;color:#b6a8d0;line-height:1.5}
+  .info .tags{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#d8ccef;font-size:16px;padding:8px 16px;border-radius:10px}
+  .phone{width:330px;height:690px;background:#fff;border:12px solid #120a22;border-radius:46px;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);flex-shrink:0}
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#120a22;border-radius:20px;z-index:5}
+  .scr{position:absolute;inset:0;background:#faf8ff;padding:54px 22px 80px;color:#251a38;overflow:hidden}
+  .top{margin-bottom:18px}
+  .top .d{font-size:13px;color:#9b8bb8}.top .h{font-size:26px;font-weight:900;margin-top:2px}
+  .prog{background:linear-gradient(135deg,#a855f7,#7c3aed);border-radius:20px;padding:20px;color:#fff;margin-bottom:20px}
+  .prog .t{font-size:14px;opacity:.9}.prog .v{font-size:30px;font-weight:900;margin:4px 0 12px}
+  .bar{height:8px;background:rgba(255,255,255,.25);border-radius:10px;overflow:hidden}
+  .bar i{display:block;height:100%;width:68%;background:#fff;border-radius:10px}
+  .sec-t{font-size:16px;font-weight:800;margin-bottom:14px}
+  .task{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #efe8fb;border-radius:16px;padding:14px;margin-bottom:11px;box-shadow:0 4px 12px rgba(124,58,237,.04)}
+  .ck{width:24px;height:24px;border-radius:8px;border:2px solid #c9b8ec;flex-shrink:0}
+  .ck.on{background:#a855f7;border-color:#a855f7;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:900}
+  .task .t1{font-size:15px;font-weight:700}.task.done .t1{text-decoration:line-through;color:#a99bc4}
+  .task .t2{font-size:12px;color:#9b8bb8}
+  .task .tag{margin-left:auto;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+  .tag.w{background:#ede4ff;color:#7c3aed}.tag.p{background:#ffe4ef;color:#db2777}
+  .fab{position:absolute;right:20px;bottom:80px;width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 12px 26px rgba(124,58,237,.4)}
+  .nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:#fff;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #efe8fb}
+  .nav span{font-size:22px;opacity:.35}.nav span.on{opacity:1}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">📱 Мобильное приложение</div>
+    <h1>Планировщик <span>задач</span></h1>
+    <p>Приложение для задач и заметок: списки, прогресс, напоминания.</p>
+    <div class="tags"><div class="tag">Android</div><div class="tag">Офлайн</div><div class="tag">Синхронизация</div></div>
+  </div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="scr">
+      <div class="top"><div class="d">Понедельник, 8 июня</div><div class="h">Мои задачи</div></div>
+      <div class="prog"><div class="t">Выполнено сегодня</div><div class="v">6 из 9</div><div class="bar"><i></i></div></div>
+      <div class="sec-t">Сегодня</div>
+      <div class="task done"><div class="ck on">✓</div><div><div class="t1">Созвон с командой</div><div class="t2">10:00</div></div><div class="tag w">Работа</div></div>
+      <div class="task"><div class="ck"></div><div><div class="t1">Сверстать главную</div><div class="t2">14:00</div></div><div class="tag w">Работа</div></div>
+      <div class="task"><div class="ck"></div><div><div class="t1">Тренировка</div><div class="t2">19:00</div></div><div class="tag p">Личное</div></div>
+      <div class="task done"><div class="ck on">✓</div><div><div class="t1">Купить продукты</div><div class="t2">—</div></div><div class="tag p">Личное</div></div>
+      <div class="fab">+</div>
+      <div class="nav"><span class="on">✅</span><span>📅</span><span>📊</span><span>👤</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

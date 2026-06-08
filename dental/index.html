@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Денталь — Стоматология премиум-класса</title>
+<style>
+  :root{
+    --blue:#1a8cff; --blue2:#0a6fd6; --mint:#16c2a3; --dark:#0f2540;
+    --bg:#f5f9ff; --card:#ffffff; --text:#142b45; --muted:#6b7c93; --line:#e3edf9;
+    --font:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{line-height:1.14;font-weight:800}
+  .blue{color:var(--blue)}
+  .btn{display:inline-block;background:var(--blue);color:#fff;font-weight:700;padding:15px 34px;border-radius:50px;
+       transition:.25s;border:none;cursor:pointer;font-size:15px;box-shadow:0 10px 26px rgba(26,140,255,.3)}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(26,140,255,.4)}
+  .btn-out{background:transparent;color:var(--blue);box-shadow:none;border:2px solid var(--line)}
+  .btn-out:hover{border-color:var(--blue)}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,249,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{font-size:24px;font-weight:900;color:var(--dark);display:flex;align-items:center;gap:8px}
+  .logo .d{width:32px;height:32px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .menu{display:flex;gap:30px;font-size:15px}
+  .menu a{color:var(--muted);transition:.2s}
+  .menu a:hover{color:var(--blue)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:26px;height:2px;background:var(--dark)}
+
+  .hero{padding:150px 0 90px}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:46px;align-items:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(22,194,163,.14);color:var(--mint);
+         font-weight:700;font-size:13px;padding:8px 16px;border-radius:30px;margin-bottom:22px}
+  .hero h1{font-size:clamp(38px,6vw,66px);margin-bottom:20px;color:var(--dark)}
+  .hero p{color:var(--muted);font-size:19px;max-width:480px;margin-bottom:32px}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:36px}
+  .trust{display:flex;gap:30px;flex-wrap:wrap}
+  .trust div b{font-size:30px;color:var(--blue);font-weight:900;display:block}
+  .trust div span{font-size:13px;color:var(--muted)}
+  .hero-art{height:clamp(340px,34vw,440px);border-radius:32px;background:linear-gradient(135deg,var(--blue),var(--blue2));
+            display:flex;align-items:center;justify-content:center;font-size:clamp(130px,14vw,180px);position:relative;
+            box-shadow:0 30px 60px rgba(26,140,255,.3)}
+  .float{position:absolute;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 14px 30px rgba(0,0,0,.1);font-weight:700;font-size:14px;display:flex;align-items:center;gap:10px;max-width:230px}
+  .float .e{font-size:22px;flex-shrink:0}
+  .f1{top:22px;left:14px}
+  .f2{bottom:22px;right:14px}
+  .f2 small{display:block;color:var(--muted);font-weight:400;font-size:12px}
+
+  section{padding:90px 0}
+  .head{text-align:center;max-width:620px;margin:0 auto 56px}
+  .head .badge{margin-bottom:16px}
+  .head h2{font-size:clamp(28px,5vw,46px);color:var(--dark);margin-bottom:14px}
+  .head p{color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 28px;transition:.3s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(26,140,255,.12)}
+  .card .ico{width:60px;height:60px;border-radius:16px;background:rgba(26,140,255,.1);display:flex;
+             align-items:center;justify-content:center;font-size:30px;margin-bottom:20px}
+  .card h3{font-size:20px;margin-bottom:8px;color:var(--dark)}
+  .card p{color:var(--muted);font-size:15px;margin-bottom:14px}
+  .card .from{color:var(--blue);font-weight:800}
+
+  .why{background:#fff}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;text-align:center}
+  .why-item .e{font-size:42px;margin-bottom:12px}
+  .why-item h3{font-size:17px;color:var(--dark);margin-bottom:6px}
+  .why-item p{color:var(--muted);font-size:14px}
+
+  .docs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .doc{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.3s}
+  .doc:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(26,140,255,.12)}
+  .doc .ph{height:260px;background:linear-gradient(135deg,#e8f3ff,#d4e8ff);display:flex;align-items:center;justify-content:center;font-size:90px}
+  .doc .info{padding:22px}
+  .doc h3{font-size:19px;color:var(--dark)}
+  .doc span{color:var(--blue);font-size:14px;font-weight:600}
+
+  .cta{background:linear-gradient(135deg,var(--dark),#163861);border-radius:28px;padding:64px 30px;text-align:center;color:#fff;margin:0 24px}
+  .cta h2{font-size:clamp(28px,5vw,44px);margin-bottom:14px}
+  .cta p{opacity:.82;font-size:18px;margin-bottom:30px}
+  .cta .btn{background:#fff;color:var(--blue)}
+
+  footer{padding:56px 0 30px;background:#fff;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
+  .foot p{color:var(--muted);font-size:14px;max-width:300px}
+  .foot h4{margin-bottom:14px;font-size:15px;color:var(--dark)}
+  .foot a{color:var(--muted);display:block;margin-bottom:8px;font-size:14px}
+  .foot a:hover{color:var(--blue)}
+  .copy{text-align:center;color:#aab;font-size:13px;margin-top:36px}
+
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr}.hero-art{max-width:360px;margin:0 auto}
+    .grid,.docs{grid-template-columns:1fr}.why-grid{grid-template-columns:repeat(2,1fr)}
+    .menu{position:fixed;inset:74px 0 auto 0;background:#fff;flex-direction:column;padding:24px;gap:18px;border-bottom:1px solid var(--line);display:none}
+    .menu.open{display:flex}.burger{display:flex}
+  }
+</style>
+</head>
+<body>
+
+<header><div class="container"><nav>
+  <div class="logo"><div class="d">🦷</div>Денталь</div>
+  <div class="menu" id="menu">
+    <a href="#services">Услуги</a>
+    <a href="#why">Почему мы</a>
+    <a href="#doctors">Врачи</a>
+    <a href="#contact">Контакты</a>
+  </div>
+  <a href="#contact" class="btn" style="padding:11px 24px">Записаться</a>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</nav></div></header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="badge">✨ Лечим без боли и страха</div>
+      <h1>Здоровая улыбка <span class="blue">начинается здесь</span></h1>
+      <p>Современная стоматология с гарантией на лечение. Безболезненно, аккуратно и по честным ценам.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn">Бесплатная консультация</a>
+        <a href="#services" class="btn btn-out">Услуги и цены</a>
+      </div>
+      <div class="trust">
+        <div><b>18</b><span>лет практики</span></div>
+        <div><b>25K+</b><span>пациентов</span></div>
+        <div><b>4.9</b><span>рейтинг</span></div>
+      </div>
+    </div>
+    <div style="position:relative">
+      <div class="hero-art">😁
+        <div class="float f1"><span class="e">🛡️</span> Гарантия 3 года</div>
+        <div class="float f2"><span class="e">💉</span> <div>0 боли<small>анестезия нового поколения</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="head"><div class="badge">Услуги</div><h2>Что мы лечим</h2><p>Полный спектр стоматологических услуг для всей семьи.</p></div>
+    <div class="grid">
+      <div class="card"><div class="ico">🦷</div><h3>Лечение кариеса</h3><p>Безболезненно, с сохранением максимума здоровых тканей.</p><div class="from">от 2 500 ₽</div></div>
+      <div class="card"><div class="ico">✨</div><h3>Профчистка и отбеливание</h3><p>Удаление налёта, камня, отбеливание до 8 тонов.</p><div class="from">от 3 900 ₽</div></div>
+      <div class="card"><div class="ico">🔩</div><h3>Имплантация</h3><p>Восстановление зубов имплантами премиум-систем.</p><div class="from">от 28 000 ₽</div></div>
+      <div class="card"><div class="ico">👑</div><h3>Протезирование</h3><p>Коронки, виниры, мосты. Естественный вид и прочность.</p><div class="from">от 12 000 ₽</div></div>
+      <div class="card"><div class="ico">😬</div><h3>Исправление прикуса</h3><p>Брекеты и элайнеры для детей и взрослых.</p><div class="from">от 45 000 ₽</div></div>
+      <div class="card"><div class="ico">👶</div><h3>Детская стоматология</h3><p>Бережное лечение в игровой атмосфере без стресса.</p><div class="from">от 1 800 ₽</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="container">
+    <div class="head"><div class="badge">Почему мы</div><h2>Нам доверяют улыбки</h2></div>
+    <div class="why-grid">
+      <div class="why-item"><div class="e">🩺</div><h3>Опытные врачи</h3><p>Стаж от 8 лет, постоянное обучение.</p></div>
+      <div class="why-item"><div class="e">🔬</div><h3>Современное оборудование</h3><p>Цифровая диагностика и 3D-снимки.</p></div>
+      <div class="why-item"><div class="e">🛡️</div><h3>Гарантия 3 года</h3><p>Официальная гарантия на все работы.</p></div>
+      <div class="why-item"><div class="e">💳</div><h3>Рассрочка 0%</h3><p>Лечение сейчас — оплата частями.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="doctors">
+  <div class="container">
+    <div class="head"><div class="badge">Команда</div><h2>Наши врачи</h2><p>Профессионалы, которым можно доверять.</p></div>
+    <div class="docs">
+      <div class="doc"><div class="ph">👨‍⚕️</div><div class="info"><h3>Андрей Соколов</h3><span>Хирург-имплантолог · 16 лет</span></div></div>
+      <div class="doc"><div class="ph">👩‍⚕️</div><div class="info"><h3>Елена Морозова</h3><span>Терапевт-ортопед · 12 лет</span></div></div>
+      <div class="doc"><div class="ph">👨‍⚕️</div><div class="info"><h3>Игорь Лебедев</h3><span>Ортодонт · 10 лет</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta" id="contact">
+      <h2>Запишитесь на бесплатный осмотр</h2>
+      <p>Консультация и план лечения — бесплатно. Перезвоним в течение 15 минут.</p>
+      <a href="tel:+70000000000" class="btn">Записаться: +7 (000) 000-00-00</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div><div class="logo" style="margin-bottom:14px"><div class="d">🦷</div>Денталь</div><p>Стоматология премиум-класса. Заботимся о вашей улыбке с 2008 года.</p></div>
+      <div><h4>Услуги</h4><a href="#services">Лечение</a><a href="#services">Имплантация</a><a href="#services">Отбеливание</a></div>
+      <div><h4>Контакты</h4><a href="tel:+70000000000">+7 (000) 000-00-00</a><a href="#">пр. Здоровья, 5</a><a href="#">Ежедневно 9:00–21:00</a></div>
+    </div>
+    <div class="copy">© 2026 Денталь. Демо-проект для портфолио.</div>
+  </div>
+</footer>
+
+<script>
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+</script>
+</body>
+</html>

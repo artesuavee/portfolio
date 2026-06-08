@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:56px;padding:0 80px;
+    background:radial-gradient(circle at 82% 28%,rgba(168,85,247,.28),transparent 50%),linear-gradient(135deg,#0c0a1c,#15112e)}
+  .info{color:#fff;max-width:330px}
+  .info .badge{display:inline-block;background:rgba(168,85,247,.18);color:#c084fc;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:22px}
+  .info h1{font-size:54px;font-weight:900;line-height:1.06;margin-bottom:16px}
+  .info h1 span{background:linear-gradient(135deg,#c084fc,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .info p{font-size:21px;color:#b6a8d0;line-height:1.5}
+  .info .tags{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#d8ccef;font-size:15px;padding:7px 14px;border-radius:9px}
+  .panel{width:540px;height:600px;background:#120e26;border:1px solid #2a2147;border-radius:24px;box-shadow:0 40px 80px rgba(0,0,0,.5);padding:28px;display:flex;flex-direction:column}
+  .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .ptop .t{font-size:20px;font-weight:800;color:#fff}
+  .ptop .live{font-size:13px;color:#4ade80;display:flex;align-items:center;gap:6px}
+  .ptop .live i{width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block}
+  .flow{flex:1;display:flex;flex-direction:column;gap:0}
+  .node{display:flex;align-items:center;gap:16px;background:#1a1438;border:1px solid #2f2452;border-radius:16px;padding:16px 18px}
+  .node .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+  .i1{background:rgba(56,189,248,.18)}.i2{background:rgba(168,85,247,.2)}.i3{background:rgba(46,196,182,.18)}.i4{background:rgba(250,204,21,.18)}.i5{background:rgba(74,222,128,.18)}
+  .node .nm{font-size:16px;font-weight:700;color:#fff}.node .ds{font-size:13px;color:#9b8bc4}
+  .node .badge2{margin-left:auto;font-size:12px;font-weight:700;color:#4ade80;background:rgba(74,222,128,.12);padding:5px 11px;border-radius:20px}
+  .arrow{height:22px;width:2px;background:linear-gradient(#a855f7,#7c3aed);margin-left:42px}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">🤖 ИИ-агент</div>
+    <h1>Агент <span>автоматизации</span></h1>
+    <p>Связывает сервисы и выполняет цепочки задач без участия человека.</p>
+    <div class="tags"><div class="tag">n8n</div><div class="tag">API</div><div class="tag">Webhook</div></div>
+  </div>
+  <div class="panel">
+    <div class="ptop"><div class="t">Сценарий «Новая заявка»</div><div class="live"><i></i> активен</div></div>
+    <div class="flow">
+      <div class="node"><div class="ic i1">📥</div><div><div class="nm">Заявка с сайта</div><div class="ds">Триггер · форма</div></div><div class="badge2">→</div></div>
+      <div class="arrow"></div>
+      <div class="node"><div class="ic i2">🧠</div><div><div class="nm">ИИ обрабатывает</div><div class="ds">Анализ и ответ через GPT</div></div><div class="badge2">✓</div></div>
+      <div class="arrow"></div>
+      <div class="node"><div class="ic i3">📇</div><div><div class="nm">Запись в CRM</div><div class="ds">Создан контакт + сделка</div></div><div class="badge2">✓</div></div>
+      <div class="arrow"></div>
+      <div class="node"><div class="ic i4">💬</div><div><div class="nm">Уведомление в Telegram</div><div class="ds">Менеджеру отправлено</div></div><div class="badge2">✓</div></div>
+      <div class="arrow"></div>
+      <div class="node"><div class="ic i5">📧</div><div><div class="nm">Письмо клиенту</div><div class="ds">Автоответ отправлен</div></div><div class="badge2">✓</div></div>
+    </div>
+  </div>
+</div>
+</body></html>

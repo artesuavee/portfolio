@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:70px;padding:0 90px;
+    background:radial-gradient(circle at 80% 20%,#7a3410,transparent 50%),linear-gradient(135deg,#2a1206,#3a1a0a)}
+  .info{color:#fff;max-width:380px}
+  .info .badge{display:inline-block;background:rgba(255,140,66,.18);color:#ff8c42;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:24px}
+  .info h1{font-size:62px;font-weight:900;line-height:1.05;margin-bottom:18px}
+  .info h1 span{color:#ff8c42}
+  .info p{font-size:22px;color:#d8b9a4;line-height:1.5}
+  .info .tags{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#e8d3c5;font-size:16px;padding:8px 16px;border-radius:10px}
+  .phone{width:330px;height:690px;background:#fff;border:12px solid #1a0d05;border-radius:46px;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);flex-shrink:0}
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#1a0d05;border-radius:20px;z-index:5}
+  .scr{position:absolute;inset:0;background:#fff7f2;padding:54px 20px 80px;color:#2c1a10;overflow:hidden}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .top .lbl{font-size:12px;color:#a78a78}.top .addr{font-size:16px;font-weight:800;color:#2c1a10}
+  .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#ff8c42,#ff6b35)}
+  .search{background:#fff;border:1px solid #f0e0d5;border-radius:14px;padding:13px 16px;color:#b39b8c;font-size:14px;margin-bottom:18px;box-shadow:0 6px 16px rgba(255,107,53,.06)}
+  .cats{display:flex;gap:10px;margin-bottom:18px}
+  .cat{flex:1;text-align:center;background:#fff;border:1px solid #f0e0d5;border-radius:14px;padding:12px 0;font-size:12px;font-weight:600}
+  .cat.on{background:#ff6b35;color:#fff;border-color:#ff6b35}
+  .cat .e{font-size:22px;display:block;margin-bottom:5px}
+  .promo{background:linear-gradient(135deg,#ff8c42,#ff6b35);border-radius:20px;padding:20px;color:#fff;margin-bottom:18px;position:relative;overflow:hidden}
+  .promo .t{font-size:20px;font-weight:900;line-height:1.1}.promo .s{font-size:13px;opacity:.9;margin-top:4px}
+  .promo .e{position:absolute;right:14px;bottom:6px;font-size:60px}
+  .sec-t{font-size:16px;font-weight:800;margin-bottom:12px}
+  .dish{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #f3e6dc;border-radius:16px;padding:10px;margin-bottom:10px}
+  .dish .img{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,#ffe3d3,#ffd0b8);display:flex;align-items:center;justify-content:center;font-size:28px}
+  .dish .t1{font-size:14px;font-weight:700}.dish .t2{font-size:12px;color:#a78a78}
+  .dish .p{margin-left:auto;color:#ff6b35;font-weight:900;font-size:15px}
+  .nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:#fff;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #f0e0d5}
+  .nav span{font-size:22px;opacity:.35}.nav span.on{opacity:1}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">📱 Мобильное приложение</div>
+    <h1>Доставка <span>еды</span></h1>
+    <p>Приложение для заказа еды: каталог, корзина, оплата и трекинг курьера.</p>
+    <div class="tags"><div class="tag">Android</div><div class="tag">API</div><div class="tag">Оплата</div></div>
+  </div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="scr">
+      <div class="top"><div><div class="lbl">Доставка по адресу</div><div class="addr">ул. Зерновая, 3 ▾</div></div><div class="av"></div></div>
+      <div class="search">🔍 Найти блюдо или ресторан</div>
+      <div class="cats">
+        <div class="cat on"><span class="e">🍔</span>Бургеры</div>
+        <div class="cat"><span class="e">🍕</span>Пицца</div>
+        <div class="cat"><span class="e">🍣</span>Суши</div>
+      </div>
+      <div class="promo"><div class="t">Скидка 20%<br>на первый заказ</div><div class="s">по промокоду FOOD</div><div class="e">🍔</div></div>
+      <div class="sec-t">Популярное</div>
+      <div class="dish"><div class="img">🍔</div><div><div class="t1">Double Beef</div><div class="t2">2 котлеты · фри</div></div><div class="p">540₽</div></div>
+      <div class="dish"><div class="img">🍕</div><div><div class="t1">Пепперони</div><div class="t2">35 см</div></div><div class="p">690₽</div></div>
+      <div class="nav"><span class="on">🏠</span><span>🔍</span><span>🛒</span><span>👤</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

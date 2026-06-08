@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:70px;padding:0 90px;
+    background:radial-gradient(circle at 80% 20%,#1b3a2e,transparent 50%),linear-gradient(135deg,#0c1a14,#10241b)}
+  .info{color:#fff;max-width:380px}
+  .info .badge{display:inline-block;background:rgba(198,255,0,.15);color:#c6ff00;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:24px}
+  .info h1{font-size:62px;font-weight:900;line-height:1.05;margin-bottom:18px}
+  .info h1 span{color:#c6ff00}
+  .info p{font-size:22px;color:#9fb3a8;line-height:1.5}
+  .info .tags{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#cfe0d8;font-size:16px;padding:8px 16px;border-radius:10px}
+  /* phone */
+  .phone{width:330px;height:690px;background:#0e1714;border:12px solid #05100b;border-radius:46px;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);flex-shrink:0}
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#05100b;border-radius:20px;z-index:5}
+  .scr{position:absolute;inset:0;background:linear-gradient(180deg,#0e1714,#13201a);padding:54px 22px 22px;color:#fff;overflow:hidden}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+  .top .hi{font-size:13px;color:#7e928a}.top .nm{font-size:20px;font-weight:800}
+  .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#c6ff00,#7fae00)}
+  .ring-card{background:linear-gradient(135deg,#c6ff00,#a6e000);border-radius:24px;padding:22px;color:#0c1a14;margin-bottom:18px;position:relative;overflow:hidden}
+  .ring-card .lbl{font-size:13px;font-weight:700;opacity:.7}
+  .ring-card .big{font-size:44px;font-weight:900;line-height:1}
+  .ring-card .small{font-size:13px;font-weight:600;opacity:.7;margin-top:4px}
+  .ring{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:84px;height:84px;border-radius:50%;
+    background:conic-gradient(#0c1a14 0 72%,rgba(12,26,20,.2) 0);display:flex;align-items:center;justify-content:center}
+  .ring i{width:60px;height:60px;border-radius:50%;background:#c6ff00;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;font-style:normal}
+  .row{display:flex;gap:14px;margin-bottom:18px}
+  .mini{flex:1;background:#19271f;border-radius:18px;padding:16px}
+  .mini .e{font-size:22px}.mini .v{font-size:22px;font-weight:800;margin-top:8px}.mini .k{font-size:12px;color:#7e928a}
+  .sec-t{font-size:16px;font-weight:800;margin:6px 0 14px}
+  .wo{display:flex;align-items:center;gap:14px;background:#19271f;border-radius:16px;padding:14px;margin-bottom:12px}
+  .wo .ic{width:44px;height:44px;border-radius:12px;background:rgba(198,255,0,.15);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .wo .t1{font-size:15px;font-weight:700}.wo .t2{font-size:12px;color:#7e928a}
+  .wo .r{margin-left:auto;color:#c6ff00;font-weight:800;font-size:14px}
+  .nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:#0a130e;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #1c2b22}
+  .nav span{font-size:22px;opacity:.4}.nav span.on{opacity:1}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">📱 Мобильное приложение</div>
+    <h1>Фитнес-<span>трекер</span></h1>
+    <p>Дизайн и разработка приложения для тренировок: активность, цели, статистика.</p>
+    <div class="tags"><div class="tag">Android</div><div class="tag">Flutter</div><div class="tag">UI/UX</div></div>
+  </div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="scr">
+      <div class="top"><div><div class="hi">С возвращением 👋</div><div class="nm">Привет, Артём</div></div><div class="av"></div></div>
+      <div class="ring-card">
+        <div class="lbl">СЕГОДНЯ</div>
+        <div class="big">8 240</div>
+        <div class="small">шагов · цель 10 000</div>
+        <div class="ring"><i>82%</i></div>
+      </div>
+      <div class="row">
+        <div class="mini"><div class="e">🔥</div><div class="v">540</div><div class="k">ккал</div></div>
+        <div class="mini"><div class="e">📍</div><div class="v">5,8</div><div class="k">км</div></div>
+        <div class="mini"><div class="e">⏱️</div><div class="v">62</div><div class="k">мин</div></div>
+      </div>
+      <div class="sec-t">Тренировки</div>
+      <div class="wo"><div class="ic">🏃</div><div><div class="t1">Бег</div><div class="t2">Сегодня · 30 мин</div></div><div class="r">+120</div></div>
+      <div class="wo"><div class="ic">🧘</div><div><div class="t1">Йога</div><div class="t2">Вчера · 45 мин</div></div><div class="r">+90</div></div>
+      <div class="wo"><div class="ic">🚴</div><div><div class="t1">Велосипед</div><div class="t2">Пн · 50 мин</div></div><div class="r">+210</div></div>
+      <div class="nav"><span class="on">🏠</span><span>📊</span><span>➕</span><span>👤</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

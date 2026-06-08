@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+  body{width:1200px;height:800px;overflow:hidden}
+  .stage{width:1200px;height:800px;display:flex;align-items:center;gap:56px;padding:0 80px;
+    background:radial-gradient(circle at 82% 26%,rgba(34,211,238,.22),transparent 50%),linear-gradient(135deg,#06121a,#0a1f2c)}
+  .info{color:#fff;max-width:330px}
+  .info .badge{display:inline-block;background:rgba(34,211,238,.16);color:#67e8f9;font-weight:700;font-size:16px;padding:8px 18px;border-radius:30px;margin-bottom:22px}
+  .info h1{font-size:54px;font-weight:900;line-height:1.06;margin-bottom:16px}
+  .info h1 span{background:linear-gradient(135deg,#22d3ee,#0ea5e9);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .info p{font-size:21px;color:#9fc4cf;line-height:1.5}
+  .info .tags{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .info .tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#cdeef5;font-size:15px;padding:7px 14px;border-radius:9px}
+  .dash{width:540px;height:600px;background:#0a1822;border:1px solid #143240;border-radius:24px;box-shadow:0 40px 80px rgba(0,0,0,.5);padding:26px;display:flex;flex-direction:column;gap:18px}
+  .dtop{display:flex;align-items:center;justify-content:space-between}
+  .dtop .t{font-size:19px;font-weight:800;color:#fff}
+  .dtop .ai{font-size:12px;color:#67e8f9;background:rgba(34,211,238,.12);padding:5px 12px;border-radius:20px;font-weight:700}
+  .kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .kpi{background:#0f2330;border:1px solid #143240;border-radius:14px;padding:16px}
+  .kpi .k{font-size:12px;color:#7ea3b0}.kpi .v{font-size:24px;font-weight:900;color:#fff;margin-top:4px}
+  .kpi .d{font-size:12px;color:#4ade80;margin-top:2px}
+  .chart{background:#0f2330;border:1px solid #143240;border-radius:14px;padding:18px;flex:1}
+  .chart .ct{font-size:14px;font-weight:700;color:#cdeef5;margin-bottom:16px}
+  .bars{display:flex;align-items:flex-end;gap:14px;height:150px}
+  .bar{flex:1;border-radius:8px 8px 0 0;background:linear-gradient(#22d3ee,#0ea5e9)}
+  .insight{background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(124,58,237,.12));border:1px solid #1d3a4a;border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+  .insight .e{font-size:24px}
+  .insight .it{font-size:13px;font-weight:800;color:#67e8f9;margin-bottom:4px}
+  .insight .ix{font-size:13px;color:#9fc4cf;line-height:1.45}
+</style></head>
+<body>
+<div class="stage">
+  <div class="info">
+    <div class="badge">🤖 ИИ-агент</div>
+    <h1>ИИ-<span>аналитик</span> данных</h1>
+    <p>Собирает данные, строит отчёты и сам формулирует выводы и рекомендации.</p>
+    <div class="tags"><div class="tag">Отчёты</div><div class="tag">Графики</div><div class="tag">Инсайты</div></div>
+  </div>
+  <div class="dash">
+    <div class="dtop"><div class="t">Дашборд продаж</div><div class="ai">🧠 анализ ИИ</div></div>
+    <div class="kpis">
+      <div class="kpi"><div class="k">Выручка</div><div class="v">1.24M</div><div class="d">▲ 18%</div></div>
+      <div class="kpi"><div class="k">Заказы</div><div class="v">842</div><div class="d">▲ 9%</div></div>
+      <div class="kpi"><div class="k">Конверсия</div><div class="v">4.7%</div><div class="d">▲ 1.2%</div></div>
+    </div>
+    <div class="chart"><div class="ct">Продажи по неделям</div>
+      <div class="bars"><div class="bar" style="height:45%"></div><div class="bar" style="height:62%"></div><div class="bar" style="height:53%"></div><div class="bar" style="height:78%"></div><div class="bar" style="height:68%"></div><div class="bar" style="height:92%"></div><div class="bar" style="height:84%"></div></div>
+    </div>
+    <div class="insight"><div class="e">💡</div><div><div class="it">Вывод ИИ</div><div class="ix">Пик продаж — четверг и суббота. Рекомендую запускать рассылки в среду вечером для роста конверсии на ~15%.</div></div></div>
+  </div>
+</div>
+</body></html>

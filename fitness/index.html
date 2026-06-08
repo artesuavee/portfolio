@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Максим Орлов — Персональный фитнес-тренер</title>
+<style>
+  :root{
+    --bg:#0a0e14; --bg2:#111722; --lime:#c6ff00; --lime2:#a6e000; --blue:#2d6cff;
+    --text:#f5f7fa; --muted:#8b95a5; --line:#1d2533;
+    --font:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{line-height:1.08;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
+  .lime{color:var(--lime)}
+  .btn{display:inline-block;background:var(--lime);color:#0a0e14;font-weight:800;padding:16px 36px;
+       border-radius:8px;transition:.25s;border:none;cursor:pointer;text-transform:uppercase;
+       letter-spacing:1px;font-size:14px}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(198,255,0,.35)}
+  .btn-out{background:transparent;border:2px solid var(--line);color:var(--text)}
+  .btn-out:hover{border-color:var(--lime);color:var(--lime)}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,14,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:2px}
+  .logo span{color:var(--lime)}
+  .menu{display:flex;gap:30px;font-size:14px;text-transform:uppercase;letter-spacing:1px}
+  .menu a{color:var(--muted);transition:.2s}
+  .menu a:hover{color:var(--lime)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:26px;height:2px;background:var(--text)}
+
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;
+        background:radial-gradient(circle at 75% 30%,rgba(45,108,255,.18),transparent 50%),
+                   radial-gradient(circle at 20% 70%,rgba(198,255,0,.10),transparent 45%)}
+  .hero-inner{padding-top:90px;max-width:760px}
+  .badge{display:inline-block;background:rgba(198,255,0,.12);color:var(--lime);font-size:13px;
+         padding:8px 18px;border-radius:30px;letter-spacing:2px;margin-bottom:26px;text-transform:uppercase;font-weight:700}
+  .hero h1{font-size:clamp(44px,8vw,96px);margin-bottom:24px}
+  .hero p{color:var(--muted);font-size:19px;max-width:520px;margin-bottom:38px;text-transform:none;font-weight:400;line-height:1.7}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+  .stats{display:flex;gap:50px;margin-top:70px;flex-wrap:wrap}
+  .stat b{display:block;font-size:42px;color:var(--lime);font-weight:900}
+  .stat span{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:1px}
+
+  section{padding:100px 0}
+  .head{max-width:620px;margin:0 auto 60px;text-align:center}
+  .head .badge{margin-bottom:16px}
+  .head h2{font-size:clamp(30px,5vw,52px);margin-bottom:14px}
+  .head p{color:var(--muted);text-transform:none;font-weight:400}
+
+  .progs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .prog{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:38px 30px;transition:.3s;position:relative;overflow:hidden}
+  .prog:hover{transform:translateY(-6px);border-color:var(--lime)}
+  .prog.feat{border-color:var(--lime)}
+  .prog .tag{position:absolute;top:18px;right:18px;background:var(--lime);color:#0a0e14;font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;letter-spacing:1px}
+  .prog .e{font-size:40px;margin-bottom:18px}
+  .prog h3{font-size:22px;margin-bottom:10px}
+  .prog .pr{font-size:34px;font-weight:900;color:var(--lime);margin:14px 0;text-transform:none}
+  .prog .pr small{font-size:14px;color:var(--muted);font-weight:400}
+  .prog ul{list-style:none;margin:18px 0 26px}
+  .prog li{color:var(--muted);font-size:15px;padding:8px 0;border-bottom:1px solid var(--line);text-transform:none}
+  .prog li::before{content:'✓';color:var(--lime);font-weight:900;margin-right:10px}
+
+  .about{background:var(--bg2)}
+  .about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:50px;align-items:center}
+  .about-art{aspect-ratio:4/5;border-radius:20px;background:linear-gradient(135deg,#1a2230,#0f1620);
+             display:flex;align-items:center;justify-content:center;font-size:160px;border:1px solid var(--line)}
+  .about h2{font-size:clamp(28px,4vw,44px);margin-bottom:20px}
+  .about p{color:var(--muted);text-transform:none;font-weight:400;margin-bottom:18px;font-size:16px}
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+  .check{color:var(--text);font-size:15px;text-transform:none}
+  .check::before{content:'⚡';margin-right:8px}
+
+  .results{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  .res .n{font-size:50px;font-weight:900;color:var(--lime)}
+  .res p{color:var(--muted);text-transform:uppercase;font-size:13px;letter-spacing:1px}
+
+  .cta{background:linear-gradient(135deg,var(--lime),var(--lime2));color:#0a0e14;text-align:center;border-radius:24px;padding:70px 30px;margin:0 24px}
+  .cta h2{font-size:clamp(30px,5vw,52px);margin-bottom:14px}
+  .cta p{font-size:18px;margin-bottom:32px;text-transform:none;font-weight:500;opacity:.8}
+  .cta .btn{background:#0a0e14;color:var(--lime)}
+
+  footer{padding:56px 0 30px;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
+  .foot p{color:var(--muted);font-size:14px;max-width:300px;text-transform:none}
+  .foot h4{margin-bottom:14px;font-size:15px}
+  .foot a{color:var(--muted);display:block;margin-bottom:8px;font-size:14px;text-transform:none}
+  .foot a:hover{color:var(--lime)}
+  .copy{text-align:center;color:#556;font-size:13px;margin-top:36px}
+
+  @media(max-width:880px){
+    .progs{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}
+    .results{grid-template-columns:repeat(2,1fr)}.about-art{max-width:340px;margin:0 auto}
+    .menu{position:fixed;inset:74px 0 auto 0;background:var(--bg2);flex-direction:column;padding:24px;gap:18px;border-bottom:1px solid var(--line);display:none}
+    .menu.open{display:flex}.burger{display:flex}
+  }
+</style>
+</head>
+<body>
+
+<header><div class="container"><nav>
+  <div class="logo">ОРЛОВ<span>.FIT</span></div>
+  <div class="menu" id="menu">
+    <a href="#programs">Программы</a>
+    <a href="#about">Обо мне</a>
+    <a href="#results">Результаты</a>
+    <a href="#contact">Контакты</a>
+  </div>
+  <a href="#contact" class="btn" style="padding:11px 24px">Тренировка</a>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</nav></div></header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="badge">⚡ Сертифицированный тренер · 8 лет</div>
+    <h1>СТАНЬ <span class="lime">ЛУЧШЕЙ</span><br>ВЕРСИЕЙ СЕБЯ</h1>
+    <p>Персональные тренировки и питание под твою цель. Похудение, набор массы, рельеф — без травм и «волшебных» обещаний. Только система и результат.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn">Бесплатная тренировка</a>
+      <a href="#programs" class="btn btn-out">Программы</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>500+</b><span>учеников</span></div>
+      <div class="stat"><b>8</b><span>лет опыта</span></div>
+      <div class="stat"><b>97%</b><span>достигли цели</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="programs">
+  <div class="container">
+    <div class="head"><div class="badge">Программы</div><h2>Выбери свой формат</h2><p>Подберём нагрузку под твой уровень и график.</p></div>
+    <div class="progs">
+      <div class="prog">
+        <div class="e">🏃</div><h3>Старт</h3>
+        <div class="pr">3 900₽ <small>/ мес</small></div>
+        <ul><li>2 тренировки в неделю</li><li>План питания</li><li>Чат с тренером</li><li>Замеры прогресса</li></ul>
+        <a href="#contact" class="btn btn-out" style="display:block;text-align:center">Выбрать</a>
+      </div>
+      <div class="prog feat">
+        <div class="tag">ХИТ</div>
+        <div class="e">💪</div><h3>Трансформация</h3>
+        <div class="pr">7 900₽ <small>/ мес</small></div>
+        <ul><li>4 тренировки в неделю</li><li>Индивидуальное питание</li><li>Поддержка 24/7</li><li>Коррекция программы</li><li>Видео-разбор техники</li></ul>
+        <a href="#contact" class="btn" style="display:block;text-align:center">Выбрать</a>
+      </div>
+      <div class="prog">
+        <div class="e">🥇</div><h3>VIP</h3>
+        <div class="pr">14 900₽ <small>/ мес</small></div>
+        <ul><li>Безлимит тренировок</li><li>Питание + добавки</li><li>Личный куратор</li><li>Доступ в закрытый клуб</li></ul>
+        <a href="#contact" class="btn btn-out" style="display:block;text-align:center">Выбрать</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-art">🏋️</div>
+    <div>
+      <div class="badge">Обо мне</div>
+      <h2>Привет, я Максим</h2>
+      <p>Мастер спорта по тяжёлой атлетике, сертифицированный нутрициолог. Последние 8 лет помогаю людям менять тело и привычки — без жёстких диет и фанатизма.</p>
+      <p>Моя философия проста: тренировки должны вписываться в твою жизнь, а не ломать её. Строю программы, которые реально работают вдолгую.</p>
+      <div class="checks">
+        <div class="check">Мастер спорта</div>
+        <div class="check">Нутрициолог</div>
+        <div class="check">Реабилитация</div>
+        <div class="check">Онлайн и офлайн</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="container">
+    <div class="head"><div class="badge">Результаты</div><h2>Цифры, а не слова</h2></div>
+    <div class="results">
+      <div class="res"><div class="n">500+</div><p>довольных учеников</p></div>
+      <div class="res"><div class="n">-12</div><p>кг в среднем за курс</p></div>
+      <div class="res"><div class="n">8</div><p>лет в профессии</p></div>
+      <div class="res"><div class="n">4.9</div><p>рейтинг отзывов</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta" id="contact">
+      <h2>Готов начать?</h2>
+      <p>Первая тренировка и разбор питания — бесплатно. Запишись прямо сейчас.</p>
+      <a href="tel:+70000000000" class="btn">Записаться: +7 (000) 000-00-00</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div><div class="logo" style="margin-bottom:14px">ОРЛОВ<span>.FIT</span></div><p>Персональный фитнес-тренер. Помогаю достигать целей с 2018 года.</p></div>
+      <div><h4>Меню</h4><a href="#programs">Программы</a><a href="#about">Обо мне</a><a href="#results">Результаты</a></div>
+      <div><h4>Контакты</h4><a href="tel:+70000000000">+7 (000) 000-00-00</a><a href="#">@orlov.fit</a><a href="#">Онлайн и офлайн</a></div>
+    </div>
+    <div class="copy">© 2026 ОРЛОВ.FIT. Демо-проект для портфолио.</div>
+  </div>
+</footer>
+
+<script>
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+</script>
+</body>
+</html>
