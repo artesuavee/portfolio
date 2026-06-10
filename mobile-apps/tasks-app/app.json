@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Планировщик задач",
+    "slug": "tasks-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "backgroundColor": "#7c3aed" },
+    "android": {
+      "package": "com.artesuave.tasksapp",
+      "versionCode": 1
+    }
+  }
+}

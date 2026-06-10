@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Доставка еды",
+    "slug": "food-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "backgroundColor": "#ea580c" },
+    "android": {
+      "package": "com.artesuave.foodapp",
+      "versionCode": 1
+    }
+  }
+}

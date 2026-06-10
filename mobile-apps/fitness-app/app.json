@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Фитнес-трекер",
+    "slug": "fitness-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "backgroundColor": "#15803d" },
+    "android": {
+      "package": "com.artesuave.fitnessapp",
+      "versionCode": 1
+    }
+  }
+}

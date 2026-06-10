@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Учёт финансов",
+    "slug": "finance-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "backgroundColor": "#0e7490" },
+    "android": {
+      "package": "com.artesuave.financeapp",
+      "versionCode": 1
+    }
+  }
+}
