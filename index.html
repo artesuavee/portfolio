@@ -3,96 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Портфолио — веб, приложения и ИИ-агенты</title>
+<title>Портфолио — лендинги, боты, ИИ-агенты</title>
+<meta name="description" content="Демо-работы: 11 лендингов под разные ниши, мобильные приложения, ИИ-агенты. Каждый лендинг — с онлайн-записью в WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0b0f1a;--bg2:#121829;--card:#161d30;--line:#222b42;--text:#eef2f9;--muted:#94a0b8;--acc:#5b8cff;--acc2:#22d3ee;--font:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+  :root{
+    --bg:#0E1116; --card:#161B23; --line:#242B36;
+    --accent:#4F8EF7; --accent2:#9B6CFF; --text:#EDF1F7; --soft:#8C97A8;
+    --h:'Space Grotesk',sans-serif; --b:'Inter',sans-serif;
+  }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--b);font-size:16.5px;line-height:1.6;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-  header{padding:80px 0 50px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(91,140,255,.18),transparent 55%)}
-  header .badge{display:inline-block;border:1px solid var(--acc);color:var(--acc);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border-radius:30px;margin-bottom:24px}
-  header h1{font-size:clamp(34px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom:16px}
-  header h1 span{background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  header p{color:var(--muted);font-size:19px;max-width:560px;margin:0 auto}
-  .stats{display:flex;gap:40px;justify-content:center;margin-top:36px;flex-wrap:wrap}
-  .stat b{display:block;font-size:32px;font-weight:900;color:var(--acc2)}
-  .stat span{color:var(--muted);font-size:13px}
-  section{padding:50px 0}
-  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
-  .sec-head .e{font-size:30px}
-  .sec-head h2{font-size:28px;font-weight:800}
-  .sec-head .cnt{margin-left:auto;color:var(--muted);font-size:14px}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.25s;display:block}
-  .card:hover{transform:translateY(-6px);border-color:var(--acc);box-shadow:0 20px 44px rgba(0,0,0,.4)}
-  .card .top{height:140px;display:flex;align-items:center;justify-content:center;font-size:54px;position:relative}
-  .card .body{padding:18px 20px}
-  .card h3{font-size:18px;margin-bottom:4px}
-  .card p{color:var(--muted);font-size:14px}
-  .card .open{display:inline-flex;align-items:center;gap:6px;margin-top:12px;color:var(--acc2);font-size:13px;font-weight:700}
-  footer{padding:50px 0 60px;text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:30px}
-  footer a{color:var(--acc)}
-  @media(max-width:820px){.grid{grid-template-columns:1fr 1fr}}
-  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .container{max-width:1150px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--h);line-height:1.15;font-weight:600}
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .45s ease-out,transform .45s ease-out}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+  .hero{padding:96px 0 60px;text-align:center;position:relative;overflow:hidden}
+  .glow{position:absolute;width:600px;height:600px;border-radius:50%;left:50%;top:-300px;transform:translateX(-50%);
+        background:radial-gradient(circle,rgba(79,142,247,.16),transparent 65%);pointer-events:none}
+  .hero h1{font-size:clamp(34px,5.4vw,58px);margin-bottom:16px;position:relative}
+  .hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--soft);font-size:18px;max-width:560px;margin:0 auto 28px;position:relative}
+  .stats{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;position:relative}
+  .stats b{font-family:var(--h);font-size:28px;color:var(--accent);display:block;font-variant-numeric:tabular-nums}
+  .stats span{font-size:13px;color:var(--soft)}
+
+  section{padding:54px 0}
+  h2{font-size:clamp(24px,3.4vw,34px);margin-bottom:8px}
+  .sub{color:var(--soft);margin-bottom:32px;font-size:16px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .work{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:border-color .25s,transform .25s ease-out;display:block}
+  .work:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .thumb{height:140px;display:flex;align-items:center;justify-content:center;font-family:var(--h);font-weight:700;font-size:24px;letter-spacing:1px}
+  .meta{padding:18px 20px 20px}
+  .meta h3{font-size:17px;margin-bottom:5px}
+  .meta p{font-size:13.5px;color:var(--soft)}
+  .meta .go{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-family:var(--h);font-size:13px;font-weight:600;color:var(--accent)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;color:var(--soft);font-size:14px;margin-top:40px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:580px){.grid{grid-template-columns:1fr}.hero{padding-top:70px}}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <div class="badge">Fullstack · Web · Mobile · AI</div>
-  <h1>Портфолио — сайты, приложения<br>и <span>ИИ-агенты</span></h1>
-  <p>Коллекция демо-проектов: лендинги, мобильные приложения и интерфейсы ИИ-агентов. Нажмите на карточку, чтобы открыть живое демо.</p>
-  <div class="stats">
-    <div class="stat"><b>20</b><span>демо-проектов</span></div>
-    <div class="stat"><b>3</b><span>направления</span></div>
-    <div class="stat"><b>100%</b><span>адаптив*</span></div>
+
+<section class="hero">
+  <div class="glow"></div>
+  <div class="container">
+    <h1 data-reveal>Сайты, которые <span>приводят клиентов</span></h1>
+    <p data-reveal>Демо-работы: лендинги под разные ниши с онлайн-записью в WhatsApp, мобильные приложения и ИИ-агенты. Любой из них могу собрать под ваш бизнес за 7 дней.</p>
+    <div class="stats" data-reveal>
+      <div><b data-count="11">0</b><span>лендингов</span></div>
+      <div><b data-count="5">0</b><span>мобильных приложений</span></div>
+      <div><b data-count="5">0</b><span>ИИ-агентов</span></div>
+    </div>
   </div>
-</div></header>
+</section>
 
-<div class="wrap">
-
-  <section>
-    <div class="sec-head"><span class="e">🌐</span><h2>Лендинги</h2><span class="cnt">10 проектов · адаптивные</span></div>
+<section>
+  <div class="container">
+    <h2 data-reveal>Лендинги</h2>
+    <p class="sub" data-reveal>Каждый — с формой записи: заявка с сайта падает владельцу прямо в WhatsApp.</p>
     <div class="grid">
-      <a class="card" href="barbershop/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#1a1a1a,#2a2114)">🪒</div><div class="body"><h3>BLADE</h3><p>Барбершоп · премиум</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="food-delivery/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#3a1a0a,#7a3410)">🍜</div><div class="body"><h3>FreshBox</h3><p>Доставка еды</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="fitness/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#10241b,#1b3a2e)">💪</div><div class="body"><h3>ОРЛОВ.FIT</h3><p>Фитнес-тренер</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="car-service/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#101418,#350a18)">🔧</div><div class="body"><h3>ТОРК</h3><p>Автосервис</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="dental/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#0f2540,#1a8cff)">🦷</div><div class="body"><h3>Денталь</h3><p>Стоматология</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="coffee/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#3d2b1f,#6f4e37)">☕</div><div class="body"><h3>ZERNO</h3><p>Кофейня</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="realty/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#0e2747,#16386a)">🏢</div><div class="body"><h3>ДОМ Эксперт</h3><p>Недвижимость</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="course/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#170f26,#7c3aed)">🎓</div><div class="body"><h3>SkillUp</h3><p>Онлайн-курс</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="beauty/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#4a2a37,#d98aa0)">💅</div><div class="body"><h3>LUMÉ</h3><p>Салон красоты</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="law/" target="_blank"><div class="top" style="background:linear-gradient(135deg,#1b2430,#8b2e3c)">⚖️</div><div class="body"><h3>ЛЕКС</h3><p>Юридическая компания</p><span class="open">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="dental/"><div class="thumb" style="background:linear-gradient(135deg,#0891B2,#059669);color:#fff">Денталь</div><div class="meta"><h3>Стоматология</h3><p>Цены, врачи, онлайн-запись, FAQ со снятием страхов</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="barbershop/"><div class="thumb" style="background:linear-gradient(135deg,#1A1A1A,#3A2E18);color:#D9A441">BRATAN</div><div class="meta"><h3>Барбершоп</h3><p>Тёмная тема, мастера, бронь времени в WhatsApp</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="flowers/"><div class="thumb" style="background:linear-gradient(135deg,#C4707E,#E8B7C0);color:#fff">La Fleur</div><div class="meta"><h3>Цветочный магазин</h3><p>Каталог букетов с заказом в один клик</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="beauty/"><div class="thumb" style="background:linear-gradient(135deg,#8E5A6E,#C9A45C);color:#fff">MUSE</div><div class="meta"><h3>Салон красоты</h3><p>Прайс без звёздочек, запись за 30 секунд</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="car-service/"><div class="thumb" style="background:linear-gradient(135deg,#1E3A5F,#F2620F);color:#fff">Механика</div><div class="meta"><h3>Автосервис</h3><p>Гарантии, фотоотчёт, заявка с описанием поломки</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="food-delivery/"><div class="thumb" style="background:linear-gradient(135deg,#D93B22,#E8A33D);color:#fff">Огонь</div><div class="meta"><h3>Доставка еды</h3><p>Меню с ценами, заказ в WhatsApp за 3 поля</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="fitness/"><div class="thumb" style="background:linear-gradient(135deg,#15200A,#3A4F14);color:#B6F03C">PULSE</div><div class="meta"><h3>Фитнес-клуб</h3><p>Абонементы, бесплатная первая тренировка</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="coffee/"><div class="thumb" style="background:linear-gradient(135deg,#4E2F1A,#C98D4B);color:#fff">Kofeynya</div><div class="meta"><h3>Кофейня</h3><p>Меню, зерно домой, предзаказ без очереди</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="law/"><div class="thumb" style="background:linear-gradient(135deg,#11203C,#A8854B);color:#fff">Прецедент</div><div class="meta"><h3>Юридическая фирма</h3><p>Практики, кейсы с цифрами, бесплатная оценка дела</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="realty/"><div class="thumb" style="background:linear-gradient(135deg,#22313A,#0E9488);color:#fff">Метраж</div><div class="meta"><h3>Недвижимость</h3><p>Подбор за 3 дня, услуги с фикс-комиссией</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="course/"><div class="thumb" style="background:linear-gradient(135deg,#473A9E,#F2674D);color:#fff">Прокачка</div><div class="meta"><h3>Школа английского</h3><p>Тарифы, метод, запись на пробный урок</p><span class="go">Открыть демо →</span></div></a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="sec-head"><span class="e">📱</span><h2>Мобильные приложения</h2><span class="cnt">5 UI-концептов</span></div>
+<section>
+  <div class="container">
+    <h2 data-reveal>Приложения и ИИ-агенты</h2>
+    <p class="sub" data-reveal>Реальный код в репозитории: Python + Claude API, React Native (Expo).</p>
     <div class="grid">
-      <a class="card" href="_apps/fitness-app.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#0c1a14,#1b3a2e)">🏃</div><div class="body"><h3>FitPulse</h3><p>Фитнес-трекер</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/food-app.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#2a1206,#7a3410)">🍔</div><div class="body"><h3>FoodGo</h3><p>Доставка еды</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/finance-app.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#0a1124,#16306b)">💳</div><div class="body"><h3>MoneyKeep</h3><p>Учёт финансов</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/tasks-app.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#150e26,#3b1d6e)">✅</div><div class="body"><h3>TaskFlow</h3><p>Планировщик задач</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/shop-app.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#23060f,#7a1240)">🛍️</div><div class="body"><h3>ShopMate</h3><p>Интернет-магазин</p><span class="open">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents"><div class="thumb" style="background:linear-gradient(135deg,#1A2530,#2D4A3E);color:#5FD4C8">ИИ-агенты</div><div class="meta"><h3>5 ИИ-агентов</h3><p>Поддержка, продажи, Telegram-бот, автоматизация, аналитика</p><span class="go">Код на GitHub →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/mobile-apps"><div class="thumb" style="background:linear-gradient(135deg,#1E2433,#3D2E5C);color:#9B6CFF">Мобильные</div><div class="meta"><h3>5 приложений</h3><p>Задачи, финансы, магазин, еда, фитнес — React Native</p><span class="go">Код на GitHub →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio"><div class="thumb" style="background:linear-gradient(135deg,#16202B,#1E3A5F);color:#4F8EF7">GitHub</div><div class="meta"><h3>Весь репозиторий</h3><p>Исходники всех демо-работ в одном месте</p><span class="go">Открыть →</span></div></a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="sec-head"><span class="e">🤖</span><h2>ИИ-агенты</h2><span class="cnt">5 интерфейсов</span></div>
-    <div class="grid">
-      <a class="card" href="_apps/agent-support.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#070d1a,#0e1a33)">💬</div><div class="body"><h3>Агент поддержки</h3><p>Чат-бот 24/7</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/agent-sales.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#06140f,#0c2018)">💼</div><div class="body"><h3>Агент продаж</h3><p>Лиды и заявки</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/agent-telegram.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#0a1020,#0f1c38)">✈️</div><div class="body"><h3>ИИ-ассистент</h3><p>Бот в Telegram</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/agent-automation.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#0c0a1c,#15112e)">⚙️</div><div class="body"><h3>Агент автоматизации</h3><p>Цепочки задач</p><span class="open">Открыть демо →</span></div></a>
-      <a class="card" href="_apps/agent-analytics.html" target="_blank"><div class="top" style="background:linear-gradient(135deg,#06121a,#0a1f2c)">📊</div><div class="body"><h3>ИИ-аналитик</h3><p>Отчёты и инсайты</p><span class="open">Открыть демо →</span></div></a>
-    </div>
-  </section>
+<footer>
+  <div class="container">Портфолио демо-работ · 2026 · Сделаю такой же сайт под ваш бизнес за 7 дней</div>
+</footer>
 
-</div>
-
-<footer><div class="wrap">
-  <p>© 2026 · Демо-портфолио. Все проекты — авторские концепты.<br><span style="font-size:12px">* Лендинги адаптивны под мобильные; экраны приложений и агентов — UI-концепты фиксированного размера.</span></p>
-</div></footer>
+<script src="assets/motion.js"></script>
 </body>
 </html>

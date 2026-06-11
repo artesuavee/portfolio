@@ -3,119 +3,325 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ДОМ Эксперт — Агентство недвижимости</title>
+<title>Метраж — агентство недвижимости. Подбор квартиры за 3 дня</title>
+<meta name="description" content="Покупка, продажа и аренда без суеты: подборка под ваш бюджет за 3 дня, проверка юристом, сопровождение до ключей.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f4f7fb; --card:#fff; --navy:#0e2747; --navy2:#16386a; --gold:#c9a227;
-    --text:#142440; --muted:#6b7a90; --line:#e2e9f2;
-    --font:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --bg:#F5F7F7; --card:#FFFFFF; --line:#E2E8E8;
+    --slate:#2E4049; --slate-dark:#22313A; --teal:#0E9488; --teal-dark:#0B7A70; --mint:#E4F2F0;
+    --text:#27343B; --soft:#6B7B83;
+    --h:'Sora',sans-serif; --b:'Inter',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
+  body{background:var(--bg);color:var(--text);font-family:var(--b);font-size:16.5px;line-height:1.65;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
-  .container{max-width:1160px;margin:0 auto;padding:0 24px}
-  h1,h2,h3{line-height:1.12;font-weight:800}
-  .btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;padding:15px 34px;border-radius:6px;transition:.25s;border:none;cursor:pointer;font-size:15px}
-  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(201,162,39,.4)}
-  .btn-out{background:transparent;border:2px solid #fff;color:#fff}
-  .btn-out:hover{background:#fff;color:var(--navy)}
-  header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(14,39,71,.95);backdrop-filter:blur(10px)}
+  .ic{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .container{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--h);line-height:1.15;font-weight:600;color:var(--slate-dark)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--teal);color:#fff;font-family:var(--h);
+       font-weight:600;padding:14px 30px;border:none;cursor:pointer;font-size:15px;min-height:48px;border-radius:12px;
+       transition:transform .18s ease-out,background .18s;box-shadow:0 10px 24px rgba(14,148,136,.25)}
+  .btn:hover{background:var(--teal-dark);transform:translateY(-2px)}
+  .btn:active{transform:scale(.97)}
+  .btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+  .btn-line{background:transparent;color:var(--slate);border:1.5px solid #C7D2D2;box-shadow:none}
+  .btn-line:hover{border-color:var(--slate)}
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .45s ease-out,transform .45s ease-out}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+  header{position:fixed;inset:0 0 auto 0;z-index:90;background:rgba(245,247,247,.93);backdrop-filter:blur(12px);transition:box-shadow .25s}
+  header.scrolled{box-shadow:0 4px 24px rgba(34,49,58,.1)}
   nav{display:flex;align-items:center;justify-content:space-between;height:74px}
-  .logo{font-size:23px;font-weight:900;color:#fff;letter-spacing:1px}
-  .logo span{color:var(--gold)}
-  .menu{display:flex;gap:30px;font-size:15px}
-  .menu a{color:#c7d3e3;transition:.2s}.menu a:hover{color:var(--gold)}
-  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}.burger span{width:26px;height:2px;background:#fff}
-  .hero{min-height:100vh;display:flex;align-items:center;color:#fff;background:linear-gradient(120deg,var(--navy) 50%,var(--navy2))}
-  .hero-inner{padding-top:90px;max-width:680px}
-  .badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:13px;padding:8px 18px;border-radius:4px;letter-spacing:2px;margin-bottom:24px;text-transform:uppercase}
-  .hero h1{font-size:clamp(40px,6.5vw,74px);margin-bottom:20px}
-  .hero h1 span{color:var(--gold)}
-  .hero p{color:#b9c6da;font-size:19px;max-width:520px;margin-bottom:34px}
-  .actions{display:flex;gap:16px;flex-wrap:wrap}
-  .stats{display:flex;gap:48px;margin-top:60px;flex-wrap:wrap}
-  .stat b{display:block;font-size:38px;color:var(--gold);font-weight:900}.stat span{color:#9fb0c8;font-size:14px}
-  section{padding:96px 0}
-  .head{text-align:center;max-width:620px;margin:0 auto 56px}
-  .head .badge{color:var(--gold);border-color:var(--gold);margin-bottom:14px}
-  .head h2{font-size:clamp(28px,5vw,46px);color:var(--navy);margin-bottom:12px}
-  .head p{color:var(--muted)}
-  .props{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .prop{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.3s}
-  .prop:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(14,39,71,.14)}
-  .prop .ph{height:190px;background:linear-gradient(135deg,#dde7f3,#c4d4ea);display:flex;align-items:center;justify-content:center;font-size:70px}
-  .prop .body{padding:22px}
-  .prop .tag{display:inline-block;background:rgba(201,162,39,.15);color:#9a7d18;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;margin-bottom:10px}
-  .prop h3{font-size:20px;color:var(--navy);margin-bottom:6px}
-  .prop p{color:var(--muted);font-size:14px;margin-bottom:12px}
-  .prop .pr{font-size:22px;font-weight:900;color:var(--navy)}
-  .steps{background:var(--navy);color:#fff}
-  .steps .head h2{color:#fff}.steps .head p{color:#b9c6da}
-  .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
-  .stepc .num{width:58px;height:58px;border-radius:50%;border:2px solid var(--gold);color:var(--gold);font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
-  .stepc h3{font-size:18px;margin-bottom:6px}.stepc p{color:#9fb0c8;font-size:14px}
-  .cta{background:linear-gradient(135deg,var(--gold),#e0b93f);border-radius:16px;padding:64px 30px;text-align:center;color:var(--navy);margin:0 24px}
-  .cta h2{font-size:clamp(28px,5vw,44px);margin-bottom:14px}.cta p{font-size:18px;margin-bottom:30px;opacity:.8}
-  .cta .btn{background:var(--navy);color:#fff}
-  footer{padding:56px 0 30px;background:var(--navy);color:#fff}
-  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
-  .foot p{color:#9fb0c8;font-size:14px;max-width:300px}
-  .foot h4{margin-bottom:14px;font-size:15px}
-  .foot a{color:#9fb0c8;display:block;margin-bottom:8px;font-size:14px}.foot a:hover{color:var(--gold)}
-  .copy{text-align:center;color:#5b7196;font-size:13px;margin-top:36px}
-  @media(max-width:880px){.props{grid-template-columns:1fr}.steps-grid{grid-template-columns:1fr}.stats{gap:28px}
-    .menu{position:fixed;inset:74px 0 auto 0;background:var(--navy2);flex-direction:column;padding:24px;gap:18px;display:none}.menu.open{display:flex}.burger{display:flex}}
+  .logo{font-family:var(--h);font-size:22px;font-weight:700;color:var(--slate-dark);display:flex;align-items:center;gap:10px}
+  .logo-mark{width:36px;height:36px;border-radius:10px;background:var(--teal);display:flex;align-items:center;justify-content:center}
+  .logo-mark svg{width:20px;height:20px;stroke:#fff}
+  .menu{display:flex;gap:26px;font-size:14.5px;font-weight:500;align-items:center}
+  .menu a{color:var(--soft);transition:color .2s;padding:6px 2px}
+  .menu a:hover{color:var(--teal)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:10px}
+  .burger span{width:26px;height:2px;background:var(--slate-dark)}
+
+  .hero{padding:148px 0 78px}
+  .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:50px;align-items:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--teal-dark);
+         font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:30px;margin-bottom:20px;font-family:var(--h)}
+  .hero h1{font-size:clamp(34px,5.2vw,56px);margin-bottom:18px;letter-spacing:-.5px}
+  .hero h1 span{color:var(--teal)}
+  .hero-sub{color:var(--soft);font-size:18px;max-width:480px;margin-bottom:30px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px}
+  .trust{display:flex;gap:32px;flex-wrap:wrap}
+  .trust b{font-family:var(--h);font-size:30px;color:var(--teal-dark);display:block;font-variant-numeric:tabular-nums}
+  .trust span{font-size:13px;color:var(--soft)}
+  .hero-art{display:flex;align-items:center;justify-content:center}
+  .hero-art svg{width:94%;max-width:420px;filter:drop-shadow(0 26px 38px rgba(34,49,58,.16))}
+
+  section{padding:78px 0}
+  .head{max-width:620px;margin:0 auto 48px;text-align:center}
+  .head h2{font-size:clamp(27px,4vw,40px);margin-bottom:12px}
+  .head h2 span{color:var(--teal)}
+  .head p{color:var(--soft);font-size:17px}
+  .alt{background:#fff}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+  .svc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;transition:box-shadow .25s}
+  .svc:hover{box-shadow:0 16px 38px rgba(34,49,58,.1)}
+  .svc .ic-wrap{width:50px;height:50px;border-radius:13px;background:var(--mint);display:flex;align-items:center;justify-content:center;color:var(--teal-dark);margin-bottom:16px}
+  .svc h3{font-size:18.5px;margin-bottom:6px}
+  .svc .fee{font-size:13.5px;color:var(--teal-dark);font-weight:700;margin-bottom:10px;font-family:var(--h)}
+  .svc p{font-size:14.5px;color:var(--soft)}
+
+  .steps{counter-reset:s}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;counter-increment:s}
+  .step::before{content:"0" counter(s);font-family:var(--h);font-weight:700;font-size:13px;color:var(--teal);
+        background:var(--mint);border-radius:8px;padding:5px 10px;display:inline-block;margin-bottom:12px}
+  .step h3{font-size:16.5px;margin-bottom:6px}
+  .step p{font-size:14px;color:var(--soft)}
+
+  .review{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .stars{color:#E8A33D;letter-spacing:2px;margin-bottom:12px}
+  .review p{font-size:15px;margin-bottom:16px}
+  .review .who b{font-size:14px;display:block}
+  .review .who span{font-size:12.5px;color:var(--soft)}
+
+  .cta-band{background:linear-gradient(125deg,var(--slate-dark),var(--slate) 60%,#3A5560);border-radius:22px;padding:50px 46px;color:#fff;
+        display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .cta-band h2{color:#fff;font-size:clamp(25px,3.4vw,36px);margin-bottom:12px}
+  .cta-band > div > p{color:#B7C5CC;margin-bottom:8px;display:flex;gap:9px;align-items:center;font-size:15.5px}
+  .cta-band p svg{stroke:#5FD4C8;width:18px;height:18px}
+  .ob-form{background:#fff;border-radius:16px;padding:26px;color:var(--text)}
+  .ob-form h3{font-size:19px;margin-bottom:14px}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(--slate-dark)}
+  .field input,.field select{width:100%;min-height:47px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;
+        font-family:var(--b);font-size:15.5px;background:#FAFCFC;transition:border-color .2s}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--teal)}
+  .field input.invalid{border-color:#DC2626}
+  .wa-btn{width:100%;background:#25D366;box-shadow:0 10px 24px rgba(37,211,102,.3)}
+  .wa-btn:hover{background:#1FB857}
+  .form-ok{display:none;margin-top:10px;background:#ECFDF5;color:#059669;font-weight:600;padding:10px 14px;border-radius:10px;font-size:14px}
+  .form-ok.show{display:block}
+
+  footer{background:var(--slate-dark);color:#B7C5CC;padding:48px 0 26px;margin-top:78px}
+  .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;margin-bottom:34px}
+  footer h4{color:#fff;font-family:var(--h);font-size:15px;margin-bottom:14px}
+  footer a{display:block;padding:5px 0;font-size:14.5px;transition:color .2s}
+  footer a:hover{color:#fff}
+  .f-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media(max-width:960px){
+    .hero-grid,.cta-band{grid-template-columns:1fr}
+    .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
+    .f-grid{grid-template-columns:1fr 1fr}
+    .menu{position:fixed;inset:74px 0 auto 0;background:#fff;flex-direction:column;padding:22px;gap:4px;
+          transform:translateY(-130%);transition:transform .3s ease-out;align-items:stretch;box-shadow:0 20px 40px rgba(34,49,58,.12)}
+    .menu a{padding:13px 10px;min-height:48px;display:flex;align-items:center}
+    body.menu-open .menu{transform:none}
+    .burger{display:flex}
+  }
+  @media(max-width:600px){
+    .grid-3,.grid-4{grid-template-columns:1fr}
+    .hero{padding-top:116px}
+    section{padding:54px 0}
+    .cta-band{padding:32px 24px}
+    .f-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
-<header><div class="container"><nav>
-  <div class="logo">ДОМ<span>Эксперт</span></div>
-  <div class="menu" id="menu"><a href="#catalog">Объекты</a><a href="#how">Как работаем</a><a href="#contact">Контакты</a></div>
-  <a href="#contact" class="btn" style="padding:11px 24px">Подобрать жильё</a>
-  <div class="burger" id="burger"><span></span><span></span><span></span></div>
-</nav></div></header>
-<section class="hero"><div class="container hero-inner">
-  <div class="badge">Агентство недвижимости · 14 лет</div>
-  <h1>Найдём <span>квартиру мечты</span> без рисков</h1>
-  <p>Полное сопровождение сделки: проверка юристами, помощь с ипотекой и гарантия чистоты документов.</p>
-  <div class="actions"><a href="#catalog" class="btn">Смотреть объекты</a><a href="#contact" class="btn btn-out">Бесплатная консультация</a></div>
-  <div class="stats"><div class="stat"><b>2 800+</b><span>сделок закрыто</span></div><div class="stat"><b>14</b><span>лет на рынке</span></div><div class="stat"><b>100%</b><span>юр. проверка</span></div></div>
-</div></section>
-<section id="catalog"><div class="container">
-  <div class="head"><div class="badge">Объекты</div><h2>Свежие предложения</h2><p>Проверенные квартиры от собственников.</p></div>
-  <div class="props">
-    <div class="prop"><div class="ph">🏢</div><div class="body"><span class="tag">2-комн · 64 м²</span><h3>ЖК «Северный»</h3><p>Светлый ремонт, 9/16 этаж</p><div class="pr">8 900 000 ₽</div></div></div>
-    <div class="prop"><div class="ph">🏠</div><div class="body"><span class="tag">Дом · 120 м²</span><h3>Посёлок «Лесной»</h3><p>Участок 8 соток, газ</p><div class="pr">12 500 000 ₽</div></div></div>
-    <div class="prop"><div class="ph">🌆</div><div class="body"><span class="tag">Студия · 28 м²</span><h3>ЖК «Центр»</h3><p>Новостройка, сдан</p><div class="pr">4 700 000 ₽</div></div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 8.3-8.3M15 5l3 3M17.5 7.5 21 4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.1 9.9a6 6 0 1 1-8.2 8.2"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.4 8.4 8.6 8.6 0 0 1-4-1L3 20l1.2-5.4a8.3 8.3 0 0 1-1-4A8.4 8.4 0 0 1 11.6 2.2a8.4 8.4 0 0 1 9.4 9.3z"/><path d="M9 8.5c.3 2.5 3.5 5.7 6 6l1.5-1.5-2.5-1.5-1 .8c-1-.5-1.8-1.3-2.3-2.3l.8-1L10 6.5 9 8.5z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="container">
+    <nav aria-label="Главное меню">
+      <a class="logo" href="#"><span class="logo-mark"><svg class="ic"><use href="#i-home"/></svg></span>Метраж</a>
+      <div class="menu">
+        <a href="#services">Услуги</a>
+        <a href="#how">Как работаем</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#request" class="btn" style="padding:11px 22px;font-size:13.5px">Подобрать квартиру</a>
+      </div>
+      <button class="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
   </div>
-</div></section>
-<section class="steps" id="how"><div class="container">
-  <div class="head"><div class="badge">Процесс</div><h2>Как мы работаем</h2><p>Прозрачно на каждом этапе.</p></div>
-  <div class="steps-grid">
-    <div class="stepc"><div class="num">1</div><h3>Заявка</h3><p>Обсуждаем ваши критерии и бюджет.</p></div>
-    <div class="stepc"><div class="num">2</div><h3>Подбор</h3><p>Показываем подходящие варианты.</p></div>
-    <div class="stepc"><div class="num">3</div><h3>Проверка</h3><p>Юристы проверяют документы.</p></div>
-    <div class="stepc"><div class="num">4</div><h3>Сделка</h3><p>Сопровождаем до получения ключей.</p></div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="badge" data-reveal><svg class="ic" style="width:15px;height:15px"><use href="#i-shield"/></svg>Каждый объект проверяет юрист</span>
+        <h1 data-reveal>Квартира под ваш бюджет — <span>за 3 дня</span></h1>
+        <p class="hero-sub" data-reveal>Скажите бюджет и район в WhatsApp — через 3 дня у вас подборка проверенных вариантов с реальными ценами. Без «уже продано, но есть другая» и накрученных объявлений.</p>
+        <div class="hero-actions" data-reveal>
+          <a class="btn" href="#request">Получить подборку</a>
+          <a class="btn btn-line" href="#services">Все услуги</a>
+        </div>
+        <div class="trust" data-reveal>
+          <div><b data-count="900" data-suffix="+">0</b><span>закрытых сделок</span></div>
+          <div><b data-count="3" data-suffix=" дня">0</b><span>до первой подборки</span></div>
+          <div><b data-count="0">0</b><span>сделок, оспоренных в суде</span></div>
+        </div>
+      </div>
+      <div class="hero-art" data-reveal data-tilt>
+        <svg viewBox="0 0 420 340" aria-hidden="true">
+          <rect x="60" y="120" width="120" height="180" rx="8" fill="#2E4049"/>
+          <rect x="200" y="60" width="150" height="240" rx="8" fill="#0E9488"/>
+          <g fill="#F5F7F7" opacity=".9">
+            <rect x="76" y="140" width="22" height="22" rx="4"/><rect x="110" y="140" width="22" height="22" rx="4"/><rect x="144" y="140" width="22" height="22" rx="4"/>
+            <rect x="76" y="176" width="22" height="22" rx="4"/><rect x="110" y="176" width="22" height="22" rx="4"/><rect x="144" y="176" width="22" height="22" rx="4"/>
+            <rect x="76" y="212" width="22" height="22" rx="4"/><rect x="110" y="212" width="22" height="22" rx="4"/><rect x="144" y="212" width="22" height="22" rx="4"/>
+          </g>
+          <g fill="#E4F2F0">
+            <rect x="220" y="84" width="26" height="26" rx="4"/><rect x="262" y="84" width="26" height="26" rx="4"/><rect x="304" y="84" width="26" height="26" rx="4"/>
+            <rect x="220" y="128" width="26" height="26" rx="4"/><rect x="262" y="128" width="26" height="26" rx="4"/><rect x="304" y="128" width="26" height="26" rx="4"/>
+            <rect x="220" y="172" width="26" height="26" rx="4"/><rect x="262" y="172" width="26" height="26" rx="4"/><rect x="304" y="172" width="26" height="26" rx="4"/>
+            <rect x="258" y="240" width="34" height="60" rx="4" fill="#0B7A70"/>
+          </g>
+          <path d="M30 300 h360" stroke="#C7D2D2" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
   </div>
-</div></section>
-<section><div class="container"><div class="cta" id="contact">
-  <h2>Готовы найти своё жильё?</h2>
-  <p>Оставьте заявку — подберём варианты под ваш бюджет за 1 день.</p>
-  <a href="tel:+70000000000" class="btn">Консультация: +7 (000) 000-00-00</a>
-</div></div></section>
-<footer><div class="container">
-  <div class="foot">
-    <div><div class="logo" style="margin-bottom:14px">ДОМ<span>Эксперт</span></div><p>Агентство недвижимости полного цикла. Покупка, продажа, аренда.</p></div>
-    <div><h4>Услуги</h4><a href="#catalog">Покупка</a><a href="#catalog">Продажа</a><a href="#catalog">Ипотека</a></div>
-    <div><h4>Контакты</h4><a href="tel:+70000000000">+7 (000) 000-00-00</a><a href="#">пр. Центральный, 1</a><a href="#">Пн–Сб 9:00–20:00</a></div>
+</section>
+
+<section class="alt" id="services">
+  <div class="container">
+    <div class="head" data-reveal>
+      <h2>Услуги</h2>
+      <p>Комиссия фиксируется в договоре до начала работы. Сюрпризов на сделке не будет.</p>
+    </div>
+    <div class="grid-3">
+      <div class="svc" data-reveal><div class="ic-wrap"><svg class="ic"><use href="#i-search"/></svg></div><h3>Подбор и покупка</h3><div class="fee">от 250 000 ₸</div><p>Подборка за 3 дня, показы, торг с продавцом — в среднем сбиваем 4% цены, что обычно окупает комиссию.</p></div>
+      <div class="svc" data-reveal><div class="ic-wrap"><svg class="ic"><use href="#i-coins"/></svg></div><h3>Продажа</h3><div class="fee">2% от сделки</div><p>Предпродажная подготовка, фото, реклама на всех площадках, фильтр «туристов». Средний срок продажи — 34 дня.</p></div>
+      <div class="svc" data-reveal><div class="ic-wrap"><svg class="ic"><use href="#i-key"/></svg></div><h3>Аренда</h3><div class="fee">50% от месячной ставки</div><p>Для собственников: найдём жильца с проверкой платёжеспособности и составим договор, который защищает вас.</p></div>
+      <div class="svc" data-reveal><div class="ic-wrap"><svg class="ic"><use href="#i-doc"/></svg></div><h3>Проверка объекта</h3><div class="fee">60 000 ₸</div><p>Юридическая чистота: обременения, долги, история переходов, согласия. Письменное заключение за 2 дня.</p></div>
+      <div class="svc" data-reveal><div class="ic-wrap"><svg class="ic"><use href="#i-shield"/></svg></div><h3>Сопровождение сделки</h3><div class="fee">150 000 ₸</div><p>Если нашли квартиру сами: проверим, подготовим договор, организуем расчёт и регистрацию.</p></div>
+      <div class="svc" data-reveal><div class="ic-wrap"><svg class="ic"><use href="#i-home"/></svg></div><h3>Новостройки</h3><div class="fee">бесплатно для покупателя</div><p>Подбор от застройщиков-партнёров по ценам отдела продаж. Нашу комиссию платит застройщик, не вы.</p></div>
+    </div>
   </div>
-  <div class="copy">© 2026 ДОМ Эксперт. Демо-проект для портфолио.</div>
-</div></footer>
-<script>
-  const b=document.getElementById('burger'),m=document.getElementById('menu');
-  b.addEventListener('click',()=>m.classList.toggle('open'));
-  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>m.classList.remove('open')));
-</script>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="head" data-reveal>
+      <h2>Как проходит <span>покупка</span></h2>
+      <p>От заявки до ключей — обычно 3–5 недель.</p>
+    </div>
+    <div class="grid-4 steps">
+      <div class="step" data-reveal><h3>Бюджет и запрос</h3><p>Получаем ваши пожелания в WhatsApp, уточняем детали за один созвон.</p></div>
+      <div class="step" data-reveal><h3>Подборка за 3 дня</h3><p>Только реальные объекты с актуальными ценами — каждый прозвонен перед отправкой.</p></div>
+      <div class="step" data-reveal><h3>Показы и торг</h3><p>Возим на показы, проверяем юридическую чистоту, торгуемся за вас.</p></div>
+      <div class="step" data-reveal><h3>Сделка и ключи</h3><p>Договор, безопасный расчёт, регистрация. Ключи — у вас, договор хранится у нас.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="reviews">
+  <div class="container">
+    <div class="head" data-reveal>
+      <h2>Отзывы</h2>
+    </div>
+    <div class="grid-3">
+      <div class="review" data-reveal>
+        <div class="stars" aria-label="5 из 5">★★★★★</div>
+        <p>Месяц искали двушку сами — одни мёртвые объявления. Тут за три дня прислали восемь живых вариантов, на втором показе нашли свою. Торгом отбили комиссию полностью.</p>
+        <div class="who"><b>Алмас и Дана</b><span>покупка, левый берег</span></div>
+      </div>
+      <div class="review" data-reveal>
+        <div class="stars" aria-label="5 из 5">★★★★★</div>
+        <p>Продавала квартиру из другого города. Всё — фото, показы, сделка — прошло без моего приезда, по доверенности. Продали за 29 дней по цене, которую я хотела.</p>
+        <div class="who"><b>Гульнара С.</b><span>продажа удалённо</span></div>
+      </div>
+      <div class="review" data-reveal>
+        <div class="stars" aria-label="5 из 5">★★★★★</div>
+        <p>Заказывал только проверку — квартира нравилась, цена тоже. Юрист нашёл незакрытое обременение, о котором продавец «забыл». Сэкономили мне, страшно сказать, сколько.</p>
+        <div class="who"><b>Тимур Б.</b><span>проверка объекта</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="request">
+  <div class="container">
+    <div class="cta-band" data-reveal>
+      <div>
+        <h2>Расскажите, что ищете — пришлём подборку</h2>
+        <p><svg class="ic"><use href="#i-clock"/></svg> Первая подборка — через 3 дня</p>
+        <p><svg class="ic"><use href="#i-shield"/></svg> Каждый объект проверен юристом до показа</p>
+        <p><svg class="ic"><use href="#i-pin"/></svg> ул. Центральная, 22, офис 7</p>
+      </div>
+      <div class="ob-form">
+        <h3>Заявка на подбор</h3>
+        <form data-wa="77750000000" data-wa-title="Заявка с сайта Метраж">
+          <div class="field">
+            <label for="r-name">Имя</label>
+            <input id="r-name" name="name" data-label="Имя" type="text" autocomplete="name" required placeholder="Алмас">
+          </div>
+          <div class="field">
+            <label for="r-type">Что нужно</label>
+            <select id="r-type" name="type" data-label="Запрос">
+              <option>Купить квартиру</option><option>Продать квартиру</option><option>Сдать / снять</option>
+              <option>Новостройка</option><option>Проверить объект</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="r-budget">Бюджет и район</label>
+            <input id="r-budget" name="budget" data-label="Бюджет/район" type="text" required placeholder="До 30 млн, левый берег">
+          </div>
+          <button class="btn wa-btn" type="submit"><svg class="ic"><use href="#i-wa"/></svg>Отправить риелтору</button>
+          <div class="form-ok" role="status">Заявка сформирована — проверьте окно WhatsApp.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div>
+        <a class="logo" style="color:#fff" href="#"><span class="logo-mark"><svg class="ic"><use href="#i-home"/></svg></span>Метраж</a>
+        <p style="font-size:14px;margin-top:12px">Агентство недвижимости. Находим, проверяем, торгуемся — вы выбираете и въезжаете.</p>
+      </div>
+      <div>
+        <h4>Услуги</h4>
+        <a href="#services">Покупка и продажа</a>
+        <a href="#how">Как работаем</a>
+        <a href="#reviews">Отзывы</a>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <a href="https://wa.me/77750000000">WhatsApp</a>
+        <a href="tel:+77750000000">+7 775 000-00-00</a>
+        <p style="font-size:14px;margin-top:8px">ул. Центральная, 22, офис 7<br>Пн–Сб 10:00–19:00</p>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 АН «Метраж». Демо-сайт.</span>
+      <span>Хорошая квартира не ждёт. Мы — тоже быстро.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/motion.js"></script>
 </body>
 </html>

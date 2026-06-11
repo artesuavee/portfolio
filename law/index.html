@@ -3,115 +3,318 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ЛЕКС — Юридическая компания</title>
+<title>Прецедент — юридическая фирма. Консультация за 24 часа</title>
+<meta name="description" content="Споры, договоры, защита бизнеса. Оценим перспективу дела бесплатно — ответ в WhatsApp в течение 24 часов.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f6f7f9; --card:#fff; --slate:#1b2430; --slate2:#2b3a4d; --burg:#8b2e3c; --burg2:#a93847; --gold:#b89150;
-    --text:#1c2530; --muted:#6a7480; --line:#e4e8ed;
-    --font:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --bg:#F7F8FA; --card:#FFFFFF; --line:#E3E7ED;
+    --navy:#1B2A4A; --navy-dark:#11203C; --bronze:#A8854B; --light:#EDF0F5;
+    --text:#22293A; --soft:#67738A;
+    --h:'Source Serif 4',serif; --b:'Inter',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
+  body{background:var(--bg);color:var(--text);font-family:var(--b);font-size:16.5px;line-height:1.68;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
-  .container{max-width:1160px;margin:0 auto;padding:0 24px}
-  h1,h2,h3{line-height:1.14;font-weight:800}
-  .btn{display:inline-block;background:var(--burg);color:#fff;font-weight:700;padding:15px 34px;border-radius:4px;transition:.25s;border:none;cursor:pointer;font-size:15px}
-  .btn:hover{background:var(--burg2);transform:translateY(-3px);box-shadow:0 12px 28px rgba(139,46,60,.35)}
-  .btn-out{background:transparent;border:2px solid #fff;color:#fff}
-  .btn-out:hover{background:#fff;color:var(--slate)}
-  header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(27,36,48,.96);backdrop-filter:blur(10px)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
-  .logo{font-size:24px;font-weight:900;color:#fff;letter-spacing:3px}
-  .logo span{color:var(--gold)}
-  .menu{display:flex;gap:30px;font-size:15px}
-  .menu a{color:#b6c0cc;transition:.2s}.menu a:hover{color:var(--gold)}
-  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}.burger span{width:26px;height:2px;background:#fff}
-  .hero{min-height:100vh;display:flex;align-items:center;color:#fff;background:linear-gradient(125deg,var(--slate) 55%,var(--slate2))}
-  .hero-inner{padding-top:90px;max-width:700px}
-  .badge{display:inline-block;border-left:3px solid var(--gold);color:var(--gold);font-size:14px;padding:4px 0 4px 14px;letter-spacing:2px;margin-bottom:24px;text-transform:uppercase}
-  .hero h1{font-size:clamp(38px,6vw,72px);margin-bottom:20px}
-  .hero h1 span{color:var(--gold)}
-  .hero p{color:#aeb9c6;font-size:19px;max-width:520px;margin-bottom:34px}
-  .actions{display:flex;gap:16px;flex-wrap:wrap}
-  .stats{display:flex;gap:48px;margin-top:60px;flex-wrap:wrap}
-  .stat b{display:block;font-size:38px;color:var(--gold);font-weight:900}.stat span{color:#9aa6b4;font-size:14px}
-  section{padding:96px 0}
-  .head{text-align:center;max-width:620px;margin:0 auto 56px}
-  .head .badge{border-left:none;border-bottom:2px solid var(--gold);padding:0 0 6px;color:var(--burg);margin-bottom:14px}
-  .head h2{font-size:clamp(28px,5vw,46px);color:var(--slate);margin-bottom:12px}.head p{color:var(--muted)}
-  .serv{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:34px 28px;transition:.3s;border-top:3px solid transparent}
-  .card:hover{transform:translateY(-6px);box-shadow:0 20px 42px rgba(27,36,48,.12);border-top-color:var(--burg)}
-  .card .e{font-size:40px;margin-bottom:16px}
-  .card h3{font-size:20px;color:var(--slate);margin-bottom:8px}.card p{color:var(--muted);font-size:14px}
-  .why{background:var(--slate);color:#fff}
-  .why .head h2{color:#fff}
-  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;text-align:center}
-  .why .e{font-size:40px;margin-bottom:12px}.why h3{font-size:17px;margin-bottom:6px}.why p{color:#9aa6b4;font-size:14px}
-  .cta{background:linear-gradient(135deg,var(--burg),var(--burg2));border-radius:10px;padding:64px 30px;text-align:center;color:#fff;margin:0 24px}
-  .cta h2{font-size:clamp(28px,5vw,42px);margin-bottom:14px}.cta p{opacity:.9;font-size:18px;margin-bottom:30px}
-  .cta .btn{background:#fff;color:var(--burg)}
-  footer{padding:56px 0 30px;background:var(--slate);color:#fff}
-  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
-  .foot p{color:#9aa6b4;font-size:14px;max-width:300px}.foot h4{margin-bottom:14px;font-size:15px}
-  .foot a{color:#9aa6b4;display:block;margin-bottom:8px;font-size:14px}.foot a:hover{color:var(--gold)}
-  .copy{text-align:center;color:#5a6675;font-size:13px;margin-top:36px}
-  @media(max-width:880px){.serv{grid-template-columns:1fr}.why-grid{grid-template-columns:repeat(2,1fr)}.stats{gap:28px}
-    .menu{position:fixed;inset:74px 0 auto 0;background:var(--slate2);flex-direction:column;padding:24px;gap:18px;display:none}.menu.open{display:flex}.burger{display:flex}}
+  .ic{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .container{max-width:1120px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--h);line-height:1.16;font-weight:600;color:var(--navy-dark)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--navy);color:#fff;font-weight:600;
+       padding:14px 30px;border:none;cursor:pointer;font-size:15px;min-height:48px;border-radius:8px;
+       transition:transform .18s ease-out,background .18s;box-shadow:0 10px 24px rgba(27,42,74,.2)}
+  .btn:hover{background:var(--navy-dark);transform:translateY(-2px)}
+  .btn:active{transform:scale(.98)}
+  .btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--bronze);outline-offset:3px}
+  .btn-line{background:transparent;color:var(--navy);border:1.5px solid #C8D0DC;box-shadow:none}
+  .btn-line:hover{border-color:var(--navy);background:#fff}
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .45s ease-out,transform .45s ease-out}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+  header{position:fixed;inset:0 0 auto 0;z-index:90;background:rgba(247,248,250,.93);backdrop-filter:blur(12px);transition:box-shadow .25s}
+  header.scrolled{box-shadow:0 4px 24px rgba(27,42,74,.1)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .logo{font-family:var(--h);font-size:23px;font-weight:700;color:var(--navy-dark);display:flex;align-items:center;gap:11px}
+  .logo-mark{width:38px;height:38px;border-radius:8px;background:var(--navy);display:flex;align-items:center;justify-content:center}
+  .logo-mark svg{width:20px;height:20px;stroke:var(--bronze)}
+  .menu{display:flex;gap:28px;font-size:14.5px;font-weight:500;align-items:center}
+  .menu a{color:var(--soft);transition:color .2s;padding:6px 2px}
+  .menu a:hover{color:var(--navy)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:10px}
+  .burger span{width:26px;height:2px;background:var(--navy-dark)}
+
+  .hero{padding:152px 0 80px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+  .eyebrow{font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);font-weight:700;margin-bottom:18px}
+  .hero h1{font-size:clamp(34px,5vw,54px);margin-bottom:18px}
+  .hero-sub{color:var(--soft);font-size:18px;max-width:490px;margin-bottom:30px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px}
+  .trust{display:flex;gap:34px;flex-wrap:wrap}
+  .trust b{font-family:var(--h);font-size:30px;color:var(--navy);display:block;font-variant-numeric:tabular-nums}
+  .trust span{font-size:13px;color:var(--soft)}
+  .hero-art{background:var(--navy);border-radius:16px;min-height:400px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .hero-art::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 46px,rgba(255,255,255,.03) 46px 48px)}
+  .hero-art svg{width:56%;position:relative;z-index:1}
+
+  section{padding:80px 0}
+  .head{max-width:640px;margin:0 auto 48px;text-align:center}
+  .head h2{font-size:clamp(27px,4vw,40px);margin-bottom:12px}
+  .head p{color:var(--soft);font-size:17px}
+  .alt{background:#fff}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+
+  .area{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px;border-left:3px solid var(--bronze);transition:box-shadow .25s}
+  .area:hover{box-shadow:0 16px 36px rgba(27,42,74,.1)}
+  .area h3{font-size:18.5px;margin-bottom:8px}
+  .area .from{font-size:13.5px;color:var(--bronze);font-weight:700;margin-bottom:10px}
+  .area p{font-size:14.5px;color:var(--soft)}
+
+  .case{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px}
+  .case .sum{font-family:var(--h);font-size:25px;font-weight:700;color:var(--navy);margin-bottom:8px;font-variant-numeric:tabular-nums}
+  .case b{font-size:15px;display:block;margin-bottom:6px;color:var(--navy-dark)}
+  .case p{font-size:14.5px;color:var(--soft)}
+
+  .review{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px}
+  .stars{color:var(--bronze);letter-spacing:2px;margin-bottom:12px}
+  .review p{font-size:15px;margin-bottom:16px}
+  .review .who b{font-size:14px;display:block}
+  .review .who span{font-size:12.5px;color:var(--soft)}
+
+  .cta-band{background:var(--navy-dark);border-radius:18px;padding:50px 46px;color:#fff;
+        display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .cta-band h2{color:#fff;font-size:clamp(25px,3.4vw,36px);margin-bottom:12px}
+  .cta-band > div > p{color:#A9B4C9;margin-bottom:8px;display:flex;gap:9px;align-items:center;font-size:15.5px}
+  .cta-band p svg{stroke:var(--bronze);width:18px;height:18px}
+  .ob-form{background:#fff;border-radius:14px;padding:26px;color:var(--text)}
+  .ob-form h3{font-size:19px;margin-bottom:6px}
+  .ob-form .sub{font-size:13.5px;color:var(--soft);margin-bottom:16px}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(--navy-dark)}
+  .field input,.field select{width:100%;min-height:47px;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;
+        font-family:var(--b);font-size:15.5px;background:#FBFCFE;transition:border-color .2s}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--navy)}
+  .field input.invalid{border-color:#DC2626}
+  .wa-btn{width:100%;background:#25D366;box-shadow:0 10px 24px rgba(37,211,102,.3)}
+  .wa-btn:hover{background:#1FB857}
+  .form-ok{display:none;margin-top:10px;background:#ECFDF5;color:#059669;font-weight:600;padding:10px 14px;border-radius:8px;font-size:14px}
+  .form-ok.show{display:block}
+
+  footer{background:var(--navy-dark);color:#A9B4C9;padding:48px 0 26px;margin-top:80px}
+  .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;margin-bottom:34px}
+  footer h4{color:#fff;font-family:var(--h);font-size:17px;margin-bottom:14px}
+  footer a{display:block;padding:5px 0;font-size:14.5px;transition:color .2s}
+  footer a:hover{color:#fff}
+  .f-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media(max-width:960px){
+    .hero-grid,.cta-band{grid-template-columns:1fr}
+    .grid-3{grid-template-columns:repeat(2,1fr)}
+    .f-grid{grid-template-columns:1fr 1fr}
+    .menu{position:fixed;inset:76px 0 auto 0;background:#fff;flex-direction:column;padding:22px;gap:4px;
+          transform:translateY(-130%);transition:transform .3s ease-out;align-items:stretch;box-shadow:0 20px 40px rgba(27,42,74,.12)}
+    .menu a{padding:13px 10px;min-height:48px;display:flex;align-items:center}
+    body.menu-open .menu{transform:none}
+    .burger{display:flex}
+  }
+  @media(max-width:600px){
+    .grid-3{grid-template-columns:1fr}
+    .hero{padding-top:118px}
+    section{padding:56px 0}
+    .cta-band{padding:32px 24px}
+    .f-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
-<header><div class="container"><nav>
-  <div class="logo">ЛЕКС<span>.</span></div>
-  <div class="menu" id="menu"><a href="#services">Услуги</a><a href="#why">О компании</a><a href="#contact">Контакты</a></div>
-  <a href="#contact" class="btn" style="padding:11px 24px">Консультация</a>
-  <div class="burger" id="burger"><span></span><span></span><span></span></div>
-</nav></div></header>
-<section class="hero"><div class="container hero-inner">
-  <div class="badge">Юридическая компания · с 2009</div>
-  <h1>Защитим ваши <span>права и интересы</span></h1>
-  <p>Опытные юристы и адвокаты. Берёмся за сложные дела и доводим до результата. Первая консультация — бесплатно.</p>
-  <div class="actions"><a href="#contact" class="btn">Бесплатная консультация</a><a href="#services" class="btn btn-out">Наши услуги</a></div>
-  <div class="stats"><div class="stat"><b>1 500+</b><span>выигранных дел</span></div><div class="stat"><b>16</b><span>лет практики</span></div><div class="stat"><b>94%</b><span>дел в нашу пользу</span></div></div>
-</div></section>
-<section id="services"><div class="container">
-  <div class="head"><div class="badge">Услуги</div><h2>Направления работы</h2><p>Помогаем физлицам и бизнесу.</p></div>
-  <div class="serv">
-    <div class="card"><div class="e">⚖️</div><h3>Арбитражные споры</h3><p>Защита интересов бизнеса в арбитражных судах.</p></div>
-    <div class="card"><div class="e">🏛️</div><h3>Гражданские дела</h3><p>Споры по сделкам, взыскание долгов, ущерб.</p></div>
-    <div class="card"><div class="e">🏠</div><h3>Недвижимость</h3><p>Сопровождение сделок, споры о праве собственности.</p></div>
-    <div class="card"><div class="e">👨‍👩‍👧</div><h3>Семейное право</h3><p>Развод, раздел имущества, алименты, опека.</p></div>
-    <div class="card"><div class="e">📑</div><h3>Банкротство</h3><p>Банкротство физлиц и юрлиц под ключ.</p></div>
-    <div class="card"><div class="e">💼</div><h3>Налоги и бизнес</h3><p>Регистрация, споры с ФНС, сопровождение.</p></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M8 21h8"/><path d="M5 7h14"/><path d="M5 7 2.5 13a3 3 0 0 0 5 0z"/><path d="M19 7l-2.5 6a3 3 0 0 0 5 0z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.4 8.4 8.6 8.6 0 0 1-4-1L3 20l1.2-5.4a8.3 8.3 0 0 1-1-4A8.4 8.4 0 0 1 11.6 2.2a8.4 8.4 0 0 1 9.4 9.3z"/><path d="M9 8.5c.3 2.5 3.5 5.7 6 6l1.5-1.5-2.5-1.5-1 .8c-1-.5-1.8-1.3-2.3-2.3l.8-1L10 6.5 9 8.5z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="container">
+    <nav aria-label="Главное меню">
+      <a class="logo" href="#"><span class="logo-mark"><svg class="ic"><use href="#i-scale"/></svg></span>Прецедент</a>
+      <div class="menu">
+        <a href="#areas">Практики</a>
+        <a href="#cases">Результаты</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#consult" class="btn" style="padding:11px 22px;font-size:13.5px">Оценить дело</a>
+      </div>
+      <button class="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
   </div>
-</div></section>
-<section class="why" id="why"><div class="container">
-  <div class="head"><div class="badge">Почему мы</div><h2>Нам доверяют</h2></div>
-  <div class="why-grid">
-    <div><div class="e">🎓</div><h3>Опытная команда</h3><p>Юристы и адвокаты со стажем от 12 лет.</p></div>
-    <div><div class="e">📊</div><h3>94% успеха</h3><p>Подавляющее большинство дел — в вашу пользу.</p></div>
-    <div><div class="e">🤝</div><h3>Оплата за результат</h3><p>Гибкие условия, возможна оплата по факту.</p></div>
-    <div><div class="e">🔒</div><h3>Конфиденциальность</h3><p>Полная защита ваших данных и интересов.</p></div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow" data-reveal>Юридическая фирма · с 2012 года</div>
+        <h1 data-reveal>Сначала скажем честно, есть ли у дела перспектива</h1>
+        <p class="hero-sub" data-reveal>Опишите ситуацию в WhatsApp — юрист по профилю ответит в течение 24 часов: какие шансы, сколько стоит, сколько займёт. Если дело не стоит ваших денег, так и скажем.</p>
+        <div class="hero-actions" data-reveal>
+          <a class="btn" href="#consult">Оценить дело бесплатно</a>
+          <a class="btn btn-line" href="#areas">Практики</a>
+        </div>
+        <div class="trust" data-reveal>
+          <div><b data-count="14" data-suffix=" лет">0</b><span>практики</span></div>
+          <div><b data-count="87" data-suffix="%">0</b><span>выигранных дел</span></div>
+          <div><b data-count="420" data-suffix="+">0</b><span>клиентов-компаний</span></div>
+        </div>
+      </div>
+      <div class="hero-art" data-reveal data-tilt>
+        <svg viewBox="0 0 220 260" aria-hidden="true">
+          <path d="M110 30 v190 M85 220 h50" stroke="#A8854B" stroke-width="7" stroke-linecap="round"/>
+          <path d="M40 70 h140" stroke="#A8854B" stroke-width="7" stroke-linecap="round"/>
+          <path d="M40 70 25 115 a22 14 0 0 0 44 0z M180 70 165 115 a22 14 0 0 0 44 0z" fill="none" stroke="#E5EAF2" stroke-width="5"/>
+          <circle cx="110" cy="30" r="11" fill="#A8854B"/>
+        </svg>
+      </div>
+    </div>
   </div>
-</div></section>
-<section><div class="container"><div class="cta" id="contact">
-  <h2>Нужна помощь юриста?</h2>
-  <p>Опишите ситуацию на бесплатной консультации — оценим перспективы дела.</p>
-  <a href="tel:+70000000000" class="btn">Консультация: +7 (000) 000-00-00</a>
-</div></div></section>
-<footer><div class="container">
-  <div class="foot">
-    <div><div class="logo" style="margin-bottom:14px">ЛЕКС<span>.</span></div><p>Юридическая компания полного цикла. Защищаем права с 2009 года.</p></div>
-    <div><h4>Услуги</h4><a href="#services">Арбитраж</a><a href="#services">Банкротство</a><a href="#services">Недвижимость</a></div>
-    <div><h4>Контакты</h4><a href="tel:+70000000000">+7 (000) 000-00-00</a><a href="#">пр. Правовой, 10</a><a href="#">Пн–Пт 9:00–19:00</a></div>
+</section>
+
+<section class="alt" id="areas">
+  <div class="container">
+    <div class="head" data-reveal>
+      <h2>Чем занимаемся</h2>
+      <p>Узкие специалисты по каждой практике. Цены — ориентир, точную назовём после оценки дела.</p>
+    </div>
+    <div class="grid-3">
+      <div class="area" data-reveal><h3>Арбитражные споры</h3><div class="from">от 150 000 ₸</div><p>Взыскание долгов, споры по договорам, неустойки. Берём дела, в которых видим перспективу — поэтому 87% побед.</p></div>
+      <div class="area" data-reveal><h3>Договорная работа</h3><div class="from">от 40 000 ₸</div><p>Составление и проверка договоров. Найдём пункт, который через год стоил бы вам миллионы.</p></div>
+      <div class="area" data-reveal><h3>Защита бизнеса</h3><div class="from">от 100 000 ₸</div><p>Проверки, споры с госорганами, обжалование штрафов. Сопровождаем проверку с первого уведомления.</p></div>
+      <div class="area" data-reveal><h3>Трудовые споры</h3><div class="from">от 60 000 ₸</div><p>Для работодателей: увольнения без исков, споры с бывшими сотрудниками, кадровый аудит.</p></div>
+      <div class="area" data-reveal><h3>Недвижимость</h3><div class="from">от 50 000 ₸</div><p>Сделки, споры с застройщиками, узаконение. Проверка объекта до покупки — дешевле, чем суд после.</p></div>
+      <div class="area" data-reveal><h3>Абонентское обслуживание</h3><div class="from">от 120 000 ₸/мес</div><p>Свой юротдел без зарплат и налогов: договоры, претензии, консультации — безлимитно.</p></div>
+    </div>
   </div>
-  <div class="copy">© 2026 ЛЕКС. Демо-проект для портфолио.</div>
-</div></footer>
-<script>
-  const b=document.getElementById('burger'),m=document.getElementById('menu');
-  b.addEventListener('click',()=>m.classList.toggle('open'));
-  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>m.classList.remove('open')));
-</script>
+</section>
+
+<section id="cases">
+  <div class="container">
+    <div class="head" data-reveal>
+      <h2>Недавние результаты</h2>
+      <p>Без названий клиентов — соблюдаем конфиденциальность. Цифры реальные.</p>
+    </div>
+    <div class="grid-3">
+      <div class="case" data-reveal>
+        <div class="sum">48,2 млн ₸</div>
+        <b>Взыскали долг по поставке</b>
+        <p>Поставщик три года не мог получить оплату. Суд + исполнительное производство — деньги на счету через 7 месяцев.</p>
+      </div>
+      <div class="case" data-reveal>
+        <div class="sum">0 ₸ штрафа</div>
+        <b>Отменили предписание</b>
+        <p>Госорган выписал штраф 12 млн ₸ по итогам проверки. Доказали процедурные нарушения — предписание отменено полностью.</p>
+      </div>
+      <div class="case" data-reveal>
+        <div class="sum">−83%</div>
+        <b>Снизили неустойку</b>
+        <p>С клиента требовали 31 млн ₸ неустойки по договору подряда. Суд согласился с нашей позицией: платёж снижен до 5,2 млн ₸.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="reviews">
+  <div class="container">
+    <div class="head" data-reveal>
+      <h2>Отзывы клиентов</h2>
+    </div>
+    <div class="grid-3">
+      <div class="review" data-reveal>
+        <div class="stars" aria-label="5 из 5">★★★★★</div>
+        <p>Первый юрист, который сказал «у этого иска нет шансов, не тратьте деньги». Через месяц принёс им другое дело — выиграли. Честность оказалась лучшим маркетингом.</p>
+        <div class="who"><b>Ербол Н.</b><span>владелец торговой компании</span></div>
+      </div>
+      <div class="review" data-reveal>
+        <div class="stars" aria-label="5 из 5">★★★★★</div>
+        <p>На абонентке полтора года. Любой договор уходит на проверку в WhatsApp и возвращается с правками за день. Юротдел за десятую часть его стоимости.</p>
+        <div class="who"><b>Салтанат К.</b><span>директор строительной фирмы</span></div>
+      </div>
+      <div class="review" data-reveal>
+        <div class="stars" aria-label="5 из 5">★★★★★</div>
+        <p>Сопровождали проверку с первого дня. Спокойствие, с которым они разговаривали с инспекторами, стоило каждого тенге.</p>
+        <div class="who"><b>Азат Ж.</b><span>сеть кафе</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="consult">
+  <div class="container">
+    <div class="cta-band" data-reveal>
+      <div>
+        <h2>Опишите ситуацию — оценим бесплатно</h2>
+        <p><svg class="ic"><use href="#i-clock"/></svg> Ответ юриста по профилю — в течение 24 часов</p>
+        <p><svg class="ic"><use href="#i-shield"/></svg> Конфиденциально: переписка не передаётся третьим лицам</p>
+        <p><svg class="ic"><use href="#i-pin"/></svg> пр. Деловой, 15, офис 402</p>
+      </div>
+      <div class="ob-form">
+        <h3>Бесплатная оценка дела</h3>
+        <p class="sub">Чем подробнее опишете, тем точнее будет ответ.</p>
+        <form data-wa="77750000000" data-wa-title="Заявка с сайта Прецедент">
+          <div class="field">
+            <label for="l-name">Имя</label>
+            <input id="l-name" name="name" data-label="Имя" type="text" autocomplete="name" required placeholder="Ербол">
+          </div>
+          <div class="field">
+            <label for="l-area">Тема</label>
+            <select id="l-area" name="area" data-label="Тема">
+              <option>Спор / суд</option><option>Договор</option><option>Проверка госоргана</option>
+              <option>Трудовой вопрос</option><option>Недвижимость</option><option>Другое</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="l-desc">Ситуация в двух словах</label>
+            <input id="l-desc" name="desc" data-label="Ситуация" type="text" required placeholder="Контрагент не платит по договору 4 месяца">
+          </div>
+          <button class="btn wa-btn" type="submit"><svg class="ic"><use href="#i-wa"/></svg>Отправить юристу</button>
+          <div class="form-ok" role="status">Заявка сформирована — проверьте окно WhatsApp.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div>
+        <a class="logo" style="color:#fff" href="#"><span class="logo-mark"><svg class="ic"><use href="#i-scale"/></svg></span>Прецедент</a>
+        <p style="font-size:14px;margin-top:12px">Юридическая фирма. Говорим о шансах честно — до того, как вы заплатили.</p>
+      </div>
+      <div>
+        <h4>Фирма</h4>
+        <a href="#areas">Практики</a>
+        <a href="#cases">Результаты</a>
+        <a href="#reviews">Отзывы</a>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <a href="https://wa.me/77750000000">WhatsApp</a>
+        <a href="tel:+77750000000">+7 775 000-00-00</a>
+        <p style="font-size:14px;margin-top:8px">пр. Деловой, 15, офис 402<br>Пн–Пт 9:00–18:00</p>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 ЮФ «Прецедент». Демо-сайт.</span>
+      <span>Хороший договор дешевле хорошего суда.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/motion.js"></script>
 </body>
 </html>
