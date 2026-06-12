@@ -3,6 +3,8 @@
 *.jpeg
 *.jpg
 *.png
+# ...кроме текстур и фото 3D-витрины SATO
+!sato-kimonos/assets/*.jpg
 .DS_Store
 Thumbs.db
 
