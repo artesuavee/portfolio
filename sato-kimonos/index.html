@@ -167,6 +167,7 @@
 </script>
 <script type="module">
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // Реальные текстуры из студийных листов SATO лежат в ./assets:
 // NNN-lining.jpg — арты подкладов, weave-bump.jpg — макро жемчужного плетения,
 // NNN-{front,back,side,pants}.jpg — фото для галереи.
@@ -266,7 +267,10 @@ let curPath = '004';
   tl.load(`assets/${no}-lining.jpg`, t => {
     t.colorSpace = THREE.SRGBColorSpace;
     liningTex[no] = t;
-    if (no === curPath) { liningMat.map = t; liningMat.needsUpdate = true; }
+    if (no === curPath) {
+      liningMat.map = t; liningMat.needsUpdate = true;
+      wingMat.map = t; wingMat.needsUpdate = true;
+    }
   }));
 
 /* --- объёмное ги: цилиндрический корпус, рукава-трубы, V-воротник --- */
@@ -379,6 +383,32 @@ hips.position.y = -0.85;
 gi.add(legL, legR, hips);
 scene.add(gi);
 
+/* --- фотореалистичный GLB (Hyper3D Rodin): если есть assets/sato-gi.glb — он заменяет процедурное ги --- */
+let glbRoot = null;
+// панно-крылья с артом подкладов: в GLB-режиме выплывают на секции «Подклад»
+const wingMat = new THREE.MeshBasicMaterial({ map: liningMat.map, transparent: true, opacity: 0 });
+const wings = new THREE.Group();
+{
+  const wg = new THREE.PlaneGeometry(1.1, 2.2, 8, 12);
+  const p = wg.attributes.position;
+  for (let i = 0; i < p.count; i++) p.setZ(i, -p.getX(i) * p.getX(i) * 0.18);
+  const w1 = new THREE.Mesh(wg, wingMat); w1.position.set(-1.05, 0.4, 0.3); w1.rotation.y = 0.35;
+  const w2 = new THREE.Mesh(wg.clone(), wingMat); w2.position.set(1.05, 0.4, 0.3); w2.rotation.y = -0.35;
+  wings.add(w1, w2); wings.visible = false; scene.add(wings);
+}
+new GLTFLoader().load('assets/sato-gi.glb', gltf => {
+  const m = gltf.scene;
+  // вписываем в габариты процедурной модели: высота ~4.2, низ на полу
+  const box = new THREE.Box3().setFromObject(m);
+  const size = box.getSize(new THREE.Vector3()), ctr = box.getCenter(new THREE.Vector3());
+  const k = 4.2 / size.y;
+  m.scale.setScalar(k);
+  m.position.set(-ctr.x * k, -2.58 - box.min.y * k, -ctr.z * k);
+  glbRoot = new THREE.Group(); glbRoot.add(m); scene.add(glbRoot);
+  gi.visible = false; wings.visible = true;
+  console.log('GLB загружен: процедурная модель заменена');
+}, undefined, () => { /* файла нет — остаёмся на процедурной модели */ });
+
 /* --- частицы-угольки --- */
 const embers = [];
 const eg = new THREE.CircleGeometry(0.02, 6);
@@ -441,6 +471,15 @@ function tick() {
   slL.position.x = -0.88 - 0.3 * openT; slR.position.x = 0.88 + 0.3 * openT;
   gi.rotation.y = Math.sin(t * 0.22) * 0.05;
   gi.position.y = Math.sin(t * 0.7) * 0.025;
+  if (glbRoot) {
+    glbRoot.rotation.y = Math.sin(t * 0.22) * 0.05;
+    glbRoot.position.y = Math.sin(t * 0.7) * 0.025;
+    // панно подкладов выплывают из-за модели на секции «Подклад»
+    wingMat.opacity = openT;
+    wings.children[0].position.x = -0.4 - 1.0 * openT;
+    wings.children[1].position.x = 0.4 + 1.0 * openT;
+    wings.rotation.y = Math.sin(t * 0.3) * 0.03;
+  }
   for (const p of embers) {
     p.position.y += p.userData.s * dt;
     p.position.x += Math.sin(t * 0.7 + p.userData.ph) * 0.002;
@@ -491,6 +530,7 @@ PATHS.forEach((p, i) => {
     targetColor.set(p.c);
     liningMat.map = liningTex[p.no] || liningTexture(p.lining[0], p.lining[1]);
     liningMat.needsUpdate = true;
+    wingMat.map = liningMat.map; wingMat.needsUpdate = true;
     document.getElementById('edNo').textContent = p.no;
     applyPath(p);
   };
