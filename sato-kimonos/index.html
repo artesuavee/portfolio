@@ -184,7 +184,7 @@ scene.fog = new THREE.Fog(0x0B0B0E, 7, 16);
 const camera = new THREE.PerspectiveCamera(36, innerWidth / innerHeight, 0.1, 60);
 
 scene.add(new THREE.AmbientLight(0x3a3744, 1.2));
-const key = new THREE.SpotLight(0xfff1dd, 240, 24, 0.55, 0.5);
+const key = new THREE.SpotLight(0xfff1dd, 185, 24, 0.55, 0.5);
 key.position.set(3.4, 4.4, 3.4); scene.add(key);
 const rim = new THREE.SpotLight(0xC8202F, 40, 22, 0.7, 0.7);
 rim.position.set(-3.6, 2, -3); scene.add(rim);
@@ -244,7 +244,7 @@ function liningTexture(bg, inkColor) {
 const bump = weaveBump();
 const mk = (color) => new THREE.MeshPhysicalMaterial({
   color, roughness: 0.62, bumpMap: bump, bumpScale: 0.012,
-  sheen: 0.6, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.6,
+  sheen: 0.28, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.7,
   side: THREE.DoubleSide,
 });
 const giMat = mk(0x1B2438);            // куртка/штаны (старт: Katana indigo)
@@ -269,60 +269,114 @@ let curPath = '004';
     if (no === curPath) { liningMat.map = t; liningMat.needsUpdate = true; }
   }));
 
-/* --- процедурное ги --- */
+/* --- объёмное ги: цилиндрический корпус, рукава-трубы, V-воротник --- */
 const gi = new THREE.Group();
-function clothPanel(w, h, mat, wave = 0.1, flare = 0.12) {
-  const g = new THREE.PlaneGeometry(w, h, 20, 30);
+
+// цилиндр ткани с фалдами (радиальный шум по окружности и высоте)
+function clothCyl(rT, rB, h, mat, { seg = 48, rings = 20, noise = 0.018, gap = 0 } = {}) {
+  const g = new THREE.CylinderGeometry(rT, rB, h, seg, rings, true,
+    gap ? gap / 2 : 0, gap ? Math.PI * 2 - gap : Math.PI * 2);
   const p = g.attributes.position;
   for (let i = 0; i < p.count; i++) {
-    const px = p.getX(i), py = p.getY(i);
-    p.setZ(i, Math.sin(px * 5) * wave * (0.3 + (h / 2 - py) / h));
-    p.setX(i, px * (1 + (h / 2 - py) / h * flare));
+    const x = p.getX(i), y = p.getY(i), z = p.getZ(i);
+    const th = Math.atan2(x, z);
+    const k = 1 + (Math.sin(th * 7 + y * 2.5) * noise + Math.sin(th * 13 + 1.7) * noise * 0.45);
+    p.setX(i, x * k); p.setZ(i, z * k);
   }
   g.computeVertexNormals();
   return new THREE.Mesh(g, mat);
 }
-// спина
-const back = clothPanel(1.5, 2.1, giMat);
-back.position.set(0, 0.85, -0.22); back.rotation.y = Math.PI;
-// передние полы — в группах-петлях, чтобы «распахивать» куртку
+// торс куртки: спереди щель (её закрывают полы), хем расклешён
+// thetaStart=gap/2 центрирует щель на θ=0, т.е. на +z — лицом к камере
+const torso = clothCyl(0.52, 0.74, 2.2, giMat, { gap: 1.15 });
+torso.position.y = 0.5;
+gi.add(torso);
+// интерьер куртки — подклад на внутренней стенке
+const linInner = clothCyl(0.50, 0.72, 2.14, liningMat, { noise: 0.008 });
+linInner.position.y = 0.5; gi.add(linInner);
+// плечи — накрывают верхний срез торса
+const shGeo = new THREE.SphereGeometry(0.30, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+const shL = new THREE.Mesh(shGeo, giMat); shL.position.set(-0.36, 1.40, 0); shL.scale.set(1.08, 0.34, 0.95);
+const shR = shL.clone(); shR.position.x = 0.38;
+gi.add(shL, shR);
+// рукава висят из плеча вниз-наружу (~50° от вертикали), манжеты открыты
+const slL = clothCyl(0.155, 0.245, 1.1, giMat, { seg: 26, rings: 10, noise: 0.03 });
+slL.position.set(-0.88, 0.99, 0); slL.rotation.z = -0.85;
+const slR = clothCyl(0.155, 0.245, 1.1, giMat, { seg: 26, rings: 10, noise: 0.03 });
+slR.position.set(0.88, 0.99, 0); slR.rotation.z = 0.85;
+gi.add(slL, slR);
+// полы куртки на петлях + подклад изнутри
 const hingeL = new THREE.Group(), hingeR = new THREE.Group();
-hingeL.position.set(-0.72, 0, 0.16); hingeR.position.set(0.72, 0, 0.16);
-const frontL = clothPanel(0.95, 2.1, giMat);
-frontL.position.set(0.45, 0.85, 0); frontL.rotation.y = 0.18;
-const frontR = clothPanel(0.95, 2.1, giMat);
-frontR.position.set(-0.45, 0.85, 0); frontR.rotation.y = -0.18;
-// подклад на внутренней стороне пол
-const linL = clothPanel(0.92, 2.04, liningMat);
-linL.position.set(0.45, 0.85, -0.012); linL.rotation.y = 0.18;
-const linR = clothPanel(0.92, 2.04, liningMat);
-linR.position.set(-0.45, 0.85, -0.012); linR.rotation.y = -0.18;
-hingeL.add(frontL, linL); hingeR.add(frontR, linR);
-// рукава
-const slL = clothPanel(1.15, 0.95, giMat, 0.06, 0.05);
-slL.position.set(-1.32, 1.28, 0); slL.rotation.z = 0.45;
-const slR = clothPanel(1.15, 0.95, giMat, 0.06, 0.05);
-slR.position.set(1.32, 1.28, 0); slR.rotation.z = -0.45;
-// воротник rubber core
-const collar = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.075, 14, 48, Math.PI * 1.1), beltMat);
-collar.position.set(0, 1.78, 0.04); collar.rotation.set(Math.PI / 2 + 0.5, 0, Math.PI * -0.05);
-// пояс + узел + красный кончик
-const belt = new THREE.Mesh(new THREE.CylinderGeometry(0.56, 0.58, 0.16, 40, 1, true), beltMat);
-belt.position.y = -0.1;
-const knot = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.2, 0.18), beltMat);
-knot.position.set(0, -0.1, 0.55);
+hingeL.position.set(-0.58, 0.45, 0.52); hingeR.position.set(0.58, 0.45, 0.52);
+// пола: книзу — широкая с клёшем, кверху сужается в ленту отворота, кромки образуют V
+// si: +1 — левая пола (внутренняя кромка в локальном +x), -1 — правая
+function lapel(mat, si, { w = 0.82, h = 2.18, xoff = 0, inset = 0 } = {}) {
+  const g = new THREE.PlaneGeometry(w - inset, h - inset * 2, 16, 24);
+  const p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const x0 = p.getX(i), y = p.getY(i);
+    const t = Math.max(0, y / h + 0.18), tt = t * t;
+    p.setZ(i, -x0 * x0 * 0.5 + Math.sin(y * 4 + x0 * 6) * 0.012); // обёртка + фалды
+    let x = x0 + xoff;
+    x = x * (1 - 0.72 * tt) - si * 0.50 * tt;       // сужение кверху + раскрытие V
+    x += x0 * (h / 2 - y) / h * 0.14 * (1 - t);     // клёш только книзу
+    p.setX(i, x);
+  }
+  g.computeVertexNormals();
+  return new THREE.Mesh(g, mat);
+}
+// кромка-воротник: тот же крой, узкая полоса по внутреннему краю, чуть выступает
+const collarMat = new THREE.MeshPhysicalMaterial({ roughness: 0.42, bumpMap: bump, bumpScale: 0.012 });
+collarMat.color = giMat.color; // один экземпляр Color — перекрашивается вместе с ги
+const frontL = lapel(giMat, 1); frontL.position.set(0.47, 0.05, 0.105); frontL.rotation.y = 0.26;
+const linL = lapel(liningMat, 1, { inset: 0.02 }); linL.position.set(0.47, 0.05, 0.093); linL.rotation.y = 0.26;
+const stripL = lapel(collarMat, 1, { w: 0.16, xoff: 0.33 }); stripL.position.set(0.47, 0.05, 0.13); stripL.rotation.y = 0.26;
+const frontR = lapel(giMat, -1); frontR.position.set(-0.47, 0.05, 0.06); frontR.rotation.y = -0.26;
+const linR = lapel(liningMat, -1, { inset: 0.02 }); linR.position.set(-0.47, 0.05, 0.048); linR.rotation.y = -0.26;
+const stripR = lapel(collarMat, -1, { w: 0.16, xoff: -0.33 }); stripR.position.set(-0.47, 0.05, 0.085); stripR.rotation.y = -0.26;
+hingeL.add(frontL, linL, stripL); hingeR.add(frontR, linR, stripR);
+gi.add(hingeL, hingeR);
+// дуга воротника за шеей
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+{
+  const arc = new THREE.Mesh(new THREE.TubeGeometry(
+    new THREE.CatmullRomCurve3([V(0.30, 1.40, 0.14), V(0, 1.56, -0.26), V(-0.30, 1.40, 0.14)]),
+    24, 0.06, 10, false), giMat);
+  gi.add(arc);
+}
+// монограмма «S» на спине
+{
+  const c = document.createElement('canvas'); c.width = c.height = 256;
+  const x = c.getContext('2d');
+  x.font = '600 170px Oswald, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.lineWidth = 6; x.strokeStyle = 'rgba(255,255,255,.28)'; x.strokeText('S', 128, 134);
+  const t = new THREE.CanvasTexture(c);
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5),
+    new THREE.MeshBasicMaterial({ map: t, transparent: true, opacity: 0.55 }));
+  m.position.set(0, 1.05, -0.62); m.rotation.y = Math.PI;
+  gi.add(m);
+}
+// пояс + узел + хвосты с красными кончиками
+const belt = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.80, 0.17, 48, 1, true), beltMat);
+belt.position.y = -0.12;
+const knot = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.2, 0.16), beltMat);
+knot.position.set(0, -0.12, 0.80);
 const tail1 = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.7, 0.05), beltMat);
-tail1.position.set(-0.14, -0.5, 0.56); tail1.rotation.z = 0.12;
+tail1.position.set(-0.14, -0.52, 0.80); tail1.rotation.z = 0.12;
 const tail2 = tail1.clone(); tail2.position.x = 0.14; tail2.rotation.z = -0.12;
 const tip1 = new THREE.Mesh(new THREE.BoxGeometry(0.135, 0.12, 0.055), tipMat);
-tip1.position.set(-0.18, -0.83, 0.56); tip1.rotation.z = 0.12;
+tip1.position.set(-0.18, -0.85, 0.80); tip1.rotation.z = 0.12;
 const tip2 = tip1.clone(); tip2.position.x = 0.18; tip2.rotation.z = -0.12;
-// штаны
-const legL = clothPanel(0.55, 1.7, giMat, 0.05, 0.1);
-legL.position.set(-0.3, -1.25, 0);
-const legR = clothPanel(0.55, 1.7, giMat, 0.05, 0.1);
-legR.position.set(0.3, -1.25, 0);
-gi.add(back, hingeL, hingeR, slL, slR, collar, belt, knot, tail1, tail2, tip1, tip2, legL, legR);
+gi.add(belt, knot, tail1, tail2, tip1, tip2);
+// штаны — две широкие штанины
+const legL = clothCyl(0.23, 0.27, 1.62, giMat, { seg: 26, rings: 10, noise: 0.025 });
+legL.position.set(-0.32, -1.42, 0); legL.rotation.z = 0.06;
+const legR = clothCyl(0.23, 0.27, 1.62, giMat, { seg: 26, rings: 10, noise: 0.025 });
+legR.position.set(0.32, -1.42, 0); legR.rotation.z = -0.06;
+// бёдра под хемом куртки, чтобы между штанинами не было дыры
+const hips = clothCyl(0.50, 0.42, 0.7, giMat, { seg: 32, rings: 4, noise: 0.012 });
+hips.position.y = -0.85;
+gi.add(legL, legR, hips);
 scene.add(gi);
 
 /* --- частицы-угольки --- */
@@ -381,10 +435,10 @@ function tick() {
   // распахивание пол
   openT += (openTgt - openT) * (1 - Math.pow(0.004, dt));
   // >90° — полы выворачиваются подкладом к зрителю, как обложки раскрытой книги
-  hingeL.rotation.y = -2.55 * openT;
-  hingeR.rotation.y = 2.55 * openT;
-  // рукава приподнимаются, чтобы не лезть в кадр при распахивании
-  slL.position.x = -1.32 - 0.3 * openT; slR.position.x = 1.32 + 0.3 * openT;
+  hingeL.rotation.y = -2.3 * openT;
+  hingeR.rotation.y = 2.3 * openT;
+  // рукава отводятся, чтобы не лезть в кадр при распахивании
+  slL.position.x = -0.88 - 0.3 * openT; slR.position.x = 0.88 + 0.3 * openT;
   gi.rotation.y = Math.sin(t * 0.22) * 0.05;
   gi.position.y = Math.sin(t * 0.7) * 0.025;
   for (const p of embers) {
