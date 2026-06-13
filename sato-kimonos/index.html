@@ -396,16 +396,35 @@ const wings = new THREE.Group();
   const w2 = new THREE.Mesh(wg.clone(), wingMat); w2.position.set(1.05, 0.4, 0.3); w2.rotation.y = -0.35;
   wings.add(w1, w2); wings.visible = false; scene.add(wings);
 }
+// материал для GLB-меша: цвет серии + фактура плетения, перекрашивается переключателем
+const glbMat = new THREE.MeshPhysicalMaterial({
+  color: new THREE.Color(0x44597f), roughness: 0.9, metalness: 0.0, bumpMap: bump, bumpScale: 0.05,
+  sheen: 0.12, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.85,
+  side: THREE.DoubleSide,  // нормали меша вывернуты внутрь — рендерим обе стороны
+});
+// освещённый меш требует более светлого альбедо, чем «свечёная» процедурная палитра
+const glbTarget = new THREE.Color(0x44597f);
+function setGlbColor(hex) {
+  const c = new THREE.Color(hex);
+  const hsl = {}; c.getHSL(hsl);
+  c.setHSL(hsl.h, hsl.s, Math.min(0.5, hsl.l * 2.0 + 0.08)); // поднимаем светлоту до читаемого денима
+  glbTarget.copy(c);
+}
+setGlbColor(0x1B2438);
 new GLTFLoader().load('assets/sato-gi.glb', gltf => {
   const m = gltf.scene;
-  // вписываем в габариты процедурной модели: высота ~4.2, низ на полу
+  m.traverse(o => { if (o.isMesh) { o.geometry.computeVertexNormals(); o.material = glbMat; o.castShadow = true; } });
+  // вписываем в габариты сцены: высота ~3.7, низ на полу, лицом к камере
   const box = new THREE.Box3().setFromObject(m);
   const size = box.getSize(new THREE.Vector3()), ctr = box.getCenter(new THREE.Vector3());
-  const k = 4.2 / size.y;
+  const k = 3.7 / size.y;
   m.scale.setScalar(k);
   m.position.set(-ctr.x * k, -2.58 - box.min.y * k, -ctr.z * k);
   glbRoot = new THREE.Group(); glbRoot.add(m); scene.add(glbRoot);
   gi.visible = false; wings.visible = true;
+  // меш ловит весь свет и выбеливается — глушим экспозицию и пересветные источники
+  renderer.toneMappingExposure = 1.0;
+  key.intensity = 140; backLight.intensity = 120; fill.intensity = 38;
   console.log('GLB загружен: процедурная модель заменена');
 }, undefined, () => { /* файла нет — остаёмся на процедурной модели */ });
 
@@ -527,7 +546,7 @@ PATHS.forEach((p, i) => {
   b.onclick = () => {
     document.querySelectorAll('.path').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
-    targetColor.set(p.c);
+    targetColor.set(p.c); setGlbColor(p.c);
     liningMat.map = liningTex[p.no] || liningTexture(p.lining[0], p.lining[1]);
     liningMat.needsUpdate = true;
     wingMat.map = liningMat.map; wingMat.needsUpdate = true;
@@ -538,7 +557,7 @@ PATHS.forEach((p, i) => {
 });
 applyPath(PATHS[3]); // старт: Katana
 // плавная смена цвета ткани
-setInterval(() => { giMat.color.lerp(targetColor, 0.12); }, 16);
+setInterval(() => { giMat.color.lerp(targetColor, 0.12); glbMat.color.lerp(glbTarget, 0.12); }, 16);
 
 /* --- reveal текста --- */
 const io = new IntersectionObserver(es => es.forEach(e => {
