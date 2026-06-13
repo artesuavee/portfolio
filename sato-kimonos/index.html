@@ -168,6 +168,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 // Реальные текстуры из студийных листов SATO лежат в ./assets:
 // NNN-lining.jpg — арты подкладов, weave-bump.jpg — макро жемчужного плетения,
 // NNN-{front,back,side,pants}.jpg — фото для галереи.
@@ -181,6 +182,11 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0B0B0E);
 scene.fog = new THREE.Fog(0x0B0B0E, 7, 16);
+
+// image-based освещение: мягкие реалистичные блики на ткани (PBR)
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.42; // мягкий IBL, но альбедо ткани доминирует
 
 const camera = new THREE.PerspectiveCamera(36, innerWidth / innerHeight, 0.1, 60);
 
@@ -397,9 +403,11 @@ const wings = new THREE.Group();
   wings.add(w1, w2); wings.visible = false; scene.add(wings);
 }
 // материал для GLB-меша: цвет серии + фактура плетения, перекрашивается переключателем
+const glbWeave = bump.clone(); glbWeave.needsUpdate = true; glbWeave.repeat.set(60, 60);
 const glbMat = new THREE.MeshPhysicalMaterial({
-  color: new THREE.Color(0x44597f), roughness: 0.9, metalness: 0.0, bumpMap: bump, bumpScale: 0.05,
-  sheen: 0.12, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.85,
+  color: new THREE.Color(0x44597f), roughness: 0.96, metalness: 0.0,
+  bumpMap: glbWeave, bumpScale: 0.16,            // выраженная фактура хлопкового плетения
+  sheen: 0.3, sheenColor: new THREE.Color(0x8893ad), sheenRoughness: 0.8,  // матовый ворс ткани
   side: THREE.DoubleSide,  // нормали меша вывернуты внутрь — рендерим обе стороны
 });
 // освещённый меш требует более светлого альбедо, чем «свечёная» процедурная палитра
@@ -407,7 +415,7 @@ const glbTarget = new THREE.Color(0x44597f);
 function setGlbColor(hex) {
   const c = new THREE.Color(hex);
   const hsl = {}; c.getHSL(hsl);
-  c.setHSL(hsl.h, hsl.s, Math.min(0.5, hsl.l * 2.0 + 0.08)); // поднимаем светлоту до читаемого денима
+  c.setHSL(hsl.h, Math.min(1, hsl.s * 1.15), Math.min(0.42, hsl.l * 1.7 + 0.06)); // глубокий дениm
   glbTarget.copy(c);
 }
 setGlbColor(0x1B2438);
