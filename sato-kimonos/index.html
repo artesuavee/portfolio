@@ -419,9 +419,50 @@ function setGlbColor(hex) {
   glbTarget.copy(c);
 }
 setGlbColor(0x1B2438);
+
+// пояс и красный кончик: ги одноцветный, поэтому красим сегментацией геометрии
+const glbBeltMat = new THREE.MeshPhysicalMaterial({ color: 0x0d0d0f, roughness: 0.5, metalness: 0.0,
+  bumpMap: glbWeave, bumpScale: 0.1, sheen: 0.25, sheenColor: new THREE.Color(0x444444), side: THREE.DoubleSide });
+const glbTipMat = new THREE.MeshPhysicalMaterial({ color: 0xC8202F, roughness: 0.5, side: THREE.DoubleSide });
+const DEBUG_BELT = false;
+if (DEBUG_BELT) { glbBeltMat.color.set(0xff00ff); glbTipMat.color.set(0x00ff00); }
+// пороги в локальных координатах меша (Y вверх, +Z вперёд к камере)
+const BELT = { y0: -0.15, y1: -0.01, xWrap: 0.36,              // горизонтальная обмотка
+  hangZ: 0.07, hangX0: 0.0, hangX1: 0.20, hangY0: -0.30, hangY1: -0.15, tipY: -0.23 }; // один конец справа
+function classifyFace(cx, cy, cz) {
+  if (cy >= BELT.y0 && cy <= BELT.y1 && Math.abs(cx) < BELT.xWrap) return 1; // пояс (без рукавов)
+  if (cz > BELT.hangZ && cx > BELT.hangX0 && cx < BELT.hangX1 && cy > BELT.hangY0 && cy < BELT.hangY1)
+    return cy < BELT.tipY ? 2 : 1;                             // свисающий конец: низ — красный кончик
+  return 0;                                                     // ткань ги
+}
+function segmentBelt(geo) {
+  let index = geo.getIndex();
+  const pos = geo.attributes.position;
+  if (!index) {
+    const a = new Uint32Array(pos.count); for (let i = 0; i < pos.count; i++) a[i] = i;
+    index = new THREE.BufferAttribute(a, 1); geo.setIndex(index);
+  }
+  const idx = index.array, faces = idx.length / 3;
+  const buckets = [[], [], []];
+  for (let f = 0; f < faces; f++) {
+    const a = idx[f*3], b = idx[f*3+1], c = idx[f*3+2];
+    const cx = (pos.getX(a)+pos.getX(b)+pos.getX(c))/3;
+    const cy = (pos.getY(a)+pos.getY(b)+pos.getY(c))/3;
+    const cz = (pos.getZ(a)+pos.getZ(b)+pos.getZ(c))/3;
+    buckets[classifyFace(cx, cy, cz)].push(f);
+  }
+  const out = new idx.constructor(idx.length); let off = 0; geo.clearGroups();
+  for (let mi = 0; mi < 3; mi++) {
+    const start = off;
+    for (const f of buckets[mi]) { out[off*3]=idx[f*3]; out[off*3+1]=idx[f*3+1]; out[off*3+2]=idx[f*3+2]; off++; }
+    geo.addGroup(start*3, buckets[mi].length*3, mi);
+  }
+  idx.set(out); index.needsUpdate = true;
+}
+
 new GLTFLoader().load('assets/sato-gi.glb', gltf => {
   const m = gltf.scene;
-  m.traverse(o => { if (o.isMesh) { o.geometry.computeVertexNormals(); o.material = glbMat; o.castShadow = true; } });
+  m.traverse(o => { if (o.isMesh) { o.geometry.computeVertexNormals(); segmentBelt(o.geometry); o.material = [glbMat, glbBeltMat, glbTipMat]; o.castShadow = true; } });
   // вписываем в габариты сцены: высота ~3.7, низ на полу, лицом к камере
   const box = new THREE.Box3().setFromObject(m);
   const size = box.getSize(new THREE.Vector3()), ctr = box.getCenter(new THREE.Vector3());
