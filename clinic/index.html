@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>МедЦентр Здоровье — Многопрофильная клиника</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8fafc;--white:#fff;--accent:#0ea5e9;--accent2:#0284c7;--text:#0f172a;--muted:#64748b;--light:#e0f2fe;--border:#e2e8f0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:16px 80px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px}
+.logo-text{font-size:18px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:11px;color:var(--muted);font-weight:400}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
+.nav-links a:hover{color:var(--accent)}
+.btn{background:var(--accent);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--accent2)}
+.hero{background:linear-gradient(135deg,#0c4a6e,#0369a1,#0ea5e9);padding:80px;min-height:520px;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::after{content:'🏥';position:absolute;right:10%;bottom:-20px;font-size:200px;opacity:.06}
+.hero-content{max-width:620px;color:#fff}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:24px}
+h1{font-size:clamp(36px,4.5vw,60px);font-weight:800;line-height:1.15;margin-bottom:16px}
+.hero p{font-size:17px;opacity:.9;line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+.btn-white{background:#fff;color:var(--accent2);border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-outline-white{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.quick-book{display:flex;gap:0;background:var(--white);border-radius:12px;padding:24px;max-width:900px;margin:-40px auto 0;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.1);flex-wrap:wrap;gap:16px}
+.book-field{flex:1;min-width:160px}
+.book-field label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.book-field select,.book-field input{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:14px;color:var(--text);background:var(--bg);outline:none}
+.book-field select:focus,.book-field input:focus{border-color:var(--accent)}
+.services{padding:100px 80px;max-width:1200px;margin:0 auto}
+h2{font-size:clamp(28px,3.5vw,40px);font-weight:800;margin-bottom:12px}
+.accent{color:var(--accent)}
+.section-sub{color:var(--muted);font-size:16px;margin-bottom:56px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.svc-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px 24px;text-align:center;transition:.2s;cursor:pointer}
+.svc-card:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(14,165,233,.1);transform:translateY(-2px)}
+.svc-icon{font-size:36px;margin-bottom:14px}
+.svc-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.svc-card p{font-size:12px;color:var(--muted)}
+.doctors{padding:0 80px 100px;max-width:1200px;margin:0 auto}
+.doctors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.doctor-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.2s}
+.doctor-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.doctor-photo{height:200px;background:linear-gradient(135deg,var(--light),#bae6fd);display:flex;align-items:center;justify-content:center;font-size:64px}
+.doctor-info{padding:20px}
+.doctor-name{font-size:16px;font-weight:700;margin-bottom:4px}
+.doctor-spec{color:var(--accent);font-size:13px;font-weight:600;margin-bottom:8px}
+.doctor-exp{color:var(--muted);font-size:12px;margin-bottom:16px}
+.btn-sm{background:var(--light);color:var(--accent2);border:none;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-sm:hover{background:var(--accent);color:#fff}
+.trust{background:var(--accent);padding:60px 80px}
+.trust-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;color:#fff}
+.trust-num{font-size:44px;font-weight:800;margin-bottom:8px}
+.trust-label{font-size:13px;opacity:.85}
+.reviews{padding:80px;background:var(--bg)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1000px;margin:40px auto 0}
+.review-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px}
+.stars{color:#f59e0b;font-size:18px;margin-bottom:12px}
+.review-text{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:16px}
+.reviewer{display:flex;align-items:center;gap:12px}
+.reviewer-avatar{width:40px;height:40px;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:20px}
+.reviewer-name{font-size:14px;font-weight:600}
+.reviewer-dept{font-size:12px;color:var(--muted)}
+.cta-section{background:linear-gradient(135deg,#0c4a6e,#0369a1);padding:80px;text-align:center;color:#fff}
+.cta-section h2{font-size:36px;margin-bottom:16px}
+.cta-section p{font-size:16px;opacity:.85;margin-bottom:32px}
+footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-content:space-between;align-items:center}
+.footer-info{font-size:13px;color:rgba(255,255,255,.6)}
+@media(max-width:768px){nav,section,.hero,.services,.doctors,.trust,.reviews,.cta-section,footer{padding-left:24px;padding-right:24px}.trust-grid{grid-template-columns:repeat(2,1fr)}.quick-book{margin:20px 24px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">
+    <div class="logo-icon">⚕️</div>
+    <div><div class="logo-text">МедЦентр Здоровье</div><div class="logo-sub">Многопрофильная клиника</div></div>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Услуги</a><a href="#doctors">Врачи</a><a href="#reviews">Отзывы</a>
+  </div>
+  <button class="btn">Записаться онлайн</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⭐ Клиника года 2025</div>
+    <h1>Ваше здоровье — наша забота</h1>
+    <p>Современная диагностика, опытные врачи и индивидуальный подход. Более 40 специализаций в одном месте.</p>
+    <div class="hero-cta">
+      <button class="btn-white">Записаться онлайн</button>
+      <button class="btn-outline-white">📞 Вызов врача</button>
+    </div>
+  </div>
+</div>
+
+<div class="quick-book">
+  <div class="book-field">
+    <label>Специальность</label>
+    <select><option>Терапевт</option><option>Кардиолог</option><option>Невролог</option><option>Хирург</option></select>
+  </div>
+  <div class="book-field">
+    <label>Дата</label>
+    <input type="date">
+  </div>
+  <div class="book-field">
+    <label>Время</label>
+    <select><option>09:00</option><option>10:00</option><option>11:00</option><option>14:00</option></select>
+  </div>
+  <button class="btn" style="align-self:flex-end;height:42px;white-space:nowrap">Найти приём</button>
+</div>
+
+<div class="services" id="services">
+  <h2>Наши <span class="accent">специализации</span></h2>
+  <p class="section-sub">40+ направлений медицинской помощи</p>
+  <div class="services-grid">
+    <div class="svc-card"><div class="svc-icon">❤️</div><h3>Кардиология</h3><p>ЭКГ, УЗИ сердца, Холтер</p></div>
+    <div class="svc-card"><div class="svc-icon">🧠</div><h3>Неврология</h3><p>МРТ, консультации</p></div>
+    <div class="svc-card"><div class="svc-icon">🦷</div><h3>Стоматология</h3><p>Лечение, имплантация</p></div>
+    <div class="svc-card"><div class="svc-icon">👁️</div><h3>Офтальмология</h3><p>Диагностика, коррекция</p></div>
+    <div class="svc-card"><div class="svc-icon">🦴</div><h3>Ортопедия</h3><p>Суставы, позвоночник</p></div>
+    <div class="svc-card"><div class="svc-icon">🔬</div><h3>Лаборатория</h3><p>2000+ анализов</p></div>
+    <div class="svc-card"><div class="svc-icon">🤰</div><h3>Гинекология</h3><p>Ведение беременности</p></div>
+    <div class="svc-card"><div class="svc-icon">🧒</div><h3>Педиатрия</h3><p>От рождения до 18 лет</p></div>
+  </div>
+</div>
+
+<div class="doctors" id="doctors">
+  <h2>Наши <span class="accent">специалисты</span></h2>
+  <p class="section-sub">Врачи высшей категории с международным опытом</p>
+  <div class="doctors-grid">
+    <div class="doctor-card"><div class="doctor-photo">👨‍⚕️</div><div class="doctor-info"><div class="doctor-name">Ахметов Бейбут</div><div class="doctor-spec">Кардиолог</div><div class="doctor-exp">Опыт: 18 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Смирнова Ольга</div><div class="doctor-spec">Невролог</div><div class="doctor-exp">Опыт: 14 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card"><div class="doctor-photo">🧑‍⚕️</div><div class="doctor-info"><div class="doctor-name">Касенов Ерлан</div><div class="doctor-spec">Хирург</div><div class="doctor-exp">Опыт: 20 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Нурланова Айгуль</div><div class="doctor-spec">Педиатр</div><div class="doctor-exp">Опыт: 10 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+  </div>
+</div>
+
+<div class="trust">
+  <div class="trust-grid">
+    <div><div class="trust-num">25 000+</div><div class="trust-label">Пациентов в год</div></div>
+    <div><div class="trust-num">40+</div><div class="trust-label">Специализаций</div></div>
+    <div><div class="trust-num">120+</div><div class="trust-label">Врачей</div></div>
+    <div><div class="trust-num">15</div><div class="trust-label">Лет на рынке</div></div>
+  </div>
+</div>
+
+<div class="reviews" id="reviews">
+  <div style="max-width:1000px;margin:0 auto;text-align:center">
+    <h2>Отзывы <span class="accent">пациентов</span></h2>
+    <p class="section-sub">Более 4.9★ на 2ГИС и Google</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">Отличная клиника! Быстро записали, врач уделил достаточно времени. Диагностика на современном оборудовании. Рекомендую.</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Алия М.</div><div class="reviewer-dept">Кардиология</div></div></div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">Привела ребёнка к педиатру. Доктор очень внимательный, всё объяснил понятно. Анализы готовы через 2 часа. Спасибо!</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Светлана К.</div><div class="reviewer-dept">Педиатрия</div></div></div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">Делал МРТ. Результаты с описанием получил сразу. Врач подробно всё объяснил и выписал лечение. Очень доволен.</p><div class="reviewer"><div class="reviewer-avatar">👨</div><div><div class="reviewer-name">Нурлан Б.</div><div class="reviewer-dept">Неврология</div></div></div></div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Запишитесь прямо сейчас</h2>
+  <p>Консультация кардиолога или терапевта — сегодня. Без очередей.</p>
+  <button class="btn-white" style="font-size:16px;padding:16px 40px">Записаться онлайн</button>
+</div>
+
+<footer>
+  <div><div style="font-size:18px;font-weight:700;margin-bottom:4px">МедЦентр Здоровье</div><div class="footer-info">ул. Республики 5 · Пн–Вс 8:00–21:00</div></div>
+  <div class="footer-info" style="text-align:right">📞 8-800-555-35-35 (бесплатно)<br>© 2026 МедЦентр Здоровье</div>
+</footer>
+</body>
+</html>

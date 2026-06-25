@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EventPro — Организация мероприятий</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f0a1e;--card:#1a1030;--border:#2d1f5e;--accent:#e040fb;--accent2:#7c4dff;--gold:#ffd740;--text:#f3f0ff;--muted:#9e9ab8}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+nav{padding:20px 80px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(15,10,30,.9);backdrop-filter:blur(12px);z-index:100}
+.logo{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
+.nav-links a:hover{color:var(--accent)}
+.btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 80px;position:relative;overflow:hidden;text-align:center}
+.confetti{position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="20" cy="30" r="3" fill="%23e040fb" opacity=".4"/><circle cx="80" cy="70" r="2" fill="%23ffd740" opacity=".5"/><circle cx="150" cy="40" r="4" fill="%237c4dff" opacity=".3"/><circle cx="50" cy="140" r="3" fill="%23e040fb" opacity=".4"/><circle cx="180" cy="120" r="2" fill="%23ffd740" opacity=".5"/><rect x="100" y="100" width="6" height="6" fill="%237c4dff" opacity=".4" transform="rotate(45,103,103)"/><rect x="30" y="160" width="5" height="5" fill="%23e040fb" opacity=".3" transform="rotate(30,32.5,162.5)"/></svg>') repeat;animation:float 8s linear infinite}
+@keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-200px)}}
+.hero-content{position:relative;z-index:1;max-width:800px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(224,64,251,.15);border:1px solid rgba(224,64,251,.3);color:var(--accent);font-size:12px;font-weight:700;padding:8px 20px;border-radius:100px;margin-bottom:32px;letter-spacing:1px}
+h1{font-size:clamp(48px,7vw,90px);font-weight:900;line-height:1;letter-spacing:-2px;margin-bottom:24px}
+.gold{color:var(--gold)}
+.hero p{font-size:18px;color:var(--muted);max-width:520px;margin:0 auto 48px;line-height:1.7}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:80px}
+.btn-lg{padding:18px 40px;font-size:16px;border-radius:10px}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:18px 40px;font-size:16px;border-radius:10px;cursor:pointer;transition:.2s}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-n{font-size:40px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hstat-l{font-size:13px;color:var(--muted)}
+.services{padding:100px 80px;max-width:1200px;margin:0 auto}
+h2{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+.section-sub{color:var(--muted);font-size:16px;margin-bottom:60px}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.svc-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;transition:.3s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(224,64,251,.08),transparent 60%);opacity:0;transition:.3s}
+.svc-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.svc-card:hover::before{opacity:1}
+.svc-icon{font-size:44px;margin-bottom:20px}
+.svc-card h3{font-size:20px;font-weight:800;margin-bottom:10px}
+.svc-card p{color:var(--muted);font-size:14px;line-height:1.7}
+.portfolio{padding:0 80px 100px;max-width:1200px;margin:0 auto}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.port-card{border-radius:12px;overflow:hidden;position:relative;min-height:240px;cursor:pointer}
+.port-card:hover .port-overlay{opacity:1}
+.port-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:70px}
+.p1{background:linear-gradient(135deg,#1a0533,#7c1fa8,#e040fb)}
+.p2{background:linear-gradient(135deg,#0a1628,#1565c0,#42a5f5)}
+.p3{background:linear-gradient(135deg,#1a1000,#f57f17,#ffd740)}
+.p4{background:linear-gradient(135deg,#0a2818,#1b5e20,#66bb6a)}
+.p5{background:linear-gradient(135deg,#1a0a0a,#b71c1c,#ef5350)}
+.p6{background:linear-gradient(135deg,#0a0a1a,#1a237e,#3f51b5)}
+.port-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:.3s;padding:20px;text-align:center}
+.port-overlay h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.port-overlay p{font-size:13px;color:rgba(255,255,255,.7)}
+.process{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px}
+.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;max-width:1000px;margin:60px auto 0}
+.pstep{text-align:center;position:relative}
+.pstep:not(:last-child)::after{content:'→';position:absolute;right:-20px;top:24px;color:var(--accent);font-size:20px}
+.step-circle{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;margin:0 auto 16px}
+.pstep h3{font-size:15px;font-weight:700;margin-bottom:8px}
+.pstep p{font-size:13px;color:var(--muted)}
+.cta-section{padding:100px 80px;text-align:center}
+.cta-section h2{margin-bottom:16px}
+.cta-section p{color:var(--muted);font-size:17px;margin-bottom:40px}
+footer{padding:32px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+footer p{color:var(--muted);font-size:13px}
+@media(max-width:768px){nav,.hero,.services,.portfolio,.process,.cta-section,footer{padding-left:24px;padding-right:24px}.portfolio-grid{grid-template-columns:1fr}.hero-stats{gap:30px}.pstep::after{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">EventPro ✨</div>
+  <div class="nav-links"><a href="#services">Услуги</a><a href="#portfolio">Кейсы</a><a href="#">Контакт</a></div>
+  <button class="btn">Обсудить проект</button>
+</nav>
+
+<section class="hero">
+  <div class="confetti"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✨ Более 500 мероприятий</div>
+    <h1>Делаем события<br><span class="gold">незабываемыми</span></h1>
+    <p>Корпоративы, конференции, свадьбы и частные праздники. Берём на себя всё — от идеи до последнего гостя.</p>
+    <div class="hero-cta">
+      <button class="btn btn-lg">Запланировать событие</button>
+      <button class="btn-outline">Смотреть кейсы</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">500+</div><div class="hstat-l">Мероприятий</div></div>
+      <div class="hstat"><div class="hstat-n">50 000+</div><div class="hstat-l">Довольных гостей</div></div>
+      <div class="hstat"><div class="hstat-n">10</div><div class="hstat-l">Лет опыта</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <h2>Наши <span style="color:var(--accent)">услуги</span></h2>
+  <p class="section-sub">Полный цикл организации любого мероприятия</p>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-icon">🏢</div><h3>Корпоративные события</h3><p>Тимбилдинги, юбилеи компании, корпоративы, конференции. Под ключ для 20–5000 гостей.</p></div>
+    <div class="svc-card"><div class="svc-icon">💍</div><h3>Свадьбы и торжества</h3><p>Свадьбы, помолвки, юбилеи. Декор, кейтеринг, ведущий, фото и видео — всё включено.</p></div>
+    <div class="svc-card"><div class="svc-icon">🎤</div><h3>Концерты и шоу</h3><p>Организация концертов, stand-up вечеров, театральных постановок. Сцена, звук, свет.</p></div>
+    <div class="svc-card"><div class="svc-icon">🎓</div><h3>Конференции</h3><p>Деловые конференции, форумы, выставки. Регистрация, трансляция, нетворкинг-зоны.</p></div>
+    <div class="svc-card"><div class="svc-icon">🎉</div><h3>Частные праздники</h3><p>Дни рождения, вечеринки, детские праздники. Аниматоры, декор, шоу-программа.</p></div>
+    <div class="svc-card"><div class="svc-icon">🎨</div><h3>Декор и флористика</h3><p>Оформление пространства под любую концепцию. Цветы, конструкции, световое шоу.</p></div>
+  </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <h2>Наши <span style="color:var(--gold)">кейсы</span></h2>
+  <p class="section-sub">Избранные проекты 2024–2026</p>
+  <div class="portfolio-grid">
+    <div class="port-card"><div class="port-bg p1">🎪</div><div class="port-overlay"><h3>FestivalPro 2025</h3><p>Музыкальный фестиваль · 15 000 гостей</p></div></div>
+    <div class="port-card"><div class="port-bg p2">🏢</div><div class="port-overlay"><h3>Samruk Conference</h3><p>Корпоративная конференция · 800 участников</p></div></div>
+    <div class="port-card"><div class="port-bg p3">💍</div><div class="port-overlay"><h3>Свадьба Айгуль & Нурлана</h3><p>Роскошная свадьба · 300 гостей</p></div></div>
+    <div class="port-card"><div class="port-bg p4">🎓</div><div class="port-overlay"><h3>EdTech Forum 2026</h3><p>Образовательный форум · 1200 участников</p></div></div>
+    <div class="port-card"><div class="port-bg p5">🎭</div><div class="port-overlay"><h3>Stand-Up Night</h3><p>Серия концертов · 5 городов</p></div></div>
+    <div class="port-card"><div class="port-bg p6">🎉</div><div class="port-overlay"><h3>New Year Corporate</h3><p>Корпоратив BI Group · 2000 гостей</p></div></div>
+  </div>
+</section>
+
+<section class="process">
+  <div style="text-align:center"><h2>Как мы <span style="color:var(--accent)">работаем</span></h2></div>
+  <div class="process-steps">
+    <div class="pstep"><div class="step-circle">1</div><h3>Бриф</h3><p>Узнаём все детали: формат, бюджет, пожелания</p></div>
+    <div class="pstep"><div class="step-circle">2</div><h3>Концепция</h3><p>Разрабатываем сценарий и визуальную концепцию</p></div>
+    <div class="pstep"><div class="step-circle">3</div><h3>Подготовка</h3><p>Подбираем площадку, подрядчиков, логистику</p></div>
+    <div class="pstep"><div class="step-circle">4</div><h3>Реализация</h3><p>Проводим мероприятие, управляем каждым моментом</p></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Готовы создать <span style="color:var(--gold)">магию?</span></h2>
+  <p>Расскажите о вашем мероприятии — рассчитаем стоимость бесплатно</p>
+  <button class="btn btn-lg">Получить расчёт стоимости</button>
+</section>
+
+<footer>
+  <div style="font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">EventPro ✨</div>
+  <p>events@eventpro.kz · +7 (777) 500-10-20 · Алматы</p>
+  <p>© 2026 EventPro. Ваше событие — наша гордость</p>
+</footer>
+</body>
+</html>

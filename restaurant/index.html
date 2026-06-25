@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ember — Ресторан высокой кухни</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0c0905;--card:#140e08;--border:#2a1f12;--accent:#c9963a;--accent2:#a67828;--text:#f5ede0;--muted:#8a7460;--light:#f9f0e4}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--text)}
+nav{padding:24px 80px;display:flex;justify-content:space-between;align-items:center;position:fixed;width:100%;z-index:100;background:linear-gradient(to bottom,rgba(12,9,5,.9),transparent)}
+.logo{font-size:28px;font-weight:400;letter-spacing:4px;color:var(--accent);font-style:italic}
+.nav-links a{color:rgba(245,237,224,.7);text-decoration:none;font-size:13px;margin-left:32px;letter-spacing:1px;text-transform:uppercase;font-family:'Segoe UI',sans-serif;transition:.2s}
+.nav-links a:hover{color:var(--accent)}
+.btn{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:12px 28px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:100px 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(201,150,58,.08),transparent 60%),linear-gradient(to bottom,#0c0905,#1a1005)}
+.hero-decoration{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:300px;opacity:.03;pointer-events:none}
+.hero-content{position:relative;z-index:1}
+.hero-sub{font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--accent);font-family:'Segoe UI',sans-serif;margin-bottom:28px}
+h1{font-size:clamp(64px,9vw,120px);font-weight:400;letter-spacing:-2px;line-height:1;margin-bottom:28px;font-style:italic}
+.divider{width:60px;height:1px;background:var(--accent);margin:0 auto 28px}
+.hero p{font-size:16px;color:var(--muted);max-width:480px;margin:0 auto 48px;line-height:1.9;font-family:'Segoe UI',sans-serif;letter-spacing:.5px}
+.hero-cta{display:flex;gap:20px;justify-content:center}
+.btn-fill{background:var(--accent);color:var(--bg);border:none;padding:16px 40px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-fill:hover{background:var(--accent2)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);padding:16px 40px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.about{padding:120px 80px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;max-width:1100px;margin:0 auto}
+.about-visual{display:flex;align-items:center;justify-content:center;height:400px;background:linear-gradient(135deg,#1a0f05,#2d1a08);font-size:120px;border:1px solid var(--border);position:relative}
+.about-visual::before{content:'';position:absolute;inset:12px;border:1px solid rgba(201,150,58,.2)}
+.about-text h2{font-size:clamp(32px,4vw,48px);font-weight:400;margin-bottom:16px;font-style:italic;line-height:1.2}
+.about-text .gold{color:var(--accent)}
+.ornament{color:var(--accent);font-size:24px;margin-bottom:20px;display:block}
+.about-text p{color:var(--muted);font-size:15px;line-height:2;font-family:'Segoe UI',sans-serif;margin-bottom:24px}
+.menu-section{padding:0 80px 120px;text-align:center;max-width:900px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);font-family:'Segoe UI',sans-serif;margin-bottom:16px}
+h2{font-size:clamp(32px,4vw,52px);font-weight:400;font-style:italic;margin-bottom:48px}
+.menu-categories{display:flex;justify-content:center;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+.menu-cat{font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:'Segoe UI',sans-serif;color:var(--muted);cursor:pointer;padding-bottom:8px;border-bottom:1px solid transparent;transition:.2s}
+.menu-cat.active,.menu-cat:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.menu-items{display:flex;flex-direction:column;gap:0}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--border)}
+.menu-item:last-child{border-bottom:none}
+.item-left h3{font-size:18px;font-weight:400;margin-bottom:6px;font-style:italic}
+.item-left p{font-size:13px;color:var(--muted);font-family:'Segoe UI',sans-serif;max-width:400px;text-align:left}
+.item-price{font-size:18px;color:var(--accent);white-space:nowrap;font-family:'Segoe UI',sans-serif;margin-left:32px}
+.chef{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:100px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto}
+.chef-photo{height:420px;background:linear-gradient(135deg,#1a0f05,#3d2510);display:flex;align-items:center;justify-content:center;font-size:100px;border:1px solid var(--border)}
+.chef-info h2{margin-bottom:16px}
+.chef-info p{color:var(--muted);line-height:2;font-family:'Segoe UI',sans-serif;font-size:15px;margin-bottom:24px}
+.chef-awards{display:flex;flex-direction:column;gap:12px}
+.award{display:flex;align-items:center;gap:12px;font-family:'Segoe UI',sans-serif;font-size:13px;color:var(--muted)}
+.award::before{content:'✦';color:var(--accent)}
+.reservation{padding:120px 80px;text-align:center}
+.reservation h2{margin-bottom:16px}
+.reservation p{color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:15px;margin-bottom:48px}
+.res-form{display:flex;gap:16px;justify-content:center;max-width:700px;margin:0 auto;flex-wrap:wrap}
+.res-input{flex:1;min-width:150px;background:var(--card);border:1px solid var(--border);color:var(--text);padding:14px 20px;font-size:13px;font-family:'Segoe UI',sans-serif;outline:none;transition:.2s}
+.res-input:focus{border-color:var(--accent)}
+.info-strip{background:var(--card);border-top:1px solid var(--border);padding:40px 80px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:32px}
+.info-item{text-align:center}
+.info-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-family:'Segoe UI',sans-serif;margin-bottom:8px}
+.info-val{font-size:15px;color:var(--muted);font-family:'Segoe UI',sans-serif}
+footer{padding:32px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-size:22px;font-style:italic;color:var(--accent)}
+footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:1px}
+@media(max-width:900px){.about,.chef{grid-template-columns:1fr}}
+@media(max-width:768px){nav,.hero,.about,.menu-section,.chef,.reservation,.info-strip,footer{padding-left:24px;padding-right:24px}.menu-categories{gap:16px}.res-form{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Ember</div>
+  <div class="nav-links">
+    <a href="#menu">Меню</a><a href="#chef">Шеф</a><a href="#reservation">Резервация</a>
+  </div>
+  <button class="btn">Забронировать</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-decoration">🔥</div>
+  <div class="hero-content">
+    <div class="hero-sub">Ресторан высокой кухни</div>
+    <h1>Ember</h1>
+    <div class="divider"></div>
+    <p>Где огонь встречает изысканность. Авторская кухня, создающая воспоминания, которые остаются навсегда.</p>
+    <div class="hero-cta">
+      <button class="btn-fill">Забронировать стол</button>
+      <button class="btn-ghost">Посмотреть меню</button>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-visual">🍽️</div>
+  <div class="about-text">
+    <span class="ornament">✦</span>
+    <h2>Философия <span class="gold">вкуса</span></h2>
+    <p>Ember — это место, где каждое блюдо рассказывает историю. Мы работаем только с локальными производителями и сезонными продуктами, создавая меню, которое меняется вместе с природой.</p>
+    <p>Наш шеф провёл годы в лучших ресторанах Европы, прежде чем вернуться на родину, чтобы переосмыслить казахскую кухню через призму современной гастрономии.</p>
+    <button class="btn">Наша история</button>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <div class="section-label">Авторская кухня</div>
+  <h2>Сезонное меню</h2>
+  <div class="menu-categories">
+    <div class="menu-cat active">Закуски</div>
+    <div class="menu-cat">Основные</div>
+    <div class="menu-cat">Десерты</div>
+    <div class="menu-cat">Вина</div>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item"><div class="item-left"><h3>Тартар из говядины Wagyu</h3><p>Каперсы, трюфельное масло, желток перепелиного яйца, бриошь</p></div><div class="item-price">4 800 ₸</div></div>
+    <div class="menu-item"><div class="item-left"><h3>Карпаччо из осьминога</h3><p>Лимонный гель, базиликовое масло, хрустящий каперс</p></div><div class="item-price">3 600 ₸</div></div>
+    <div class="menu-item"><div class="item-left"><h3>Крем-суп из чёрного чеснока</h3><p>Пармская ветчина, трюфель, хрустящий лук</p></div><div class="item-price">2 800 ₸</div></div>
+    <div class="menu-item"><div class="item-left"><h3>Фуа-гра на бриоши</h3><p>Инжирный конфитюр, медовая глазурь, пряные орехи</p></div><div class="item-price">5 500 ₸</div></div>
+  </div>
+</section>
+
+<section class="chef" id="chef">
+  <div class="chef-photo">👨‍🍳</div>
+  <div class="chef-info">
+    <span class="ornament">✦</span>
+    <h2>Шеф <span class="gold">Азамат Нуров</span></h2>
+    <p>Обладатель звезды Michelin, прошедший стажировку в El Bulli и Fat Duck. Вернулся в Казахстан, чтобы создать нечто своё — кухню, где встречаются традиции Великой Степи и современная гастрономия.</p>
+    <div class="chef-awards">
+      <div class="award">Звезда Michelin Guide 2024</div>
+      <div class="award">Лучший ресторан Центральной Азии — Fine Dining Asia 2025</div>
+      <div class="award">Шеф года — Kazakhstan Culinary Awards 2023</div>
+    </div>
+  </div>
+</section>
+
+<section class="reservation" id="reservation">
+  <div class="section-label">Резервация</div>
+  <h2>Забронировать стол</h2>
+  <p>Рекомендуем бронировать за 2–3 дня. Возможен дегустационный сет для двух и более гостей.</p>
+  <div class="res-form">
+    <input class="res-input" type="text" placeholder="Ваше имя">
+    <input class="res-input" type="date">
+    <select class="res-input" style="cursor:pointer"><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option></select>
+    <select class="res-input" style="cursor:pointer"><option>2 гостя</option><option>3 гостя</option><option>4 гостя</option><option>5+ гостей</option></select>
+    <button class="btn-fill" style="white-space:nowrap">Забронировать</button>
+  </div>
+</section>
+
+<div class="info-strip">
+  <div class="info-item"><div class="info-label">Адрес</div><div class="info-val">ул. Кунаева 77, Алматы</div></div>
+  <div class="info-item"><div class="info-label">Часы работы</div><div class="info-val">Вт–Вс · 18:00 – 23:30</div></div>
+  <div class="info-item"><div class="info-label">Резервации</div><div class="info-val">+7 (727) 400-88-99</div></div>
+  <div class="info-item"><div class="info-label">Дресс-код</div><div class="info-val">Smart casual</div></div>
+</div>
+
+<footer>
+  <div class="footer-logo">Ember</div>
+  <p>© 2026 Ember Restaurant · Алматы</p>
+  <p>Instagram · Facebook · TripAdvisor</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NexChain — Web3 DeFi платформа</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#060612;--card:#0d0d1f;--border:#1a1a3e;--accent:#7c3aed;--accent2:#06b6d4;--neon:#a855f7;--text:#f1f5f9;--muted:#64748b;--green:#10b981}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+.glow{position:fixed;pointer-events:none;z-index:0;width:600px;height:600px;border-radius:50%;filter:blur(120px);opacity:.15}
+.glow1{background:var(--accent);top:-100px;left:-100px}
+.glow2{background:var(--accent2);bottom:-100px;right:-100px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 80px;position:relative;z-index:10;border-bottom:1px solid var(--border)}
+.logo{font-size:22px;font-weight:800;letter-spacing:-0.5px}
+.logo span{color:var(--neon)}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.btn{background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.btn:hover{opacity:.85}
+.hero{padding:120px 80px 80px;text-align:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);color:var(--neon);font-size:12px;padding:6px 16px;border-radius:100px;margin-bottom:32px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+h1{font-size:clamp(44px,6vw,80px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:20px}
+.gradient{background:linear-gradient(135deg,var(--accent),var(--neon),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:18px;color:var(--muted);max-width:520px;margin:0 auto 40px;line-height:1.7}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:80px}
+.btn-lg{padding:16px 36px;font-size:16px;border-radius:10px}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:16px 36px;font-size:16px;border-radius:10px;cursor:pointer;transition:.2s}
+.btn-outline:hover{border-color:var(--neon);color:var(--neon)}
+.ticker{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+.coin-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 28px;display:flex;align-items:center;gap:16px;min-width:180px}
+.coin-logo{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.coin-btc{background:linear-gradient(135deg,#f7931a,#ffd700)}
+.coin-eth{background:linear-gradient(135deg,#627eea,#a0aaff)}
+.coin-sol{background:linear-gradient(135deg,#9945ff,#14f195)}
+.coin-name{font-size:13px;font-weight:700}
+.coin-price{font-size:18px;font-weight:800}
+.coin-change{font-size:12px;color:var(--green)}
+section{padding:100px 80px;position:relative;z-index:1}
+h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-0.5px;margin-bottom:12px}
+.section-sub{color:var(--muted);font-size:16px;margin-bottom:60px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;transition:.3s;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,.05),transparent);opacity:0;transition:.3s}
+.feat-card:hover{border-color:rgba(168,85,247,.5);transform:translateY(-4px)}
+.feat-card:hover::before{opacity:1}
+.feat-icon{font-size:36px;margin-bottom:20px}
+.feat-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.feat-card p{color:var(--muted);font-size:14px;line-height:1.7}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:900px;margin:0 auto;text-align:center}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px}
+.stat-n{font-size:40px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-l{color:var(--muted);font-size:13px;margin-top:8px}
+.how{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;max-width:900px;margin:0 auto}
+.step{text-align:center}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;margin:0 auto 20px}
+.step h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.step p{color:var(--muted);font-size:13px}
+.cta-section{text-align:center;background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(6,182,212,.1));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cta-section h2{margin-bottom:16px}
+.cta-section p{color:var(--muted);margin-bottom:32px}
+footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-size:20px;font-weight:800}
+.footer-logo span{color:var(--neon)}
+footer p{color:var(--muted);font-size:13px}
+@media(max-width:768px){nav,section,footer{padding-left:24px;padding-right:24px}.stats-row{grid-template-columns:repeat(2,1fr)}.ticker{gap:12px}}
+</style>
+</head>
+<body>
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<nav>
+  <div class="logo">Nex<span>Chain</span></div>
+  <div class="nav-links">
+    <a href="#features">Продукты</a><a href="#how">Как работает</a><a href="#">Документация</a>
+  </div>
+  <button class="btn">Открыть приложение</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge"><span class="live-dot"></span>TVL: $2.4B · Live</div>
+  <h1>DeFi нового<br><span class="gradient">поколения</span></h1>
+  <p>Торгуй, стакай и зарабатывай на децентрализованных активах. Без посредников. Без доверия. Только код.</p>
+  <div class="hero-cta">
+    <button class="btn btn-lg">Подключить кошелёк</button>
+    <button class="btn-outline">Читать документацию</button>
+  </div>
+  <div class="ticker">
+    <div class="coin-card"><div class="coin-logo coin-btc">₿</div><div><div class="coin-name">Bitcoin</div><div class="coin-price">$67,450</div><div class="coin-change">▲ +2.3%</div></div></div>
+    <div class="coin-card"><div class="coin-logo coin-eth">Ξ</div><div><div class="coin-name">Ethereum</div><div class="coin-price">$3,820</div><div class="coin-change">▲ +1.8%</div></div></div>
+    <div class="coin-card"><div class="coin-logo coin-sol">◎</div><div><div class="coin-name">Solana</div><div class="coin-price">$185</div><div class="coin-change">▲ +4.1%</div></div></div>
+  </div>
+</section>
+
+<section id="features">
+  <h2>Продукты <span class="gradient">NexChain</span></h2>
+  <p class="section-sub">Всё для децентрализованных финансов в одном месте</p>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-icon">🔄</div><h3>DEX Свопы</h3><p>Торгуй 500+ токенами с минимальным slippage. Агрегируем ликвидность из 20+ протоколов.</p></div>
+    <div class="feat-card"><div class="feat-icon">💰</div><h3>Yield Farming</h3><p>APY до 340%. Автоматическая реинвестиция прибыли. Один клик — начинаешь зарабатывать.</p></div>
+    <div class="feat-card"><div class="feat-icon">🏦</div><h3>Lending & Borrowing</h3><p>Занимай под залог криптоактивов. Ставки от 2.5% APR. Без проверки кредитной истории.</p></div>
+    <div class="feat-card"><div class="feat-icon">🖼️</div><h3>NFT Маркетплейс</h3><p>Покупай, продавай и создавай NFT. Минимальная комиссия 1.5%. Поддержка 12 сетей.</p></div>
+    <div class="feat-card"><div class="feat-icon">🔐</div><h3>Кроссчейн мост</h3><p>Переводи активы между Ethereum, BNB, Polygon, Solana за секунды и копейки.</p></div>
+    <div class="feat-card"><div class="feat-icon">📊</div><h3>Portfolio Tracker</h3><p>Отслеживай все свои позиции в одном дашборде. PnL, история, аналитика.</p></div>
+  </div>
+</section>
+
+<section style="text-align:center">
+  <h2>Протокол в <span class="gradient">цифрах</span></h2>
+  <p class="section-sub" style="margin-bottom:40px">Рост с момента запуска</p>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-n">$2.4B</div><div class="stat-l">Total Value Locked</div></div>
+    <div class="stat-box"><div class="stat-n">1.2M</div><div class="stat-l">Активных кошельков</div></div>
+    <div class="stat-box"><div class="stat-n">12</div><div class="stat-l">Поддерживаемых сетей</div></div>
+    <div class="stat-box"><div class="stat-n">$45B</div><div class="stat-l">Объём торгов (всего)</div></div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div style="text-align:center;margin-bottom:60px">
+    <h2>Как начать за <span class="gradient">3 шага</span></h2>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h3>Подключи кошелёк</h3><p>MetaMask, WalletConnect, Coinbase Wallet — любой Web3 кошелёк</p></div>
+    <div class="step"><div class="step-num">2</div><h3>Пополни баланс</h3><p>Переведи крипту или купи прямо в приложении через карту</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Начни зарабатывать</h3><p>Торгуй, фармь, стакай — выбирай стратегию и получай доход</p></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Готов начать?</h2>
+  <p>Подключи кошелёк и исследуй DeFi без ограничений</p>
+  <button class="btn btn-lg">Открыть приложение</button>
+  <p style="margin-top:20px;font-size:13px;color:var(--muted)">Аудит безопасности: CertiK ✓ · Open source: GitHub ✓</p>
+</section>
+
+<footer>
+  <div class="footer-logo">Nex<span>Chain</span></div>
+  <p>© 2026 NexChain Protocol. Decentralized & Open Source.</p>
+  <p>Docs · GitHub · Discord · Twitter</p>
+</footer>
+</body>
+</html>

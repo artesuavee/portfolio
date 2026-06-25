@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Idris — Full-Stack & AI Developer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e1a;--card:#0f1526;--border:#1e2d4a;--accent:#00d9ff;--accent2:#0099cc;--green:#00ff88;--text:#e2e8f5;--muted:#6b7fa8;--purple:#7c3aed}
+body{font-family:'Cascadia Code','Fira Code',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+::selection{background:rgba(0,217,255,.2);color:var(--accent)}
+nav{padding:20px 80px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,14,26,.95);backdrop-filter:blur(12px);z-index:100}
+.nav-name{font-size:16px;font-weight:700;color:var(--accent)}
+.nav-name span{color:var(--muted)}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:24px;transition:.2s}
+.nav-links a::before{content:'./'}
+.nav-links a:hover{color:var(--accent)}
+.btn{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:10px 24px;font-size:13px;cursor:pointer;transition:.2s;font-family:inherit}
+.btn:hover{background:rgba(0,217,255,.1)}
+.hero{padding:120px 80px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
+.hero-left{}
+.prompt{color:var(--green);font-size:13px;margin-bottom:16px}
+.prompt::before{content:'$ '}
+h1{font-size:clamp(40px,5vw,64px);font-weight:700;line-height:1.15;margin-bottom:24px;letter-spacing:-1px}
+h1 .name{color:var(--accent);display:block}
+h1 .role{color:var(--muted);font-size:.7em;font-weight:400;font-family:'Segoe UI',sans-serif}
+.hero-desc{color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:36px;font-family:'Segoe UI',sans-serif}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+.btn-fill{background:var(--accent);color:var(--bg);border:none;padding:14px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+.btn-fill:hover{background:var(--accent2)}
+.hero-right{}
+.terminal{background:#000;border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.terminal-bar{background:#1a1a1a;padding:12px 16px;display:flex;align-items:center;gap:8px}
+.t-dot{width:12px;height:12px;border-radius:50%}
+.r{background:#ff5f57}.y{background:#febc2e}.g{background:#28c840}
+.terminal-body{padding:24px;font-size:13px;line-height:2}
+.cmd{color:var(--green)}
+.cmd::before{content:'› ';color:var(--accent)}
+.out{color:var(--muted)}
+.out.success{color:var(--green)}
+.out.info{color:var(--accent)}
+.blink{animation:blink .8s infinite}
+@keyframes blink{50%{opacity:0}}
+.skills{padding:80px;border-top:1px solid var(--border)}
+.skills-inner{max-width:1200px;margin:0 auto}
+h2{font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:12px}
+h2 .comment{color:var(--muted);font-weight:400;font-size:.7em}
+.section-sub{color:var(--muted);font-size:15px;margin-bottom:48px;font-family:'Segoe UI',sans-serif}
+.stack-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.stack-group{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:6px}
+.group-title{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.tech-tags{display:flex;flex-wrap:wrap;gap:8px}
+.tech-tag{background:rgba(0,217,255,.06);border:1px solid rgba(0,217,255,.15);color:var(--accent);font-size:12px;padding:4px 12px;border-radius:4px;transition:.2s}
+.tech-tag:hover{background:rgba(0,217,255,.12)}
+.tech-tag.green{border-color:rgba(0,255,136,.2);color:var(--green);background:rgba(0,255,136,.05)}
+.tech-tag.purple{border-color:rgba(124,58,237,.3);color:#a78bfa;background:rgba(124,58,237,.05)}
+.projects{padding:0 80px 80px;max-width:1200px;margin:0 auto}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.proj-card{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:6px;transition:.3s;position:relative;overflow:hidden}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--purple));opacity:0;transition:.3s}
+.proj-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.proj-card:hover::before{opacity:1}
+.proj-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.proj-icon{font-size:28px}
+.proj-links{display:flex;gap:12px}
+.proj-link{color:var(--muted);text-decoration:none;font-size:13px;transition:.2s}
+.proj-link:hover{color:var(--accent)}
+.proj-card h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.proj-card p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;font-family:'Segoe UI',sans-serif}
+.proj-stack{display:flex;flex-wrap:wrap;gap:6px}
+.ps{font-size:11px;color:var(--accent);background:rgba(0,217,255,.06);border:1px solid rgba(0,217,255,.1);padding:2px 8px}
+.contact{padding:80px;border-top:1px solid var(--border);text-align:center}
+.contact h2{margin-bottom:16px}
+.contact p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 36px;font-family:'Segoe UI',sans-serif}
+.contact-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
+.contact-link{color:var(--muted);text-decoration:none;font-size:14px;border:1px solid var(--border);padding:12px 24px;border-radius:4px;transition:.2s;display:flex;align-items:center;gap:8px}
+.contact-link:hover{border-color:var(--accent);color:var(--accent)}
+footer{padding:24px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+footer p{color:var(--muted);font-size:12px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.hero-right{display:none}}
+@media(max-width:768px){nav,.hero,.skills,.projects,.contact,footer{padding-left:24px;padding-right:24px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-name"><span>~/</span>idris.dev</div>
+  <div class="nav-links">
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+  </div>
+  <button class="btn">hire_me()</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="prompt">whoami</div>
+    <h1>
+      <span class="name">Idris K.</span>
+      Full-Stack &amp; AI<br>
+      <span class="role">Developer</span>
+    </h1>
+    <p class="hero-desc">Разрабатываю веб-приложения, Telegram-боты и AI-агентов на Claude API. TypeScript/Python/Node.js. Специализируюсь на интеграции LLM в продакшн-системы.</p>
+    <div class="hero-cta">
+      <button class="btn-fill">view_projects()</button>
+      <button class="btn">download_cv()</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
+        <span style="color:#666;font-size:12px;margin-left:8px">~/portfolio — zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div class="cmd">node --version</div>
+        <div class="out">v22.4.0</div>
+        <div class="cmd">python --version</div>
+        <div class="out">Python 3.12.4</div>
+        <div class="cmd">git log --oneline -5</div>
+        <div class="out info">a2c9ad3 Portfolio v2: 20 landings, 10 AI agents</div>
+        <div class="out">b091a1f Add mobile apps & chatbots</div>
+        <div class="out">4f46097 Bedel reviews bot MVP</div>
+        <div class="out">14f64ef Add Expo mobile apps</div>
+        <div class="out">aa0c6cf Add AI agents with FastAPI</div>
+        <div class="cmd">claude --version<span class="blink">█</span></div>
+        <div class="out success">Claude Code v1.0 · claude-sonnet-4-6</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="skills" id="skills">
+  <div class="skills-inner">
+    <h2>tech_stack <span class="comment">// всё что в деле</span></h2>
+    <p class="section-sub">Технологии с которыми работаю каждый день</p>
+    <div class="stack-groups">
+      <div class="stack-group">
+        <div class="group-title">// Frontend</div>
+        <div class="tech-tags">
+          <span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Next.js</span><span class="tech-tag">Tailwind CSS</span><span class="tech-tag">Three.js</span><span class="tech-tag">Vite</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="group-title">// Backend</div>
+        <div class="tech-tags">
+          <span class="tech-tag green">Python</span><span class="tech-tag green">FastAPI</span><span class="tech-tag green">Node.js</span><span class="tech-tag green">NestJS</span><span class="tech-tag green">PostgreSQL</span><span class="tech-tag green">Redis</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="group-title">// AI & Automation</div>
+        <div class="tech-tags">
+          <span class="tech-tag purple">Claude API</span><span class="tech-tag purple">Anthropic SDK</span><span class="tech-tag purple">LangChain</span><span class="tech-tag purple">RAG</span><span class="tech-tag purple">MCP</span><span class="tech-tag purple">aiogram</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="group-title">// Mobile & Tools</div>
+        <div class="tech-tags">
+          <span class="tech-tag">React Native</span><span class="tech-tag">Expo</span><span class="tech-tag">Docker</span><span class="tech-tag">Git</span><span class="tech-tag">Claude Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <h2>projects <span style="color:var(--muted);font-weight:400;font-size:.7em">// избранные</span></h2>
+  <p class="section-sub" style="margin-bottom:40px">Реальные продукты, не туториалы</p>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-header"><div class="proj-icon">🤖</div><div class="proj-links"><a class="proj-link" href="#">GitHub ↗</a><a class="proj-link" href="#">Demo ↗</a></div></div>
+      <h3>Bedel Reviews Bot</h3>
+      <p>SaaS-бот мониторинга отзывов 2ГИС. RAG-пайплайн, классификация тональности, async очередь уведомлений.</p>
+      <div class="proj-stack"><span class="ps">Python</span><span class="ps">Claude API</span><span class="ps">aiogram</span><span class="ps">RAG</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-header"><div class="proj-icon">📡</div><div class="proj-links"><a class="proj-link" href="#">GitHub ↗</a></div></div>
+      <h3>TG Vacancy Monitor</h3>
+      <p>Агрегатор вакансий: парсит 9 Telegram-каналов, LLM-оценка риска, фильтрация по стеку.</p>
+      <div class="proj-stack"><span class="ps">Python</span><span class="ps">Telethon</span><span class="ps">Claude</span><span class="ps">JSON</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-header"><div class="proj-icon">🏗️</div><div class="proj-links"><a class="proj-link" href="https://github.com/artesuavee/portfolio">GitHub ↗</a></div></div>
+      <h3>AI Agents Suite</h3>
+      <p>10 Python AI-агентов с FastAPI: HR-скрининг, контент-генератор, ресёрч агент, code review, переводчик.</p>
+      <div class="proj-stack"><span class="ps">Python</span><span class="ps">FastAPI</span><span class="ps">Claude API</span><span class="ps">Tool Use</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-header"><div class="proj-icon">📱</div><div class="proj-links"><a class="proj-link" href="https://github.com/artesuavee/portfolio">GitHub ↗</a></div></div>
+      <h3>Mobile Apps (Expo)</h3>
+      <p>5 мобильных приложений: трекер фитнеса, финансы, доставка еды, задачи, магазин. React Native + Expo.</p>
+      <div class="proj-stack"><span class="ps">React Native</span><span class="ps">Expo</span><span class="ps">AsyncStorage</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-header"><div class="proj-icon">🌐</div><div class="proj-links"><a class="proj-link" href="https://artesuavee.github.io/portfolio/">Live ↗</a></div></div>
+      <h3>Portfolio — 20 лендингов</h3>
+      <p>Коллекция из 20 адаптивных HTML/CSS лендингов для разных ниш. Three.js, 3D-эффекты, чистый код.</p>
+      <div class="proj-stack"><span class="ps">HTML</span><span class="ps">CSS</span><span class="ps">Three.js</span><span class="ps">Vanilla JS</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-header"><div class="proj-icon">💬</div><div class="proj-links"><a class="proj-link" href="https://github.com/artesuavee/portfolio">GitHub ↗</a></div></div>
+      <h3>Telegram Chatbots (×10)</h3>
+      <p>10 Telegram-ботов: ресторан, бронирование, FAQ, поддержка, квиз, аналитика и др. aiogram 3.x.</p>
+      <div class="proj-stack"><span class="ps">Python</span><span class="ps">aiogram 3</span><span class="ps">Claude</span><span class="ps">FSM</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>contact<span style="color:var(--muted);font-weight:400;font-size:.7em">() // пишите</span></h2>
+  <p>Открыт для фриланс-проектов, фулл-тайм и коллаборций. Отвечаю быстро.</p>
+  <div class="contact-links">
+    <a class="contact-link" href="#">✉️ Email</a>
+    <a class="contact-link" href="#">💬 Telegram</a>
+    <a class="contact-link" href="https://github.com/artesuavee/portfolio">🐙 GitHub</a>
+    <a class="contact-link" href="#">💼 LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <p>// Idris K. · Full-Stack & AI Developer · Kazakhstan</p>
+  <p style="color:var(--muted)">Built with ❤️ and Claude Code</p>
+</footer>
+</body>
+</html>
