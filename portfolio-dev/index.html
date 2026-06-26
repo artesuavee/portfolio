@@ -6,33 +6,62 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0a0e1a;--card:#0f1526;--border:#1e2d4a;--accent:#00d9ff;--accent2:#0099cc;--green:#00ff88;--text:#e2e8f5;--muted:#6b7fa8;--purple:#7c3aed}
-body{font-family:'Cascadia Code','Fira Code',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
-::selection{background:rgba(0,217,255,.2);color:var(--accent)}
+body{font-family:'Cascadia Code','Fira Code',monospace;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s ease,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(0,217,255,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .08s ease,top .08s ease}
+#cursor.clicked{transform:translate(-50%,-50%) scale(2)}
+
+/* MATRIX CANVAS */
+#matrix{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.08}
+
 nav{padding:20px 80px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,14,26,.95);backdrop-filter:blur(12px);z-index:100}
 .nav-name{font-size:16px;font-weight:700;color:var(--accent)}
 .nav-name span{color:var(--muted)}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:24px;transition:.2s}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:24px;transition:.2s;position:relative}
 .nav-links a::before{content:'./'}
 .nav-links a:hover{color:var(--accent)}
-.btn{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:10px 24px;font-size:13px;cursor:pointer;transition:.2s;font-family:inherit}
-.btn:hover{background:rgba(0,217,255,.1)}
-.hero{padding:120px 80px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
-.hero-left{}
-.prompt{color:var(--green);font-size:13px;margin-bottom:16px}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--accent);transition:.3s}
+.nav-links a:hover::after{width:100%}
+.btn{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:10px 24px;font-size:13px;cursor:pointer;transition:.3s;font-family:inherit;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);transition:.3s;z-index:0}
+.btn:hover{color:var(--bg)}
+.btn:hover::before{transform:translateX(0)}
+.btn span{position:relative;z-index:1}
+
+/* HERO */
+.hero{padding:120px 80px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.prompt{color:var(--green);font-size:13px;margin-bottom:16px;opacity:.8}
 .prompt::before{content:'$ '}
+
+/* GLITCH */
 h1{font-size:clamp(40px,5vw,64px);font-weight:700;line-height:1.15;margin-bottom:24px;letter-spacing:-1px}
-h1 .name{color:var(--accent);display:block}
+.name{color:var(--accent);display:block;position:relative}
+.name.glitch{animation:glitch 3s infinite}
+@keyframes glitch{
+  0%,90%,100%{text-shadow:none;clip-path:none}
+  91%{text-shadow:2px 0 #ff0040,-2px 0 #00d9ff;clip-path:inset(0 0 95% 0)}
+  92%{text-shadow:-2px 0 #ff0040,2px 0 #00d9ff;clip-path:inset(40% 0 50% 0)}
+  93%{text-shadow:2px 0 #ff0040,-2px 0 #00d9ff;clip-path:inset(0 0 95% 0)}
+  94%{text-shadow:none}
+}
 h1 .role{color:var(--muted);font-size:.7em;font-weight:400;font-family:'Segoe UI',sans-serif}
+
 .hero-desc{color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:36px;font-family:'Segoe UI',sans-serif}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
-.btn-fill{background:var(--accent);color:var(--bg);border:none;padding:14px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+.btn-fill{background:var(--accent);color:var(--bg);border:none;padding:14px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s;position:relative;overflow:hidden}
+.btn-fill::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%);transition:.5s}
+.btn-fill:hover::after{width:300px;height:300px;opacity:0}
 .btn-fill:hover{background:var(--accent2)}
-.hero-right{}
-.terminal{background:#000;border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.terminal-bar{background:#1a1a1a;padding:12px 16px;display:flex;align-items:center;gap:8px}
+
+/* TERMINAL */
+.terminal{background:#000;border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(0,217,255,.05);position:relative}
+.terminal::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px);pointer-events:none;z-index:1}
+.terminal-bar{background:#1a1a1a;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2a2a2a}
 .t-dot{width:12px;height:12px;border-radius:50%}
 .r{background:#ff5f57}.y{background:#febc2e}.g{background:#28c840}
-.terminal-body{padding:24px;font-size:13px;line-height:2}
+.terminal-body{padding:24px;font-size:13px;line-height:2;min-height:280px}
 .cmd{color:var(--green)}
 .cmd::before{content:'› ';color:var(--accent)}
 .out{color:var(--muted)}
@@ -40,27 +69,44 @@ h1 .role{color:var(--muted);font-size:.7em;font-weight:400;font-family:'Segoe UI
 .out.info{color:var(--accent)}
 .blink{animation:blink .8s infinite}
 @keyframes blink{50%{opacity:0}}
-.skills{padding:80px;border-top:1px solid var(--border)}
+
+/* SCAN LINE */
+.terminal-scan{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(0,217,255,.3),transparent);animation:scanDown 4s linear infinite;pointer-events:none;z-index:2}
+@keyframes scanDown{0%{top:0;opacity:.6}100%{top:100%;opacity:0}}
+
+/* SKILLS */
+.skills{padding:80px;border-top:1px solid var(--border);position:relative;z-index:1}
 .skills-inner{max-width:1200px;margin:0 auto}
 h2{font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:12px}
 h2 .comment{color:var(--muted);font-weight:400;font-size:.7em}
 .section-sub{color:var(--muted);font-size:15px;margin-bottom:48px;font-family:'Segoe UI',sans-serif}
 .stack-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
-.stack-group{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:6px}
+.stack-group{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:6px;transition:.3s;position:relative;overflow:hidden}
+.stack-group::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,217,255,.04),transparent);animation:groupShimmer 4s ease-in-out infinite}
+@keyframes groupShimmer{0%{left:-100%}100%{left:200%}}
+.stack-group:hover{border-color:rgba(0,217,255,.3);transform:translateY(-2px)}
 .group-title{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
 .tech-tags{display:flex;flex-wrap:wrap;gap:8px}
-.tech-tag{background:rgba(0,217,255,.06);border:1px solid rgba(0,217,255,.15);color:var(--accent);font-size:12px;padding:4px 12px;border-radius:4px;transition:.2s}
-.tech-tag:hover{background:rgba(0,217,255,.12)}
+.tech-tag{background:rgba(0,217,255,.06);border:1px solid rgba(0,217,255,.15);color:var(--accent);font-size:12px;padding:4px 12px;border-radius:4px;transition:.25s;cursor:default}
+.tech-tag:hover{background:rgba(0,217,255,.15);border-color:var(--accent);transform:scale(1.05)}
 .tech-tag.green{border-color:rgba(0,255,136,.2);color:var(--green);background:rgba(0,255,136,.05)}
+.tech-tag.green:hover{background:rgba(0,255,136,.12);border-color:var(--green)}
 .tech-tag.purple{border-color:rgba(124,58,237,.3);color:#a78bfa;background:rgba(124,58,237,.05)}
-.projects{padding:0 80px 80px;max-width:1200px;margin:0 auto}
+.tech-tag.purple:hover{background:rgba(124,58,237,.12);border-color:#a78bfa}
+
+/* PROJECTS */
+.projects{padding:0 80px 80px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
-.proj-card{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:6px;transition:.3s;position:relative;overflow:hidden}
-.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--purple));opacity:0;transition:.3s}
-.proj-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.proj-card{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:6px;transition:.4s;position:relative;overflow:hidden;cursor:pointer}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--purple));opacity:0;transition:.4s}
+/* Scanline effect on hover */
+.proj-card::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,217,255,.04),transparent);transition:left .6s ease;pointer-events:none}
+.proj-card:hover{border-color:rgba(0,217,255,.4);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4),0 0 0 1px rgba(0,217,255,.08)}
 .proj-card:hover::before{opacity:1}
+.proj-card:hover::after{left:150%}
 .proj-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-.proj-icon{font-size:28px}
+.proj-icon{font-size:28px;transition:.3s}
+.proj-card:hover .proj-icon{transform:scale(1.2) rotate(-5deg)}
 .proj-links{display:flex;gap:12px}
 .proj-link{color:var(--muted);text-decoration:none;font-size:13px;transition:.2s}
 .proj-link:hover{color:var(--accent)}
@@ -68,19 +114,33 @@ h2 .comment{color:var(--muted);font-weight:400;font-size:.7em}
 .proj-card p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;font-family:'Segoe UI',sans-serif}
 .proj-stack{display:flex;flex-wrap:wrap;gap:6px}
 .ps{font-size:11px;color:var(--accent);background:rgba(0,217,255,.06);border:1px solid rgba(0,217,255,.1);padding:2px 8px}
-.contact{padding:80px;border-top:1px solid var(--border);text-align:center}
+
+/* CONTACT */
+.contact{padding:80px;border-top:1px solid var(--border);text-align:center;position:relative;z-index:1}
 .contact h2{margin-bottom:16px}
 .contact p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 36px;font-family:'Segoe UI',sans-serif}
 .contact-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
-.contact-link{color:var(--muted);text-decoration:none;font-size:14px;border:1px solid var(--border);padding:12px 24px;border-radius:4px;transition:.2s;display:flex;align-items:center;gap:8px}
+.contact-link{color:var(--muted);text-decoration:none;font-size:14px;border:1px solid var(--border);padding:12px 24px;border-radius:4px;transition:.3s;display:flex;align-items:center;gap:8px;position:relative;overflow:hidden}
+.contact-link::before{content:'';position:absolute;inset:0;background:rgba(0,217,255,.05);opacity:0;transition:.3s}
 .contact-link:hover{border-color:var(--accent);color:var(--accent)}
-footer{padding:24px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.contact-link:hover::before{opacity:1}
+
+footer{padding:24px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
 footer p{color:var(--muted);font-size:12px}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.hero-right{display:none}}
+
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+[data-reveal].in{opacity:1;transform:none}
+
+@media(max-width:900px){.hero{grid-template-columns:1fr}.hero-right{display:none}body{cursor:auto}#cursor,#cursor-ring{display:none}}
 @media(max-width:768px){nav,.hero,.skills,.projects,.contact,footer{padding-left:24px;padding-right:24px}}
 </style>
 </head>
 <body>
+
+<canvas id="matrix"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
 <nav>
   <div class="nav-name"><span>~/</span>idris.dev</div>
   <div class="nav-links">
@@ -88,72 +148,60 @@ footer p{color:var(--muted);font-size:12px}
     <a href="#projects">projects</a>
     <a href="#contact">contact</a>
   </div>
-  <button class="btn">hire_me()</button>
+  <button class="btn"><span>hire_me()</span></button>
 </nav>
 
 <div class="hero">
   <div class="hero-left">
     <div class="prompt">whoami</div>
     <h1>
-      <span class="name">Idris K.</span>
+      <span class="name glitch" id="devname">Idris K.</span>
       Full-Stack &amp; AI<br>
       <span class="role">Developer</span>
     </h1>
     <p class="hero-desc">Разрабатываю веб-приложения, Telegram-боты и AI-агентов на Claude API. TypeScript/Python/Node.js. Специализируюсь на интеграции LLM в продакшн-системы.</p>
     <div class="hero-cta">
       <button class="btn-fill">view_projects()</button>
-      <button class="btn">download_cv()</button>
+      <button class="btn"><span>download_cv()</span></button>
     </div>
   </div>
   <div class="hero-right">
-    <div class="terminal">
+    <div class="terminal" style="position:relative">
+      <div class="terminal-scan"></div>
       <div class="terminal-bar">
         <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
         <span style="color:#666;font-size:12px;margin-left:8px">~/portfolio — zsh</span>
       </div>
-      <div class="terminal-body">
-        <div class="cmd">node --version</div>
-        <div class="out">v22.4.0</div>
-        <div class="cmd">python --version</div>
-        <div class="out">Python 3.12.4</div>
-        <div class="cmd">git log --oneline -5</div>
-        <div class="out info">a2c9ad3 Portfolio v2: 20 landings, 10 AI agents</div>
-        <div class="out">b091a1f Add mobile apps & chatbots</div>
-        <div class="out">4f46097 Bedel reviews bot MVP</div>
-        <div class="out">14f64ef Add Expo mobile apps</div>
-        <div class="out">aa0c6cf Add AI agents with FastAPI</div>
-        <div class="cmd">claude --version<span class="blink">█</span></div>
-        <div class="out success">Claude Code v1.0 · claude-sonnet-4-6</div>
-      </div>
+      <div class="terminal-body" id="terminal-body"></div>
     </div>
   </div>
 </div>
 
 <section class="skills" id="skills">
   <div class="skills-inner">
-    <h2>tech_stack <span class="comment">// всё что в деле</span></h2>
-    <p class="section-sub">Технологии с которыми работаю каждый день</p>
+    <h2 data-reveal>tech_stack <span class="comment">// всё что в деле</span></h2>
+    <p class="section-sub" data-reveal>Технологии с которыми работаю каждый день</p>
     <div class="stack-groups">
-      <div class="stack-group">
+      <div class="stack-group" data-reveal style="transition-delay:.05s">
         <div class="group-title">// Frontend</div>
         <div class="tech-tags">
-          <span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Next.js</span><span class="tech-tag">Tailwind CSS</span><span class="tech-tag">Three.js</span><span class="tech-tag">Vite</span>
+          <span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Next.js</span><span class="tech-tag">Tailwind</span><span class="tech-tag">Three.js</span><span class="tech-tag">Vite</span>
         </div>
       </div>
-      <div class="stack-group">
+      <div class="stack-group" data-reveal style="transition-delay:.10s">
         <div class="group-title">// Backend</div>
         <div class="tech-tags">
           <span class="tech-tag green">Python</span><span class="tech-tag green">FastAPI</span><span class="tech-tag green">Node.js</span><span class="tech-tag green">NestJS</span><span class="tech-tag green">PostgreSQL</span><span class="tech-tag green">Redis</span>
         </div>
       </div>
-      <div class="stack-group">
+      <div class="stack-group" data-reveal style="transition-delay:.15s">
         <div class="group-title">// AI & Automation</div>
         <div class="tech-tags">
           <span class="tech-tag purple">Claude API</span><span class="tech-tag purple">Anthropic SDK</span><span class="tech-tag purple">LangChain</span><span class="tech-tag purple">RAG</span><span class="tech-tag purple">MCP</span><span class="tech-tag purple">aiogram</span>
         </div>
       </div>
-      <div class="stack-group">
-        <div class="group-title">// Mobile & Tools</div>
+      <div class="stack-group" data-reveal style="transition-delay:.20s">
+        <div class="group-title">// Mobile & DevOps</div>
         <div class="tech-tags">
           <span class="tech-tag">React Native</span><span class="tech-tag">Expo</span><span class="tech-tag">Docker</span><span class="tech-tag">Git</span><span class="tech-tag">Claude Code</span>
         </div>
@@ -163,40 +211,40 @@ footer p{color:var(--muted);font-size:12px}
 </section>
 
 <section class="projects" id="projects">
-  <h2>projects <span style="color:var(--muted);font-weight:400;font-size:.7em">// избранные</span></h2>
-  <p class="section-sub" style="margin-bottom:40px">Реальные продукты, не туториалы</p>
+  <h2 data-reveal>projects <span style="color:var(--muted);font-weight:400;font-size:.7em">// избранные</span></h2>
+  <p class="section-sub" data-reveal style="margin-bottom:40px">Реальные продукты, не туториалы</p>
   <div class="proj-grid">
-    <div class="proj-card">
+    <div class="proj-card" data-reveal style="transition-delay:.05s">
       <div class="proj-header"><div class="proj-icon">🤖</div><div class="proj-links"><a class="proj-link" href="#">GitHub ↗</a><a class="proj-link" href="#">Demo ↗</a></div></div>
       <h3>Bedel Reviews Bot</h3>
       <p>SaaS-бот мониторинга отзывов 2ГИС. RAG-пайплайн, классификация тональности, async очередь уведомлений.</p>
       <div class="proj-stack"><span class="ps">Python</span><span class="ps">Claude API</span><span class="ps">aiogram</span><span class="ps">RAG</span></div>
     </div>
-    <div class="proj-card">
+    <div class="proj-card" data-reveal style="transition-delay:.10s">
       <div class="proj-header"><div class="proj-icon">📡</div><div class="proj-links"><a class="proj-link" href="#">GitHub ↗</a></div></div>
       <h3>TG Vacancy Monitor</h3>
       <p>Агрегатор вакансий: парсит 9 Telegram-каналов, LLM-оценка риска, фильтрация по стеку.</p>
       <div class="proj-stack"><span class="ps">Python</span><span class="ps">Telethon</span><span class="ps">Claude</span><span class="ps">JSON</span></div>
     </div>
-    <div class="proj-card">
+    <div class="proj-card" data-reveal style="transition-delay:.15s">
       <div class="proj-header"><div class="proj-icon">🏗️</div><div class="proj-links"><a class="proj-link" href="https://github.com/artesuavee/portfolio">GitHub ↗</a></div></div>
       <h3>AI Agents Suite</h3>
       <p>10 Python AI-агентов с FastAPI: HR-скрининг, контент-генератор, ресёрч агент, code review, переводчик.</p>
       <div class="proj-stack"><span class="ps">Python</span><span class="ps">FastAPI</span><span class="ps">Claude API</span><span class="ps">Tool Use</span></div>
     </div>
-    <div class="proj-card">
+    <div class="proj-card" data-reveal style="transition-delay:.20s">
       <div class="proj-header"><div class="proj-icon">📱</div><div class="proj-links"><a class="proj-link" href="https://github.com/artesuavee/portfolio">GitHub ↗</a></div></div>
       <h3>Mobile Apps (Expo)</h3>
       <p>5 мобильных приложений: трекер фитнеса, финансы, доставка еды, задачи, магазин. React Native + Expo.</p>
       <div class="proj-stack"><span class="ps">React Native</span><span class="ps">Expo</span><span class="ps">AsyncStorage</span></div>
     </div>
-    <div class="proj-card">
+    <div class="proj-card" data-reveal style="transition-delay:.25s">
       <div class="proj-header"><div class="proj-icon">🌐</div><div class="proj-links"><a class="proj-link" href="https://artesuavee.github.io/portfolio/">Live ↗</a></div></div>
       <h3>Portfolio — 20 лендингов</h3>
       <p>Коллекция из 20 адаптивных HTML/CSS лендингов для разных ниш. Three.js, 3D-эффекты, чистый код.</p>
       <div class="proj-stack"><span class="ps">HTML</span><span class="ps">CSS</span><span class="ps">Three.js</span><span class="ps">Vanilla JS</span></div>
     </div>
-    <div class="proj-card">
+    <div class="proj-card" data-reveal style="transition-delay:.30s">
       <div class="proj-header"><div class="proj-icon">💬</div><div class="proj-links"><a class="proj-link" href="https://github.com/artesuavee/portfolio">GitHub ↗</a></div></div>
       <h3>Telegram Chatbots (×10)</h3>
       <p>10 Telegram-ботов: ресторан, бронирование, FAQ, поддержка, квиз, аналитика и др. aiogram 3.x.</p>
@@ -207,7 +255,7 @@ footer p{color:var(--muted);font-size:12px}
 
 <section class="contact" id="contact">
   <h2>contact<span style="color:var(--muted);font-weight:400;font-size:.7em">() // пишите</span></h2>
-  <p>Открыт для фриланс-проектов, фулл-тайм и коллаборций. Отвечаю быстро.</p>
+  <p>Открыт для фриланс-проектов, фулл-тайм и коллабораций. Отвечаю быстро.</p>
   <div class="contact-links">
     <a class="contact-link" href="#">✉️ Email</a>
     <a class="contact-link" href="#">💬 Telegram</a>
@@ -220,5 +268,118 @@ footer p{color:var(--muted);font-size:12px}
   <p>// Idris K. · Full-Stack & AI Developer · Kazakhstan</p>
   <p style="color:var(--muted)">Built with ❤️ and Claude Code</p>
 </footer>
+
+<script>
+// ===== MATRIX RAIN =====
+const canvas = document.getElementById('matrix')
+const ctx = canvas.getContext('2d')
+let W, H, cols, drops
+
+function initMatrix(){
+  W = canvas.width = window.innerWidth
+  H = canvas.height = window.innerHeight
+  cols = Math.floor(W / 18)
+  drops = Array(cols).fill(1)
+}
+initMatrix()
+window.addEventListener('resize', initMatrix)
+
+const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>{}[];:'
+
+function drawMatrix(){
+  ctx.fillStyle = 'rgba(10,14,26,.06)'
+  ctx.fillRect(0,0,W,H)
+  ctx.font = '14px monospace'
+  drops.forEach((y, i) => {
+    ctx.fillStyle = i % 3 === 0 ? '#00d9ff' : '#006b80'
+    ctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*18, y*18)
+    if(y*18 > H && Math.random() > .975) drops[i] = 0
+    drops[i]++
+  })
+}
+setInterval(drawMatrix, 55)
+
+// ===== CUSTOM CURSOR =====
+const cur = document.getElementById('cursor')
+const ring = document.getElementById('cursor-ring')
+let mx=0, my=0, rx=0, ry=0
+
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY })
+;(function trackRing(){
+  rx += (mx-rx) * .12
+  ry += (my-ry) * .12
+  if(cur) { cur.style.left=mx+'px'; cur.style.top=my+'px' }
+  if(ring) { ring.style.left=rx+'px'; ring.style.top=ry+'px' }
+  requestAnimationFrame(trackRing)
+})()
+
+document.addEventListener('mousedown', ()=>cur?.classList.add('clicked'))
+document.addEventListener('mouseup', ()=>cur?.classList.remove('clicked'))
+
+// Hover effect on interactive elements
+document.querySelectorAll('a,button,.proj-card,.tech-tag').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    if(cur){ cur.style.transform='translate(-50%,-50%) scale(2)'; cur.style.background='rgba(0,217,255,.3)' }
+    if(ring){ ring.style.borderColor='rgba(0,217,255,.8)'; ring.style.width='60px'; ring.style.height='60px' }
+  })
+  el.addEventListener('mouseleave',()=>{
+    if(cur){ cur.style.transform='translate(-50%,-50%)'; cur.style.background='var(--accent)' }
+    if(ring){ ring.style.borderColor='rgba(0,217,255,.4)'; ring.style.width='36px'; ring.style.height='36px' }
+  })
+})
+
+// ===== TYPEWRITER TERMINAL =====
+const lines = [
+  {type:'cmd', text:'node --version'},
+  {type:'out', text:'v22.4.0'},
+  {type:'cmd', text:'python --version'},
+  {type:'out', text:'Python 3.12.4'},
+  {type:'cmd', text:'git log --oneline -5'},
+  {type:'info', text:'af0c87d Portfolio v2: animations & effects'},
+  {type:'out',  text:'e59425c Add 10 landings, AI agents, chatbots'},
+  {type:'out',  text:'4f46097 Bedel reviews bot MVP'},
+  {type:'out',  text:'14f64ef Add Expo mobile apps'},
+  {type:'cmd', text:'claude --version'},
+  {type:'success', text:'Claude Code v1.0 · claude-sonnet-4-6 ✓'},
+]
+
+const body = document.getElementById('terminal-body')
+let lineIdx = 0, charIdx = 0, currentEl = null
+
+function typeNext(){
+  if(lineIdx >= lines.length){
+    // Add blinking cursor at end
+    const c = document.createElement('span')
+    c.className='blink'; c.textContent='█'; c.style.color='var(--accent)'
+    body.appendChild(c)
+    return
+  }
+  const line = lines[lineIdx]
+  if(charIdx === 0){
+    currentEl = document.createElement('div')
+    currentEl.className = 'cmd' // will update class
+    if(line.type==='out') currentEl.className='out'
+    else if(line.type==='info') currentEl.className='out info'
+    else if(line.type==='success') currentEl.className='out success'
+    body.appendChild(currentEl)
+  }
+  const speed = line.type==='cmd' ? 60 : 20
+  currentEl.textContent = line.text.slice(0, charIdx+1)
+  charIdx++
+  if(charIdx < line.text.length){
+    setTimeout(typeNext, speed + Math.random()*30)
+  } else {
+    charIdx=0; lineIdx++
+    setTimeout(typeNext, line.type==='cmd' ? 300 : 80)
+  }
+}
+setTimeout(typeNext, 800)
+
+// ===== SCROLL REVEAL =====
+const io = new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting) e.target.classList.add('in')
+}),{threshold:.12})
+document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el))
+</script>
 </body>
 </html>

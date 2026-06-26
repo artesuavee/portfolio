@@ -6,81 +6,118 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0c0905;--card:#140e08;--border:#2a1f12;--accent:#c9963a;--accent2:#a67828;--text:#f5ede0;--muted:#8a7460;--light:#f9f0e4}
-body{font-family:'Georgia',serif;background:var(--bg);color:var(--text)}
-nav{padding:24px 80px;display:flex;justify-content:space-between;align-items:center;position:fixed;width:100%;z-index:100;background:linear-gradient(to bottom,rgba(12,9,5,.9),transparent)}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+#embers{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.7}
+
+nav{padding:24px 80px;display:flex;justify-content:space-between;align-items:center;position:fixed;width:100%;z-index:100;transition:.4s}
+nav.dark{background:rgba(12,9,5,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .logo{font-size:28px;font-weight:400;letter-spacing:4px;color:var(--accent);font-style:italic}
-.nav-links a{color:rgba(245,237,224,.7);text-decoration:none;font-size:13px;margin-left:32px;letter-spacing:1px;text-transform:uppercase;font-family:'Segoe UI',sans-serif;transition:.2s}
+.nav-links a{color:rgba(245,237,224,.7);text-decoration:none;font-size:13px;margin-left:32px;letter-spacing:1px;text-transform:uppercase;font-family:'Segoe UI',sans-serif;transition:.3s}
 .nav-links a:hover{color:var(--accent)}
-.btn{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:12px 28px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.2s}
-.btn:hover{background:var(--accent);color:var(--bg)}
+.nav-btn{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:12px 28px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
+.nav-btn::before{content:'';position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:.3s;z-index:0}
+.nav-btn span{position:relative;z-index:1}
+.nav-btn:hover{color:var(--bg)}
+.nav-btn:hover::before{transform:scaleX(1)}
+
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:100px 80px}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(201,150,58,.08),transparent 60%),linear-gradient(to bottom,#0c0905,#1a1005)}
-.hero-decoration{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:300px;opacity:.03;pointer-events:none}
-.hero-content{position:relative;z-index:1}
-.hero-sub{font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--accent);font-family:'Segoe UI',sans-serif;margin-bottom:28px}
-h1{font-size:clamp(64px,9vw,120px);font-weight:400;letter-spacing:-2px;line-height:1;margin-bottom:28px;font-style:italic}
-.divider{width:60px;height:1px;background:var(--accent);margin:0 auto 28px}
-.hero p{font-size:16px;color:var(--muted);max-width:480px;margin:0 auto 48px;line-height:1.9;font-family:'Segoe UI',sans-serif;letter-spacing:.5px}
-.hero-cta{display:flex;gap:20px;justify-content:center}
-.btn-fill{background:var(--accent);color:var(--bg);border:none;padding:16px 40px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(201,150,58,.1),transparent 60%),linear-gradient(to bottom,#0c0905,#1a1005);z-index:1}
+.hero-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:1}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(201,150,58,.06),transparent 70%);top:-100px;right:-100px;animation:orbDrift1 12s ease-in-out infinite}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(201,150,58,.04),transparent 70%);bottom:-80px;left:-80px;animation:orbDrift2 16s ease-in-out infinite}
+@keyframes orbDrift1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
+@keyframes orbDrift2{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+.hero-deco{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:300px;opacity:.025;pointer-events:none;z-index:1}
+.hero-content{position:relative;z-index:2}
+.hero-sub{font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--accent);font-family:'Segoe UI',sans-serif;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease .3s forwards}
+h1{font-size:clamp(64px,9vw,120px);font-weight:400;letter-spacing:-2px;line-height:1;margin-bottom:28px;font-style:italic;opacity:0;animation:fadeUp .8s ease .6s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.divider{width:60px;height:1px;background:var(--accent);margin:0 auto 28px;opacity:0;animation:fadeUp .8s ease .9s forwards}
+.hero p{font-size:16px;color:var(--muted);max-width:480px;margin:0 auto 48px;line-height:1.9;font-family:'Segoe UI',sans-serif;letter-spacing:.5px;opacity:0;animation:fadeUp .8s ease 1.1s forwards}
+.hero-cta{display:flex;gap:20px;justify-content:center;opacity:0;animation:fadeUp .8s ease 1.3s forwards}
+.btn-fill{background:var(--accent);color:var(--bg);border:none;padding:16px 40px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.3s}
 .btn-fill:hover{background:var(--accent2)}
-.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);padding:16px 40px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);padding:16px 40px;font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.3s}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-.about{padding:120px 80px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;max-width:1100px;margin:0 auto}
-.about-visual{display:flex;align-items:center;justify-content:center;height:400px;background:linear-gradient(135deg,#1a0f05,#2d1a08);font-size:120px;border:1px solid var(--border);position:relative}
+
+.about{padding:120px 80px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.about-visual{display:flex;align-items:center;justify-content:center;height:400px;background:linear-gradient(135deg,#1a0f05,#2d1a08);font-size:120px;border:1px solid var(--border);position:relative;overflow:hidden;transition:.4s}
 .about-visual::before{content:'';position:absolute;inset:12px;border:1px solid rgba(201,150,58,.2)}
+.about-visual::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,150,58,.08),transparent);animation:shimmer 3s ease-in-out infinite}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+.about-visual:hover{transform:scale(1.02);border-color:rgba(201,150,58,.4)}
 .about-text h2{font-size:clamp(32px,4vw,48px);font-weight:400;margin-bottom:16px;font-style:italic;line-height:1.2}
-.about-text .gold{color:var(--accent)}
+.gold{color:var(--accent)}
 .ornament{color:var(--accent);font-size:24px;margin-bottom:20px;display:block}
 .about-text p{color:var(--muted);font-size:15px;line-height:2;font-family:'Segoe UI',sans-serif;margin-bottom:24px}
-.menu-section{padding:0 80px 120px;text-align:center;max-width:900px;margin:0 auto}
+
+.menu-section{padding:0 80px 120px;text-align:center;max-width:900px;margin:0 auto;position:relative;z-index:2}
 .section-label{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);font-family:'Segoe UI',sans-serif;margin-bottom:16px}
 h2{font-size:clamp(32px,4vw,52px);font-weight:400;font-style:italic;margin-bottom:48px}
 .menu-categories{display:flex;justify-content:center;gap:32px;margin-bottom:48px;flex-wrap:wrap}
-.menu-cat{font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:'Segoe UI',sans-serif;color:var(--muted);cursor:pointer;padding-bottom:8px;border-bottom:1px solid transparent;transition:.2s}
+.menu-cat{font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:'Segoe UI',sans-serif;color:var(--muted);cursor:pointer;padding-bottom:8px;border-bottom:1px solid transparent;transition:.3s}
 .menu-cat.active,.menu-cat:hover{color:var(--accent);border-bottom-color:var(--accent)}
-.menu-items{display:flex;flex-direction:column;gap:0}
-.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--border)}
+.menu-items{display:flex;flex-direction:column}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--border);transition:.3s;position:relative;overflow:hidden;cursor:pointer}
+.menu-item::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(201,150,58,.05),transparent);opacity:0;transition:.3s}
+.menu-item:hover::before{opacity:1}
+.menu-item:hover{border-bottom-color:rgba(201,150,58,.4);padding-left:8px}
 .menu-item:last-child{border-bottom:none}
-.item-left h3{font-size:18px;font-weight:400;margin-bottom:6px;font-style:italic}
+.item-left h3{font-size:18px;font-weight:400;margin-bottom:6px;font-style:italic;transition:.2s}
+.menu-item:hover .item-left h3{color:var(--accent)}
 .item-left p{font-size:13px;color:var(--muted);font-family:'Segoe UI',sans-serif;max-width:400px;text-align:left}
-.item-price{font-size:18px;color:var(--accent);white-space:nowrap;font-family:'Segoe UI',sans-serif;margin-left:32px}
-.chef{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:100px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto}
-.chef-photo{height:420px;background:linear-gradient(135deg,#1a0f05,#3d2510);display:flex;align-items:center;justify-content:center;font-size:100px;border:1px solid var(--border)}
+.item-price{font-size:18px;color:var(--accent);white-space:nowrap;font-family:'Segoe UI',sans-serif;margin-left:32px;transition:.2s}
+.menu-item:hover .item-price{transform:scale(1.05)}
+
+.chef{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:100px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.chef-photo{height:420px;background:linear-gradient(135deg,#1a0f05,#3d2510);display:flex;align-items:center;justify-content:center;font-size:100px;border:1px solid var(--border);transition:.4s;position:relative;overflow:hidden}
+.chef-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,150,58,.03),transparent);opacity:0;transition:.4s}
+.chef-photo:hover{transform:scale(1.02)}
+.chef-photo:hover::after{opacity:1}
 .chef-info h2{margin-bottom:16px}
 .chef-info p{color:var(--muted);line-height:2;font-family:'Segoe UI',sans-serif;font-size:15px;margin-bottom:24px}
 .chef-awards{display:flex;flex-direction:column;gap:12px}
-.award{display:flex;align-items:center;gap:12px;font-family:'Segoe UI',sans-serif;font-size:13px;color:var(--muted)}
+.award{display:flex;align-items:center;gap:12px;font-family:'Segoe UI',sans-serif;font-size:13px;color:var(--muted);transition:.2s}
 .award::before{content:'✦';color:var(--accent)}
-.reservation{padding:120px 80px;text-align:center}
+.award:hover{color:var(--text);transform:translateX(4px)}
+
+.reservation{padding:120px 80px;text-align:center;position:relative;z-index:2}
 .reservation h2{margin-bottom:16px}
-.reservation p{color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:15px;margin-bottom:48px}
+.reservation > p{color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:15px;margin-bottom:48px}
 .res-form{display:flex;gap:16px;justify-content:center;max-width:700px;margin:0 auto;flex-wrap:wrap}
-.res-input{flex:1;min-width:150px;background:var(--card);border:1px solid var(--border);color:var(--text);padding:14px 20px;font-size:13px;font-family:'Segoe UI',sans-serif;outline:none;transition:.2s}
-.res-input:focus{border-color:var(--accent)}
-.info-strip{background:var(--card);border-top:1px solid var(--border);padding:40px 80px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:32px}
+.res-input{flex:1;min-width:150px;background:var(--card);border:1px solid var(--border);color:var(--text);padding:14px 20px;font-size:13px;font-family:'Segoe UI',sans-serif;outline:none;transition:.3s}
+.res-input:focus{border-color:var(--accent);box-shadow:0 0 0 1px rgba(201,150,58,.2)}
+
+.info-strip{background:var(--card);border-top:1px solid var(--border);padding:40px 80px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:32px;position:relative;z-index:2}
 .info-item{text-align:center}
 .info-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-family:'Segoe UI',sans-serif;margin-bottom:8px}
 .info-val{font-size:15px;color:var(--muted);font-family:'Segoe UI',sans-serif}
-footer{padding:32px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+footer{padding:32px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
 .footer-logo{font-size:22px;font-style:italic;color:var(--accent)}
 footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;letter-spacing:1px}
+
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+[data-reveal].in{opacity:1;transform:none}
 @media(max-width:900px){.about,.chef{grid-template-columns:1fr}}
-@media(max-width:768px){nav,.hero,.about,.menu-section,.chef,.reservation,.info-strip,footer{padding-left:24px;padding-right:24px}.menu-categories{gap:16px}.res-form{flex-direction:column}}
+@media(max-width:768px){nav,.hero,.about,.menu-section,.reservation,.info-strip,footer{padding-left:24px;padding-right:24px}}
 </style>
 </head>
 <body>
-<nav>
+<canvas id="embers"></canvas>
+<nav id="navbar">
   <div class="logo">Ember</div>
   <div class="nav-links">
     <a href="#menu">Меню</a><a href="#chef">Шеф</a><a href="#reservation">Резервация</a>
   </div>
-  <button class="btn">Забронировать</button>
+  <button class="nav-btn"><span>Забронировать</span></button>
 </nav>
 
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-decoration">🔥</div>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-deco">🔥</div>
   <div class="hero-content">
     <div class="hero-sub">Ресторан высокой кухни</div>
     <h1>Ember</h1>
@@ -94,36 +131,48 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
 </section>
 
 <section class="about" id="about">
-  <div class="about-visual">🍽️</div>
-  <div class="about-text">
+  <div class="about-visual" data-reveal>🍽️</div>
+  <div class="about-text" data-reveal style="transition-delay:.15s">
     <span class="ornament">✦</span>
     <h2>Философия <span class="gold">вкуса</span></h2>
     <p>Ember — это место, где каждое блюдо рассказывает историю. Мы работаем только с локальными производителями и сезонными продуктами, создавая меню, которое меняется вместе с природой.</p>
     <p>Наш шеф провёл годы в лучших ресторанах Европы, прежде чем вернуться на родину, чтобы переосмыслить казахскую кухню через призму современной гастрономии.</p>
-    <button class="btn">Наша история</button>
+    <button class="nav-btn"><span>Наша история</span></button>
   </div>
 </section>
 
 <section class="menu-section" id="menu">
-  <div class="section-label">Авторская кухня</div>
-  <h2>Сезонное меню</h2>
-  <div class="menu-categories">
+  <div class="section-label" data-reveal>Авторская кухня</div>
+  <h2 data-reveal>Сезонное меню</h2>
+  <div class="menu-categories" data-reveal>
     <div class="menu-cat active">Закуски</div>
     <div class="menu-cat">Основные</div>
     <div class="menu-cat">Десерты</div>
     <div class="menu-cat">Вина</div>
   </div>
   <div class="menu-items">
-    <div class="menu-item"><div class="item-left"><h3>Тартар из говядины Wagyu</h3><p>Каперсы, трюфельное масло, желток перепелиного яйца, бриошь</p></div><div class="item-price">4 800 ₸</div></div>
-    <div class="menu-item"><div class="item-left"><h3>Карпаччо из осьминога</h3><p>Лимонный гель, базиликовое масло, хрустящий каперс</p></div><div class="item-price">3 600 ₸</div></div>
-    <div class="menu-item"><div class="item-left"><h3>Крем-суп из чёрного чеснока</h3><p>Пармская ветчина, трюфель, хрустящий лук</p></div><div class="item-price">2 800 ₸</div></div>
-    <div class="menu-item"><div class="item-left"><h3>Фуа-гра на бриоши</h3><p>Инжирный конфитюр, медовая глазурь, пряные орехи</p></div><div class="item-price">5 500 ₸</div></div>
+    <div class="menu-item" data-reveal style="transition-delay:.05s">
+      <div class="item-left"><h3>Тартар из говядины Wagyu</h3><p>Каперсы, трюфельное масло, желток перепелиного яйца, бриошь</p></div>
+      <div class="item-price">4 800 ₸</div>
+    </div>
+    <div class="menu-item" data-reveal style="transition-delay:.10s">
+      <div class="item-left"><h3>Карпаччо из осьминога</h3><p>Лимонный гель, базиликовое масло, хрустящий каперс</p></div>
+      <div class="item-price">3 600 ₸</div>
+    </div>
+    <div class="menu-item" data-reveal style="transition-delay:.15s">
+      <div class="item-left"><h3>Крем-суп из чёрного чеснока</h3><p>Пармская ветчина, трюфель, хрустящий лук</p></div>
+      <div class="item-price">2 800 ₸</div>
+    </div>
+    <div class="menu-item" data-reveal style="transition-delay:.20s">
+      <div class="item-left"><h3>Фуа-гра на бриоши</h3><p>Инжирный конфитюр, медовая глазурь, пряные орехи</p></div>
+      <div class="item-price">5 500 ₸</div>
+    </div>
   </div>
 </section>
 
 <section class="chef" id="chef">
-  <div class="chef-photo">👨‍🍳</div>
-  <div class="chef-info">
+  <div class="chef-photo" data-reveal>👨‍🍳</div>
+  <div class="chef-info" data-reveal style="transition-delay:.15s">
     <span class="ornament">✦</span>
     <h2>Шеф <span class="gold">Азамат Нуров</span></h2>
     <p>Обладатель звезды Michelin, прошедший стажировку в El Bulli и Fat Duck. Вернулся в Казахстан, чтобы создать нечто своё — кухню, где встречаются традиции Великой Степи и современная гастрономия.</p>
@@ -136,15 +185,15 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
 </section>
 
 <section class="reservation" id="reservation">
-  <div class="section-label">Резервация</div>
-  <h2>Забронировать стол</h2>
-  <p>Рекомендуем бронировать за 2–3 дня. Возможен дегустационный сет для двух и более гостей.</p>
-  <div class="res-form">
+  <div class="section-label" data-reveal>Резервация</div>
+  <h2 data-reveal>Забронировать стол</h2>
+  <p data-reveal>Рекомендуем бронировать за 2–3 дня. Возможен дегустационный сет для двух и более гостей.</p>
+  <div class="res-form" data-reveal>
     <input class="res-input" type="text" placeholder="Ваше имя">
     <input class="res-input" type="date">
-    <select class="res-input" style="cursor:pointer"><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option></select>
-    <select class="res-input" style="cursor:pointer"><option>2 гостя</option><option>3 гостя</option><option>4 гостя</option><option>5+ гостей</option></select>
-    <button class="btn-fill" style="white-space:nowrap">Забронировать</button>
+    <select class="res-input" style="cursor:pointer;background:var(--card)"><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option></select>
+    <select class="res-input" style="cursor:pointer;background:var(--card)"><option>2 гостя</option><option>3 гостя</option><option>4 гостя</option><option>5+ гостей</option></select>
+    <button class="btn-fill">Забронировать</button>
   </div>
 </section>
 
@@ -160,5 +209,64 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
   <p>© 2026 Ember Restaurant · Алматы</p>
   <p>Instagram · Facebook · TripAdvisor</p>
 </footer>
+
+<script>
+// EMBER PARTICLES
+const canvas=document.getElementById('embers'),ctx=canvas.getContext('2d')
+let W,H
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize)
+
+class Ember{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*W; this.y=H+10
+    this.size=Math.random()*2.5+.8
+    this.speedY=-(Math.random()*1.4+.4)
+    this.speedX=(Math.random()-.5)*.6
+    this.life=1; this.decay=Math.random()*.007+.003
+    this.wobble=Math.random()*Math.PI*2
+    this.wobbleSpeed=Math.random()*.06+.02
+  }
+  update(){
+    this.wobble+=this.wobbleSpeed
+    this.x+=this.speedX+Math.sin(this.wobble)*.5
+    this.y+=this.speedY; this.life-=this.decay
+    if(this.life<=0||this.y<-10)this.reset()
+  }
+  draw(){
+    const a=this.life
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2)
+    ctx.fillStyle=`rgba(220,${Math.round(90*a)},10,${a*.75})`; ctx.fill()
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size*2.8,0,Math.PI*2)
+    ctx.fillStyle=`rgba(201,100,20,${a*.1})`; ctx.fill()
+  }
+}
+
+const embers=Array.from({length:80},()=>{const e=new Ember();e.y=Math.random()*H;return e})
+function animate(){ctx.clearRect(0,0,W,H);embers.forEach(e=>{e.update();e.draw()});requestAnimationFrame(animate)}
+animate()
+
+// STICKY NAV
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('dark',scrollY>60)})
+
+// PARALLAX HERO DECORATION
+window.addEventListener('scroll',()=>{
+  const d=document.querySelector('.hero-deco')
+  if(d) d.style.transform=`translateY(${scrollY*.3}px)`
+})
+
+// REVEAL
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12})
+document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el))
+
+// MENU TABS
+document.querySelectorAll('.menu-cat').forEach(cat=>{
+  cat.addEventListener('click',function(){
+    document.querySelectorAll('.menu-cat').forEach(c=>c.classList.remove('active'))
+    this.classList.add('active')
+  })
+})
+</script>
 </body>
 </html>

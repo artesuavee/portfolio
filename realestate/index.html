@@ -5,151 +5,332 @@
 <title>PrimeEstate — Агентство недвижимости</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#f9f7f4;--white:#fff;--accent:#b45309;--accent2:#92400e;--dark:#1c1917;--text:#292524;--muted:#78716c;--border:#e7e5e4;--light:#fef3c7}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
-nav{background:var(--white);border-bottom:1px solid var(--border);padding:18px 80px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;color:var(--dark)}
-.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
+:root{--bg:#f9f7f4;--card:#fff;--border:#e8e0d4;--dark:#1a1208;--accent:#b45309;--accent2:#92400e;--gold:#d4a017;--text:#1a1208;--muted:#78716c}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+nav{padding:20px 80px;display:flex;justify-content:space-between;align-items:center;position:fixed;width:100%;z-index:100;background:rgba(249,247,244,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.logo{font-size:20px;font-weight:800;letter-spacing:-1px;color:var(--dark)}
+.logo span{color:var(--accent)}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:28px;transition:.2s;letter-spacing:.5px}
 .nav-links a:hover{color:var(--accent)}
-.btn{background:var(--accent);color:#fff;border:none;padding:12px 28px;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
-.btn:hover{background:var(--accent2)}
-.hero{background:linear-gradient(135deg,#1c0f00,#3d1f00,#7c3d12);padding:100px 80px;color:#fff;display:flex;flex-direction:column;min-height:560px;justify-content:center;position:relative;overflow:hidden}
-.hero::after{content:'🏙️';position:absolute;right:5%;bottom:-10px;font-size:220px;opacity:.06}
-.hero-badge{display:inline-block;background:rgba(180,83,9,.3);border:1px solid rgba(180,83,9,.5);color:#fbbf24;font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 16px;border-radius:4px;margin-bottom:24px}
-h1{font-size:clamp(40px,5vw,68px);font-weight:900;line-height:1.1;margin-bottom:16px;max-width:700px;letter-spacing:-1px}
-h1 em{font-style:normal;color:#fbbf24}
-.hero p{font-size:17px;opacity:.85;max-width:500px;line-height:1.7;margin-bottom:40px}
-.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:60px}
-.btn-gold{background:#fbbf24;color:var(--dark);border:none;padding:16px 36px;border-radius:6px;font-size:15px;font-weight:800;cursor:pointer}
-.btn-outline-w{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:16px 36px;border-radius:6px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
-.btn-outline-w:hover{border-color:#fff}
-.hero-trust{display:flex;gap:48px;flex-wrap:wrap}
-.htrust{color:rgba(255,255,255,.9)}
-.htrust-n{font-size:36px;font-weight:900;color:#fbbf24}
-.htrust-l{font-size:13px;opacity:.7;margin-top:2px}
-.search{background:var(--white);border-radius:10px;padding:24px 28px;max-width:900px;margin:-40px auto 0;position:relative;z-index:10;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
-.sf{flex:1;min-width:140px}
-.sf label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
-.sf select,.sf input{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;background:var(--bg)}
-.sf select:focus,.sf input:focus{border-color:var(--accent);background:#fff}
-.listings{padding:120px 80px 80px;max-width:1200px;margin:0 auto}
-h2{font-size:clamp(28px,3.5vw,42px);font-weight:900;margin-bottom:12px;letter-spacing:-0.5px}
-.accent{color:var(--accent)}
-.section-sub{color:var(--muted);font-size:16px;margin-bottom:56px}
-.prop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px}
-.prop-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:.3s;cursor:pointer}
-.prop-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.12);transform:translateY(-4px)}
-.prop-img{height:220px;display:flex;align-items:center;justify-content:center;font-size:70px;position:relative}
-.pi1{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)}
-.pi2{background:linear-gradient(135deg,#2d1b00,#7c4500,#d4651a)}
-.pi3{background:linear-gradient(135deg,#0d2137,#1a4a6e,#2e7bc1)}
-.prop-badge{position:absolute;top:16px;left:16px;font-size:11px;font-weight:800;padding:4px 12px;border-radius:4px;letter-spacing:.5px}
-.badge-new{background:#22c55e;color:#fff}
-.badge-hot{background:#ef4444;color:#fff}
-.badge-excl{background:var(--accent);color:#fff}
-.prop-info{padding:24px}
-.prop-price{font-size:26px;font-weight:900;color:var(--dark);margin-bottom:6px}
-.prop-price small{font-size:14px;color:var(--muted);font-weight:500}
-.prop-title{font-size:15px;font-weight:700;margin-bottom:6px}
-.prop-location{font-size:13px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:4px}
-.prop-specs{display:flex;gap:20px;padding-top:16px;border-top:1px solid var(--border)}
-.spec{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
-.why{background:var(--dark);padding:80px;color:#fff}
-.why-inner{max-width:1000px;margin:0 auto}
-.why h2{color:#fff;margin-bottom:16px}
-.why .section-sub{color:rgba(255,255,255,.5)}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px;margin-top:0}
-.why-card{padding:28px;border:1px solid rgba(255,255,255,.1);border-radius:8px}
-.why-icon{font-size:36px;margin-bottom:16px}
-.why-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
-.why-card p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7}
-.agents{padding:80px;background:var(--bg)}
-.agents-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:1000px;margin:40px auto 0}
-.agent-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;text-align:center}
-.agent-photo{height:180px;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,#fef3c7,#fde68a)}
-.agent-info{padding:20px}
-.agent-name{font-size:16px;font-weight:700;margin-bottom:4px}
-.agent-spec{color:var(--accent);font-size:13px;font-weight:600;margin-bottom:8px}
-.agent-deals{color:var(--muted);font-size:12px}
-.cta{background:linear-gradient(135deg,var(--accent2),var(--accent));padding:80px;text-align:center;color:#fff}
-.cta h2{color:#fff;margin-bottom:16px}
-.cta p{opacity:.85;margin-bottom:32px;font-size:17px}
-.btn-white{background:#fff;color:var(--accent2);border:none;padding:16px 40px;border-radius:6px;font-size:16px;font-weight:800;cursor:pointer}
-footer{background:var(--dark);color:#fff;padding:40px 80px;display:flex;justify-content:space-between;align-items:center}
-footer p{font-size:13px;opacity:.5}
-@media(max-width:768px){nav,.hero,.search,.listings,.why,.agents,.cta,footer{padding-left:24px;padding-right:24px}.search{margin:20px 24px 0}.hero-trust{gap:24px}}
+.nav-btn{background:var(--accent);color:#fff;border:none;padding:11px 28px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:.3s}
+.nav-btn:hover{background:var(--accent2)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{background:linear-gradient(135deg,#1a1208,#2d1f0a);display:flex;align-items:center;padding:140px 80px 80px;position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(180,83,9,.2),transparent 60%)}
+/* Animated gold orb */
+.hero-orb{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.08),transparent 70%);top:-100px;right:-100px;animation:orbFloat 8s ease-in-out infinite}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,20px) scale(1.05)}}
+.hero-text{position:relative;z-index:2}
+.hero-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(212,160,23,.7);margin-bottom:24px;font-family:'Segoe UI',sans-serif;opacity:0;animation:fadeUp .8s ease .3s forwards}
+h1{font-size:clamp(40px,5vw,68px);font-weight:800;line-height:1.05;letter-spacing:-2px;color:#fff;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease .6s forwards}
+h1 .gold{color:var(--gold)}
+.hero-p{font-size:15px;color:rgba(255,255,255,.6);line-height:1.9;max-width:400px;margin-bottom:40px;opacity:0;animation:fadeUp .8s ease .9s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease 1.1s forwards}
+.btn-gold{background:var(--gold);color:var(--dark);border:none;padding:15px 40px;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:.3s}
+.btn-gold:hover{background:#c49014;transform:translateY(-2px)}
+.btn-outline-light{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.2);padding:15px 36px;font-size:13px;cursor:pointer;transition:.3s}
+.btn-outline-light:hover{border-color:var(--gold);color:var(--gold)}
+
+/* STATS BAR */
+.hero-stats{position:absolute;bottom:40px;left:0;right:0;padding:0 80px;display:flex;gap:40px;z-index:2;opacity:0;animation:fadeUp .8s ease 1.4s forwards}
+.stat{border-left:2px solid var(--gold);padding-left:16px}
+.stat-num{font-size:28px;font-weight:800;color:#fff;display:block}
+.stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);font-size:10px}
+
+/* RIGHT SIDE: property cards */
+.hero-right{padding:100px 40px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:var(--bg)}
+.mini-card{background:var(--card);border:1px solid var(--border);padding:20px;display:flex;gap:16px;align-items:center;transition:.3s;cursor:pointer}
+.mini-card:hover{border-color:var(--accent);transform:translateX(4px);box-shadow:4px 0 20px rgba(180,83,9,.1)}
+.mini-thumb{width:72px;height:72px;background:linear-gradient(135deg,#f0e8d8,#e8d5b0);display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0}
+.mini-info h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.mini-info p{font-size:12px;color:var(--muted);margin-bottom:6px}
+.mini-price{font-size:15px;font-weight:800;color:var(--accent)}
+.mini-badge{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:6px}
+.badge-hot{background:#fef3c7;color:#92400e}
+.badge-exc{background:#fdf4ff;color:#7c3aed}
+.badge-new{background:#ecfdf5;color:#065f46}
+
+/* 3D FLIP PROPERTY CARDS */
+.properties{padding:100px 80px;position:relative;z-index:2}
+.section-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;text-align:center}
+h2.center{font-size:clamp(28px,4vw,48px);font-weight:800;text-align:center;margin-bottom:56px;letter-spacing:-1px}
+h2 span{color:var(--accent)}
+.prop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+
+/* 3D FLIP */
+.flip-card{height:380px;perspective:1000px;cursor:pointer}
+.flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,.2,.2,1)}
+.flip-card:hover .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-front{background:var(--card);border:1px solid var(--border);overflow:hidden}
+.flip-thumb{height:220px;display:flex;align-items:center;justify-content:center;font-size:80px;background:linear-gradient(135deg,#f0e8d8,#e0cfa8);position:relative;overflow:hidden;transition:.4s}
+/* Gold shimmer on price tag */
+.flip-thumb::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(212,160,23,.15),transparent);animation:priceShimmer 2.5s ease-in-out infinite}
+@keyframes priceShimmer{0%{left:-100%}100%{left:200%}}
+.flip-front-info{padding:20px}
+.prop-badge{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;margin-bottom:10px;border-radius:2px}
+.flip-front-info h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.flip-front-info p{font-size:12px;color:var(--muted);margin-bottom:12px}
+.prop-price{font-size:20px;font-weight:800;color:var(--accent)}
+
+.flip-back{background:linear-gradient(135deg,#1a1208,#2d1f0a);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;padding:32px;border:1px solid rgba(212,160,23,.2)}
+.flip-back h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:20px}
+.prop-features{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.feature{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
+.feature::before{content:'✓';color:var(--gold);font-weight:700}
+.flip-back-price{font-size:24px;font-weight:800;color:var(--gold);margin-bottom:24px}
+.btn-flip-cta{background:var(--gold);color:var(--dark);border:none;padding:12px 28px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;transition:.3s}
+.btn-flip-cta:hover{background:#c49014}
+
+/* WHY */
+.why{padding:100px 80px;background:var(--dark);position:relative;overflow:hidden}
+.why::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.05),transparent 70%)}
+.why h2{font-size:clamp(28px,4vw,48px);font-weight:800;color:#fff;text-align:center;margin-bottom:56px;letter-spacing:-1px}
+.why h2 span{color:var(--gold)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.why-item{text-align:center;padding:32px 20px;border:1px solid rgba(212,160,23,.1);transition:.3s;cursor:default}
+.why-item:hover{border-color:rgba(212,160,23,.4);transform:translateY(-6px);background:rgba(212,160,23,.04)}
+.why-icon{font-size:36px;margin-bottom:16px;display:block}
+.why-item h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;transition:.2s}
+.why-item:hover h3{color:var(--gold)}
+.why-item p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.8}
+
+/* AGENTS */
+.agents{padding:100px 80px;position:relative;z-index:2}
+.agents h2{text-align:center;letter-spacing:-1px;margin-bottom:56px}
+.agents-row{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.agent-card{text-align:center;width:180px;transition:.3s;cursor:default}
+.agent-avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#f0e8d8,#e0cfa8);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 16px;border:2px solid var(--border);transition:.3s}
+.agent-card:hover .agent-avatar{border-color:var(--accent);transform:scale(1.08)}
+.agent-card h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.agent-card p{font-size:12px;color:var(--muted)}
+.agent-sales{font-size:12px;font-weight:700;color:var(--accent);margin-top:6px}
+
+/* CTA */
+.cta{padding:100px 80px;text-align:center;background:linear-gradient(135deg,#1a1208,#2d1f0a);position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.08),transparent 70%);pointer-events:none}
+.cta h2{font-size:clamp(32px,5vw,56px);font-weight:800;color:#fff;margin-bottom:20px;letter-spacing:-2px;position:relative;z-index:1}
+.cta h2 span{color:var(--gold)}
+.cta p{color:rgba(255,255,255,.5);font-size:16px;margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8;position:relative;z-index:1}
+.cta-form{display:flex;gap:12px;justify-content:center;max-width:500px;margin:0 auto;position:relative;z-index:1}
+.cta-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(212,160,23,.2);color:#fff;padding:16px 20px;font-size:14px;font-family:'Segoe UI',sans-serif;outline:none;transition:.3s}
+.cta-input::placeholder{color:rgba(255,255,255,.3)}
+.cta-input:focus{border-color:var(--gold);background:rgba(255,255,255,.1)}
+
+footer{padding:32px 80px;background:var(--dark);border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-size:18px;font-weight:800;color:#fff}
+.footer-logo span{color:var(--gold)}
+footer p{font-size:12px;color:rgba(255,255,255,.3)}
+
+[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+[data-reveal].in{opacity:1;transform:none}
+@media(max-width:1024px){.prop-grid,.why-grid{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}
+@media(max-width:768px){.hero-right{display:none}nav,.hero-left,.properties,.why,.agents,.cta,footer{padding-left:24px;padding-right:24px}.prop-grid,.why-grid{grid-template-columns:1fr}.agents-row{gap:20px}.cta-form{flex-direction:column}}
 </style>
 </head>
 <body>
+
 <nav>
-  <div class="logo"><div class="logo-icon">🏠</div>PrimeEstate</div>
-  <div class="nav-links"><a href="#listings">Объекты</a><a href="#agents">Агенты</a><a href="#">О нас</a></div>
-  <button class="btn">Оставить заявку</button>
+  <div class="logo">Prime<span>Estate</span></div>
+  <div class="nav-links"><a href="#properties">Объекты</a><a href="#agents">Агенты</a><a href="#cta">Контакты</a></div>
+  <button class="nav-btn">Бесплатная консультация</button>
 </nav>
 
-<div class="hero">
-  <div class="hero-badge">🏆 Агентство года 2025 · Best Real Estate KZ</div>
-  <h1>Найдём вашу<br>идеальную <em>недвижимость</em></h1>
-  <p>Более 2000 объектов в Алматы и Астане. Квартиры, дома, коммерческая недвижимость. Работаем с ипотекой.</p>
-  <div class="hero-cta">
-    <button class="btn-gold">Найти объект</button>
-    <button class="btn-outline-w">Оценить квартиру</button>
-  </div>
-  <div class="hero-trust">
-    <div class="htrust"><div class="htrust-n">2000+</div><div class="htrust-l">Объектов в базе</div></div>
-    <div class="htrust"><div class="htrust-n">8500+</div><div class="htrust-l">Сделок закрыто</div></div>
-    <div class="htrust"><div class="htrust-n">15</div><div class="htrust-l">Лет на рынке</div></div>
-  </div>
-</div>
-
-<div class="search">
-  <div class="sf"><label>Тип</label><select><option>Квартира</option><option>Дом</option><option>Коммерческая</option><option>Земля</option></select></div>
-  <div class="sf"><label>Город</label><select><option>Алматы</option><option>Астана</option><option>Шымкент</option></select></div>
-  <div class="sf"><label>Цена, ₸</label><select><option>До 20 млн</option><option>20–50 млн</option><option>50–100 млн</option><option>Свыше 100 млн</option></select></div>
-  <div class="sf"><label>Комнат</label><select><option>Любое</option><option>1</option><option>2</option><option>3+</option></select></div>
-  <button class="btn" style="height:44px;align-self:flex-end;padding:0 24px;white-space:nowrap">🔍 Найти</button>
-</div>
-
-<div class="listings" id="listings">
-  <h2>Актуальные <span class="accent">предложения</span></h2>
-  <p class="section-sub">Отборные объекты от надёжных продавцов</p>
-  <div class="prop-grid">
-    <div class="prop-card"><div class="prop-img pi1">🏢<div class="prop-badge badge-excl">ЭКСКЛЮЗИВ</div></div><div class="prop-info"><div class="prop-price">85 000 000 ₸ <small>/ 3-комн.</small></div><div class="prop-title">Апартаменты в ЖК «Премиум»</div><div class="prop-location">📍 Алматы, Медеуский р-н</div><div class="prop-specs"><div class="spec">📐 120 м²</div><div class="spec">🛏 3 комн.</div><div class="spec">🏢 15/24 эт.</div></div></div></div>
-    <div class="prop-card"><div class="prop-img pi2">🏡<div class="prop-badge badge-new">НОВЫЙ</div></div><div class="prop-info"><div class="prop-price">180 000 000 ₸</div><div class="prop-title">Дом в коттеджном посёлке</div><div class="prop-location">📍 Алматы, Бутаковка</div><div class="prop-specs"><div class="spec">📐 280 м²</div><div class="spec">🛏 5 комн.</div><div class="spec">🌳 10 сот.</div></div></div></div>
-    <div class="prop-card"><div class="prop-img pi3">🏙️<div class="prop-badge badge-hot">ГОРЯЧЕЕ</div></div><div class="prop-info"><div class="prop-price">45 000 000 ₸</div><div class="prop-title">2-комнатная квартира</div><div class="prop-location">📍 Астана, Есиль р-н</div><div class="prop-specs"><div class="spec">📐 75 м²</div><div class="spec">🛏 2 комн.</div><div class="spec">🏢 8/20 эт.</div></div></div></div>
-  </div>
-</div>
-
-<div class="why">
-  <div class="why-inner">
-    <h2>Почему <span class="accent">PrimeEstate</span></h2>
-    <p class="section-sub" style="margin-bottom:48px">Надёжность, проверенная временем</p>
-    <div class="why-grid">
-      <div class="why-card"><div class="why-icon">🔒</div><h3>Юридическая чистота</h3><p>Полная проверка документов. Работаем только с чистыми объектами.</p></div>
-      <div class="why-card"><div class="why-icon">💳</div><h3>Ипотека и рассрочка</h3><p>Партнёрство с 12 банками. Одобрение за 1 день.</p></div>
-      <div class="why-card"><div class="why-icon">📊</div><h3>Оценка рыночной цены</h3><p>Бесплатная оценка вашей недвижимости. Актуальные данные рынка.</p></div>
-      <div class="why-card"><div class="why-icon">🤝</div><h3>Сопровождение сделки</h3><p>От просмотра до ключей. Нотариус, договор, регистрация.</p></div>
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-orb"></div>
+    <div class="hero-text">
+      <div class="hero-tag">Агентство недвижимости · с 2012</div>
+      <h1>Найдём <span class="gold">идеальный</span><br>объект для вас</h1>
+      <p class="hero-p">Продажа, аренда, инвестиции. Более 500 объектов в Астане и Алматы. Работаем честно — без скрытых комиссий.</p>
+      <div class="hero-btns">
+        <button class="btn-gold">Подобрать объект</button>
+        <button class="btn-outline-light">Оценить квартиру</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" id="c1">0</span><span class="stat-label">Сделок в году</span></div>
+      <div class="stat"><span class="stat-num" id="c2">0</span><span class="stat-label">Объектов в базе</span></div>
+      <div class="stat"><span class="stat-num" id="c3">0</span><span class="stat-label">Лет на рынке</span></div>
     </div>
   </div>
-</div>
-
-<div class="agents" id="agents">
-  <div style="text-align:center"><h2>Наши <span class="accent">агенты</span></h2><p class="section-sub">Профессионалы с многолетним опытом</p></div>
-  <div class="agents-grid">
-    <div class="agent-card"><div class="agent-photo">👩</div><div class="agent-info"><div class="agent-name">Айгуль Сейткали</div><div class="agent-spec">Жилая недвижимость</div><div class="agent-deals">320 сделок · 8 лет</div></div></div>
-    <div class="agent-card"><div class="agent-photo">👨</div><div class="agent-info"><div class="agent-name">Руслан Ахметов</div><div class="agent-spec">Коммерческая</div><div class="agent-deals">215 сделок · 12 лет</div></div></div>
-    <div class="agent-card"><div class="agent-photo">👩</div><div class="agent-info"><div class="agent-name">Зарина Нурова</div><div class="agent-spec">Элитная недвижимость</div><div class="agent-deals">180 сделок · 6 лет</div></div></div>
-    <div class="agent-card"><div class="agent-photo">👨</div><div class="agent-info"><div class="agent-name">Дамир Касенов</div><div class="agent-spec">Новостройки</div><div class="agent-deals">290 сделок · 9 лет</div></div></div>
+  <div class="hero-right">
+    <div class="mini-card" data-reveal>
+      <div class="mini-thumb">🏢</div>
+      <div class="mini-info">
+        <span class="mini-badge badge-exc">ЭКСКЛЮЗИВ</span>
+        <h4>ЖК «Северное Сияние»</h4>
+        <p>3 комн. · 95 м² · Астана, Есиль</p>
+        <div class="mini-price">92 000 000 ₸</div>
+      </div>
+    </div>
+    <div class="mini-card" data-reveal style="transition-delay:.1s">
+      <div class="mini-thumb">🏠</div>
+      <div class="mini-info">
+        <span class="mini-badge badge-hot">ГОРЯЧЕЕ</span>
+        <h4>Дом в Бутаковке</h4>
+        <p>5 комн. · 280 м² · Алматы</p>
+        <div class="mini-price">350 000 000 ₸</div>
+      </div>
+    </div>
+    <div class="mini-card" data-reveal style="transition-delay:.2s">
+      <div class="mini-thumb">🏗️</div>
+      <div class="mini-info">
+        <span class="mini-badge badge-new">НОВЫЙ</span>
+        <h4>ЖК «Orion Park»</h4>
+        <p>2 комн. · 68 м² · Алматы, Бостандық</p>
+        <div class="mini-price">48 500 000 ₸</div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<div class="cta"><h2>Найдём ваш дом</h2><p>Бесплатная консультация агента в течение 15 минут</p><button class="btn-white">Получить консультацию</button></div>
+<section class="properties" id="properties">
+  <div class="section-label" data-reveal>Каталог</div>
+  <h2 class="center" data-reveal>Горячие <span>предложения</span></h2>
+  <div class="prop-grid">
+    <!-- CARD 1 -->
+    <div class="flip-card" data-reveal style="transition-delay:.05s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-thumb">🏢</div>
+          <div class="flip-front-info">
+            <span class="prop-badge badge-exc">ЭКСКЛЮЗИВ</span>
+            <h3>ЖК «Северное Сияние»</h3>
+            <p>3 комн. · 95 м² · Астана, Есиль р-н</p>
+            <div class="prop-price">92 000 000 ₸</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <h3>ЖК «Северное Сияние»</h3>
+          <div class="prop-features">
+            <div class="feature">3 спальни, 2 санузла</div>
+            <div class="feature">Панорамные окна 3 м</div>
+            <div class="feature">Подземный паркинг</div>
+            <div class="feature">Охраняемый ЖК, фитнес</div>
+          </div>
+          <div class="flip-back-price">92 000 000 ₸</div>
+          <button class="btn-flip-cta">Записаться на просмотр</button>
+        </div>
+      </div>
+    </div>
+    <!-- CARD 2 -->
+    <div class="flip-card" data-reveal style="transition-delay:.10s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-thumb">🏠</div>
+          <div class="flip-front-info">
+            <span class="prop-badge badge-hot">ГОРЯЧЕЕ</span>
+            <h3>Дом в Бутаковке</h3>
+            <p>5 комн. · 280 м² · Алматы, горы</p>
+            <div class="prop-price">350 000 000 ₸</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <h3>Дом в Бутаковке</h3>
+          <div class="prop-features">
+            <div class="feature">Участок 10 соток</div>
+            <div class="feature">Бассейн + терраса</div>
+            <div class="feature">Умный дом</div>
+            <div class="feature">5 мин до горнолыжки</div>
+          </div>
+          <div class="flip-back-price">350 000 000 ₸</div>
+          <button class="btn-flip-cta">Записаться на просмотр</button>
+        </div>
+      </div>
+    </div>
+    <!-- CARD 3 -->
+    <div class="flip-card" data-reveal style="transition-delay:.15s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-thumb">🏗️</div>
+          <div class="flip-front-info">
+            <span class="prop-badge badge-new">НОВЫЙ</span>
+            <h3>ЖК «Orion Park»</h3>
+            <p>2 комн. · 68 м² · Бостандық, Алматы</p>
+            <div class="prop-price">48 500 000 ₸</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <h3>ЖК «Orion Park»</h3>
+          <div class="prop-features">
+            <div class="feature">Сдача Q2 2026</div>
+            <div class="feature">Чистовая отделка</div>
+            <div class="feature">Детская площадка</div>
+            <div class="feature">Ипотека от 12%</div>
+          </div>
+          <div class="flip-back-price">48 500 000 ₸</div>
+          <button class="btn-flip-cta">Записаться на просмотр</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <h2 data-reveal>Почему <span>PrimeEstate</span>?</h2>
+  <div class="why-grid">
+    <div class="why-item" data-reveal style="transition-delay:.05s"><span class="why-icon">⚡</span><h3>Быстро</h3><p>Подбираем объект за 24 часа, показ — в день обращения</p></div>
+    <div class="why-item" data-reveal style="transition-delay:.10s"><span class="why-icon">🔒</span><h3>Безопасно</h3><p>Юридическая проверка каждого объекта. Гарантируем чистоту сделки</p></div>
+    <div class="why-item" data-reveal style="transition-delay:.15s"><span class="why-icon">💰</span><h3>Выгодно</h3><p>Без скрытых комиссий. Помогаем с ипотекой и налоговым вычетом</p></div>
+    <div class="why-item" data-reveal style="transition-delay:.20s"><span class="why-icon">🤝</span><h3>Надёжно</h3><p>14 лет на рынке. Более 2 000 довольных клиентов по всему Казахстану</p></div>
+  </div>
+</section>
+
+<section class="agents" id="agents">
+  <div class="section-label" data-reveal>Команда</div>
+  <h2 class="center" data-reveal>Наши <span>агенты</span></h2>
+  <div class="agents-row">
+    <div class="agent-card" data-reveal style="transition-delay:.05s"><div class="agent-avatar">👩</div><h4>Айгерим Сейткали</h4><p>Новостройки Астаны</p><div class="agent-sales">↑ 42 сделки / год</div></div>
+    <div class="agent-card" data-reveal style="transition-delay:.10s"><div class="agent-avatar">👨</div><h4>Бахыт Темиров</h4><p>Элитная недвижимость</p><div class="agent-sales">↑ 38 сделок / год</div></div>
+    <div class="agent-card" data-reveal style="transition-delay:.15s"><div class="agent-avatar">👩</div><h4>Дана Жаксыбекова</h4><p>Коммерция и аренда</p><div class="agent-sales">↑ 55 сделок / год</div></div>
+    <div class="agent-card" data-reveal style="transition-delay:.20s"><div class="agent-avatar">👨</div><h4>Ержан Мухамедов</h4><p>Алматинский рынок</p><div class="agent-sales">↑ 47 сделок / год</div></div>
+  </div>
+</section>
+
+<section class="cta" id="cta">
+  <h2 data-reveal>Найдём ваш <span>идеальный</span> объект</h2>
+  <p data-reveal>Оставьте номер — перезвоним в течение 15 минут и расскажем о лучших вариантах на сегодня.</p>
+  <div class="cta-form" data-reveal>
+    <input class="cta-input" type="tel" placeholder="+7 (___) ___-__-__">
+    <button class="btn-gold" style="white-space:nowrap">Перезвоните мне</button>
+  </div>
+</section>
 
 <footer>
-  <div style="font-size:18px;font-weight:800;color:#fff">🏠 PrimeEstate</div>
-  <p>ул. Аль-Фараби 77, Алматы · +7 (727) 300-77-77</p>
-  <p>© 2026 PrimeEstate. Лицензия №РН-002341</p>
+  <div class="footer-logo">Prime<span>Estate</span></div>
+  <p>© 2026 PrimeEstate Kazakhstan</p>
+  <p>Астана · Алматы · Шымкент</p>
 </footer>
+
+<script>
+// STATS COUNTER
+function countUp(id,target,suffix){
+  const el=document.getElementById(id)
+  if(!el)return
+  const start=Date.now(),dur=1600
+  ;(function tick(){
+    const t=Math.min((Date.now()-start)/dur,1),v=Math.round(target*(1-Math.pow(1-t,3)))
+    el.textContent=v+(t>=1?suffix:'')
+    if(t<1)requestAnimationFrame(tick)
+  })()
+}
+setTimeout(()=>{countUp('c1',420,'+');countUp('c2',500,'+');countUp('c3',14,'')},1000)
+
+// REVEAL
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12})
+document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el))
+
+// FLIP CARD touch fix for mobile
+document.querySelectorAll('.flip-card').forEach(card=>{
+  card.addEventListener('click',()=>card.querySelector('.flip-inner').style.transform===
+    'rotateY(180deg)'?card.querySelector('.flip-inner').style.transform=''
+    :card.querySelector('.flip-inner').style.transform='rotateY(180deg)')
+})
+</script>
 </body>
 </html>
