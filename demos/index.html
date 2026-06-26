@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demos — AI Agents & Telegram Bots</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e1a;--card:#0f1526;--border:#1e2d4a;--accent:#00d9ff;--green:#00ff88;--purple:#a78bfa;--orange:#f97316;--text:#e2e8f5;--muted:#6b7fa8;--dim:#2a3c5e}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{padding:16px 60px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(10,14,26,.95);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100}
+.nav-logo{font-family:monospace;font-size:15px;font-weight:700;color:var(--accent)}
+.nav-logo span{color:var(--muted)}
+.back{font-family:monospace;font-size:12px;color:var(--muted);transition:.2s}
+.back:hover{color:var(--accent)}
+
+/* HERO */
+.hero{padding:60px 60px 40px;max-width:1200px;margin:0 auto}
+.hero h1{font-family:monospace;font-size:clamp(28px,4vw,46px);font-weight:700;margin-bottom:12px}
+.hero h1 span{color:var(--accent)}
+.hero p{font-size:14px;color:var(--muted);line-height:1.7;max-width:560px}
+
+/* TABS */
+.tabs{display:flex;gap:0;padding:0 60px;max-width:1200px;margin:0 auto 40px;border-bottom:1px solid var(--border)}
+.tab{font-family:monospace;font-size:13px;color:var(--muted);padding:12px 28px;cursor:pointer;border-bottom:2px solid transparent;transition:.2s;margin-bottom:-1px}
+.tab:hover{color:var(--text)}
+.tab.on{color:var(--accent);border-color:var(--accent)}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:0 60px 80px;max-width:1200px;margin:0 auto}
+.grid.hidden{display:none}
+
+/* CARD */
+.dcard{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:.3s;cursor:pointer}
+.dcard:hover{border-color:rgba(0,217,255,.35);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.dcard-thumb{height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative}
+.dcard-thumb::after{content:'▶ Demo';position:absolute;inset:0;background:rgba(0,217,255,.12);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;letter-spacing:2px;color:var(--accent);opacity:0;transition:.25s}
+.dcard:hover .dcard-thumb::after{opacity:1}
+.dcard-body{padding:14px 16px 18px}
+.dtype{font-family:monospace;font-size:9px;letter-spacing:2px;color:var(--accent);opacity:.6;margin-bottom:6px;display:block}
+.dcard h3{font-size:13px;font-weight:600;margin-bottom:5px}
+.dcard p{font-size:11px;color:var(--muted);line-height:1.6}
+.dbadge{display:inline-flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.dt{font-family:monospace;font-size:9px;padding:2px 7px;border:1px solid var(--border);color:var(--muted);border-radius:2px}
+.live-badge{display:inline-block;font-family:monospace;font-size:9px;padding:2px 8px;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green);border-radius:2px;margin-top:8px}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.25s;backdrop-filter:blur(6px)}
+.overlay.on{opacity:1;pointer-events:all}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:10px;width:100%;max-width:620px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px);transition:.25s}
+.overlay.on .modal{transform:none}
+.modal-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:#080d1a;flex-shrink:0}
+.mdots{display:flex;gap:6px}
+.md{width:11px;height:11px;border-radius:50%}
+.md.r{background:#ff5f57}.md.y{background:#febc2e}.md.g{background:#28c840}
+.modal-title{font-family:monospace;font-size:12px;color:var(--muted);flex:1}
+.modal-close{font-family:monospace;font-size:13px;color:var(--muted);cursor:pointer;padding:2px 6px;transition:.2s;border:none;background:none}
+.modal-close:hover{color:var(--accent)}
+.modal-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;min-height:300px;max-height:calc(90vh - 52px - 60px)}
+.modal-input-row{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
+.modal-input{flex:1;background:#080d1a;border:1px solid var(--border);border-radius:4px;padding:8px 12px;font-family:monospace;font-size:12px;color:var(--text);outline:none;transition:.2s}
+.modal-input:focus{border-color:rgba(0,217,255,.4)}
+.modal-send{background:var(--accent);border:none;color:#0a0e1a;font-family:monospace;font-size:11px;font-weight:700;padding:8px 16px;border-radius:4px;cursor:pointer;transition:.2s}
+.modal-send:hover{background:#0099cc}
+
+/* TERMINAL MESSAGES (agents) */
+.msg-terminal{font-family:monospace;font-size:12px;line-height:1.7}
+.msg-terminal .prompt{color:var(--green)}
+.msg-terminal .cmd{color:var(--text)}
+.msg-terminal .out{color:var(--muted);padding-left:14px;display:block;margin-bottom:4px}
+.msg-terminal .out .hl{color:var(--accent)}
+.msg-terminal .out .ok{color:var(--green)}
+.msg-terminal .out .warn{color:var(--orange)}
+.msg-terminal .thinking{color:var(--dim);font-style:italic}
+
+/* TELEGRAM MESSAGES (bots) */
+.tg-wrap{display:flex;flex-direction:column;gap:8px}
+.tg-msg{max-width:82%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.55;position:relative}
+.tg-msg.bot{background:#1e2d4a;border-bottom-left-radius:3px;align-self:flex-start;color:var(--text)}
+.tg-msg.user{background:var(--accent);color:#0a0e1a;font-weight:500;border-bottom-right-radius:3px;align-self:flex-end}
+.tg-msg .tg-name{font-size:10px;font-weight:700;color:var(--green);margin-bottom:3px;font-family:monospace}
+.tg-msg .tg-time{font-size:9px;color:rgba(255,255,255,.35);margin-top:4px;text-align:right}
+.tg-typing{display:flex;gap:4px;padding:10px 14px;background:#1e2d4a;border-radius:12px;border-bottom-left-radius:3px;align-self:flex-start;width:52px}
+.tg-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:tgdot 1.2s infinite}
+.tg-dot:nth-child(2){animation-delay:.2s}
+.tg-dot:nth-child(3){animation-delay:.4s}
+@keyframes tgdot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+.cursor-blink{animation:blink .8s infinite;color:var(--accent)}
+@keyframes blink{50%{opacity:0}}
+.replay-btn{font-family:monospace;font-size:11px;color:var(--muted);background:transparent;border:1px solid var(--border);padding:6px 16px;border-radius:3px;cursor:pointer;transition:.2s;align-self:center;margin-top:8px}
+.replay-btn:hover{color:var(--accent);border-color:rgba(0,217,255,.4)}
+
+@media(max-width:768px){nav,div.hero,.tabs,.grid{padding-left:20px;padding-right:20px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span>~/</span>demos</div>
+  <a class="back" href="../">← портфолио</a>
+</nav>
+
+<div class="hero">
+  <h1>AI <span>Demos</span></h1>
+  <p>Скриптованные демо всех агентов и ботов. Агенты — в терминальном интерфейсе, боты — в Telegram-стиле. Один бот работает вживую.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab on" onclick="switchTab('agents')">🤖 AI-агенты (10)</div>
+  <div class="tab" onclick="switchTab('bots')">✈️ Telegram-боты (10)</div>
+</div>
+
+<!-- AGENTS GRID -->
+<div class="grid" id="grid-agents">
+
+  <div class="dcard" onclick="openDemo('support')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1628,#1e3a5f)">🤖</div>
+    <div class="dcard-body"><span class="dtype">Support · Claude API</span><h3>Support Agent</h3><p>Контекстный ответ с памятью сессии на пользователя</p><div class="dbadge"><span class="dt">Python</span><span class="dt">Claude API</span><span class="dt">Session</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('sales')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a1000,#3d2800)">💼</div>
+    <div class="dcard-body"><span class="dtype">Sales · SPIN</span><h3>Sales Agent</h3><p>Квалификация лидов по SPIN, скоринг 0–100</p><div class="dbadge"><span class="dt">Python</span><span class="dt">SPIN</span><span class="dt">Scoring</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('hr')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1220,#1a2840)">👔</div>
+    <div class="dcard-body"><span class="dtype">HR · Resume</span><h3>HR Screener Agent</h3><p>Анализ резюме, решение hire/reject/maybe, Score 0–100</p><div class="dbadge"><span class="dt">Python</span><span class="dt">Tool Use</span><span class="dt">PDF</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('content')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#180a28,#2d1450)">✍️</div>
+    <div class="dcard-body"><span class="dtype">Content · Batch</span><h3>Content Generator</h3><p>post/email/article/ad, варианты по числу, тон и аудитория</p><div class="dbadge"><span class="dt">Python</span><span class="dt">Streaming</span><span class="dt">Batch</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('research')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1a10,#1a3820)">🔬</div>
+    <div class="dcard-body"><span class="dtype">Research · Tool Use</span><h3>Web Research Agent</h3><p>search_web + fetch_page + save_note, глубина quick/deep</p><div class="dbadge"><span class="dt">Python</span><span class="dt">Tool Use</span><span class="dt">RAG</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('codereview')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a1400,#382c00)">🔍</div>
+    <div class="dcard-body"><span class="dtype">Code · AST</span><h3>Code Review Agent</h3><p>Issues по severity, score 1–10, авто-детект языка</p><div class="dbadge"><span class="dt">Python</span><span class="dt">AST</span><span class="dt">Diff</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('analytics')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1818,#103030)">📊</div>
+    <div class="dcard-body"><span class="dtype">Analytics · pandas</span><h3>AI Analytics Agent</h3><p>Анализ CSV/JSON, авто-инсайты, тренды</p><div class="dbadge"><span class="dt">Python</span><span class="dt">pandas</span><span class="dt">Charts</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('translator')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a0a1a,#301430)">🌍</div>
+    <div class="dcard-body"><span class="dtype">Translate · 7 langs</span><h3>Translator Agent</h3><p>7 языков, 6 контекстов: general/technical/legal/medical…</p><div class="dbadge"><span class="dt">Python</span><span class="dt">7 langs</span><span class="dt">Batch</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('automation')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1428,#102040)">⚙️</div>
+    <div class="dcard-body"><span class="dtype">Automation · FastAPI</span><h3>Automation Agent</h3><p>Workflow chains, lead processing, Tool Use + вебхуки</p><div class="dbadge"><span class="dt">Python</span><span class="dt">FastAPI</span><span class="dt">Webhooks</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('mobile')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#18082a,#300f50)">📱</div>
+    <div class="dcard-body"><span class="dtype">Mobile · Expo</span><h3>Mobile Apps ×5</h3><p>React Native + Expo: фитнес, финансы, доставка, задачи, магазин</p><div class="dbadge"><span class="dt">React Native</span><span class="dt">Expo</span><span class="dt">Push</span></div></div>
+  </div>
+
+</div>
+
+<!-- BOTS GRID -->
+<div class="grid hidden" id="grid-bots">
+
+  <div class="dcard" onclick="openDemo('bot_support')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1628,#1e3a5f)">🎧</div>
+    <div class="dcard-body">
+      <span class="dtype">Support · Tickets</span>
+      <h3>Бот техподдержки</h3>
+      <p>Тикеты, эскалация, авто-ответ на частые вопросы</p>
+      <div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">FSM</span><span class="dt">Claude</span></div>
+      <div><span class="live-badge">● LIVE — @artesuave_support_bot</span></div>
+    </div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_restaurant')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a0a00,#3d1a00)">🍽️</div>
+    <div class="dcard-body"><span class="dtype">Restaurant · Booking</span><h3>Бронирование ресторана</h3><p>FSM запись на стол, просмотр меню, AI-чат с сомелье</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">FSM</span><span class="dt">AI-чат</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_shop')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a3a1a)">🛍️</div>
+    <div class="dcard-body"><span class="dtype">Ecommerce · Kaspi</span><h3>Ecommerce бот</h3><p>Каталог, корзина, оформление, оплата Kaspi Pay</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">Kaspi Pay</span><span class="dt">Каталог</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_quiz')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a1000,#3d2a00)">🎯</div>
+    <div class="dcard-body"><span class="dtype">Quiz · AI-вопросы</span><h3>Квиз-бот</h3><p>AI-генерация вопросов, счёт, объяснения ошибок</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">Claude</span><span class="dt">Score</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_feedback')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a0a1a,#3d1a3d)">⭐</div>
+    <div class="dcard-body"><span class="dtype">Feedback · Sentiment</span><h3>Сбор отзывов</h3><p>Рейтинг 1–5, текст + фото, сентимент-анализ через AI</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">Sentiment</span><span class="dt">Фото</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_hr')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1220,#1a2840)">👔</div>
+    <div class="dcard-body"><span class="dtype">HR · PDF скрининг</span><h3>HR-бот</h3><p>Загрузка резюме, AI-скрининг, база кандидатов</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">PDF</span><span class="dt">Scoring</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_lang')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0f1a0a,#1a3a0a)">🌍</div>
+    <div class="dcard-body"><span class="dtype">Language · 5 langs</span><h3>Изучение языков</h3><p>EN/DE/FR/ES/KZ, упражнения, прогресс, AI-объяснения</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">5 langs</span><span class="dt">Progress</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_analytics')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a1a0a,#2d2d00)">📊</div>
+    <div class="dcard-body"><span class="dtype">Analytics · CSV/JSON</span><h3>Аналитика бот</h3><p>Загрузка файлов, AI-инсайты, графики, рекомендации</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">pandas</span><span class="dt">Charts</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_faq')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#0a1a2a,#1a3a5a)">❓</div>
+    <div class="dcard-body"><span class="dtype">FAQ · RAG</span><h3>База знаний</h3><p>TF-IDF поиск, AI fallback если нет ответа, пополнение базы</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">TF-IDF</span><span class="dt">RAG</span></div></div>
+  </div>
+
+  <div class="dcard" onclick="openDemo('bot_news')">
+    <div class="dcard-thumb" style="background:linear-gradient(135deg,#1a0a0a,#3a1a1a)">📰</div>
+    <div class="dcard-body"><span class="dtype">News · RSS</span><h3>Дайджест новостей</h3><p>RSS-парсинг, Claude суммаризация, подписка по темам</p><div class="dbadge"><span class="dt">aiogram 3</span><span class="dt">RSS</span><span class="dt">Дайджест</span></div></div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOnBg(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="mdots"><div class="md r"></div><div class="md y"></div><div class="md g"></div></div>
+      <span class="modal-title" id="modal-title">demo</span>
+      <button class="modal-close" onclick="closeDemo()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-input-row" id="modal-input-row">
+      <input class="modal-input" id="modal-input" placeholder="Нажмите Enter чтобы продолжить..." readonly>
+      <button class="modal-send" onclick="nextStep()">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── TAB SWITCH ──
+function switchTab(t) {
+  document.querySelectorAll('.tab').forEach((el,i) => el.classList.toggle('on', (i===0&&t==='agents')||(i===1&&t==='bots')))
+  document.getElementById('grid-agents').classList.toggle('hidden', t!=='agents')
+  document.getElementById('grid-bots').classList.toggle('hidden', t!=='bots')
+}
+
+// ── DEMO SCRIPTS ──
+const DEMOS = {
+  support: {
+    title: 'support_agent.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'У меня не работает форма оплаты на сайте'},
+      {prompt:'agent', text:'Понял проблему. Уточните:\n1. Какой браузер используете?\n2. Появляется ли ошибка или просто ничего не происходит?\n3. Это первый раз или работало раньше?'},
+      {prompt:'user', text:'Chrome, пишет "payment declined", раньше работало'},
+      {prompt:'agent', text:'Скорее всего проблема на стороне платёжного шлюза или истёк срок карты.\nПроверьте:\n• Дата карты не истекла\n• Достаточно средств на счёте\n• Попробуйте другую карту\n\nЕсли проблема сохраняется — создаю тикет приоритет HIGH и передаю в финансовый отдел.'},
+      {prompt:'user', text:'Срок истёк, спасибо!'},
+      {prompt:'agent', text:'Отлично, рад помочь! Обновите данные карты в личном кабинете → Настройки → Способы оплаты. Закрываю обращение. Оцените качество поддержки от 1 до 5 ⭐'},
+    ]
+  },
+  sales: {
+    title: 'sales_agent.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'Хочу сделать сайт для своего ресторана'},
+      {prompt:'agent', text:'[SPIN: Situation] Отлично! Скажите, у вас уже есть сайт или создаём с нуля?'},
+      {prompt:'user', text:'С нуля, работаем 2 года, есть Instagram'},
+      {prompt:'agent', text:'[SPIN: Problem] Понятно. Клиенты сейчас записываются через Instagram директ? Теряете заявки по ночам или выходным когда не онлайн?'},
+      {prompt:'user', text:'Да, очень много теряем ночью'},
+      {prompt:'agent', text:'[SPIN: Implication] Подсчитаем: 3–4 потерянных брони в неделю × средний чек 15 000 ₸ = ~180 000 ₸/мес упущенной выручки.\n\n[SPIN: Need-payoff] Лендинг с формой бронирования в WhatsApp решит это. Гости бронируют 24/7, вы получаете заявку в мессенджер.\n\n⭐ Lead Score: 87/100\n✅ Рекомендация: Лендинг Ресторан — от 50 000 ₸, срок 7 дней'},
+    ]
+  },
+  hr: {
+    title: 'hr_screener.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'analyze_resume("frontend_dev_cv.pdf")'},
+      {prompt:'agent', text:'[tool: read_pdf] Извлекаю текст резюме...\n[tool: analyze_skills] Сопоставляю с требованиями вакансии...'},
+      {prompt:'system', text:'── SCREENING REPORT ──────────────────\nКандидат: Алия Сейткали, 26 лет\nОпыт: 3 года (React, TypeScript, Next.js)\nОбразование: КБТУ, Computer Science\n\nМатч по навыкам:\n✅ React — 3 года (требуется 2+)\n✅ TypeScript — 2 года\n⚠️  Redux — упомянут, без деталей\n❌ Node.js — не указан\n\nПоведенческие индикаторы:\n✅ Опыт в стартапах (гибкость)\n✅ Портфолио с 5 проектами\n\nSCORE: 74/100\nРЕШЕНИЕ: MAYBE → рекомендую техническое интервью\nПричина: сильный фронтенд, слабый бэкенд'},
+    ]
+  },
+  content: {
+    title: 'content_generator.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'generate(type="instagram_post", topic="открытие барбершопа", tone="bold", count=3)'},
+      {prompt:'agent', text:'[streaming] Генерирую 3 варианта...'},
+      {prompt:'system', text:'── ВАРИАНТ 1 ─────────────────────────\n✂️ Место, где мужчины становятся легендами.\n\nBRATAN Barbershop открылся в самом сердце города.\nМастера с 10-летним опытом. Классика и современные техники.\n\n📍 ул. Сейфуллина 45 · 📞 +7 700 000 0000\n\n#барбершоп #стрижка #алматы\n──────────────────────────────────────\n── ВАРИАНТ 2 ─────────────────────────\nТвоя стрижка — твоя визитка. 💈\n...(продолжение)\n──────────────────────────────────────\n✅ Сгенерировано 3 варианта за 2.3 сек\nТокены: 847 input / 312 output'},
+    ]
+  },
+  research: {
+    title: 'research_agent.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'research("конкуренты барбершопов в Алматы", depth="medium")'},
+      {prompt:'agent', text:'[tool: search_web] Запрос: "барбершоп Алматы топ 2024"...\n[tool: fetch_page] Читаю topbarbershop.kz...\n[tool: fetch_page] Читаю 2gis.kz/almaty...\n[tool: save_note] Сохраняю 12 конкурентов...'},
+      {prompt:'system', text:'── RESEARCH REPORT ───────────────────\nТема: конкуренты барбершопов Алматы\nИсточников проверено: 8 · Заметок: 12\n\nТОП-5 конкурентов:\n1. ChopChop — 4.8★, 3 точки, цена 4000–8000₸\n2. Gentlemen — 4.7★, центр, Instagram 45K\n3. BarberHouse — 4.6★, онлайн-запись\n4. Kings — 4.5★, b2b корпоративные\n5. Брат — 4.4★, низкий ценник 2500₸\n\nИнсайты:\n• Ни один не имеет WA-формы на сайте\n• Онлайн-запись только у 2 из 5\n• Пик отзывов: пятница 17:00–20:00\n\n⏱ Время: 28 сек · 🔍 Глубина: medium'},
+    ]
+  },
+  codereview: {
+    title: 'code_review_agent.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'review_file("api/auth.py")'},
+      {prompt:'agent', text:'[tool: read_file] Читаю api/auth.py (124 строки)...\n[tool: detect_language] Python 3.11\n[tool: analyze_ast] Строю AST...'},
+      {prompt:'system', text:'── CODE REVIEW REPORT ────────────────\nФайл: api/auth.py · Язык: Python · Строк: 124\n\n🔴 CRITICAL (1):\n  L.47 — SQL Injection: f-строка в запросе\n  cursor.execute(f"SELECT * FROM users WHERE id={id}")\n  Fix: используй параметризованные запросы\n\n🟡 WARNING (2):\n  L.23 — пароль хранится в открытом виде\n  L.89 — нет rate limiting на /login\n\n🟢 SUGGESTION (3):\n  L.12 — можно заменить на @lru_cache\n  L.67 — избыточный try/except\n  L.101 — f-строка вместо .format()\n\nSCORE: 4/10 ← требует исправлений перед деплоем'},
+    ]
+  },
+  analytics: {
+    title: 'analytics_agent.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'analyze("sales_q2_2026.csv")'},
+      {prompt:'agent', text:'[tool: read_csv] Загружаю 2847 строк, 8 колонок...\n[tool: compute_stats] Считаю метрики...\n[tool: detect_anomalies] Ищу аномалии...'},
+      {prompt:'system', text:'── ANALYTICS REPORT ──────────────────\nПериод: Q2 2026 · Строк: 2847\n\nКлючевые метрики:\n💰 Выручка: 4 820 000 ₸ (+23% к Q1)\n📦 Заказов: 1 203 · Ср.чек: 4 006 ₸\n🏆 Топ-товар: Кофе Эфиопия (18% выручки)\n\nАномалии:\n⚠️  15–17 июня: выручка -62% (праздник?)\n⚠️  Возврат №847 — 45 000 ₸ (проверить)\n\nИнсайты от AI:\n→ Пятница — лучший день продаж (+41%)\n→ Доставка растёт: +34% к самовывозу\n→ Рекомендую акцию на вторник-среду'},
+    ]
+  },
+  translator: {
+    title: 'translator_agent.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'translate(text="Разработка AI-агентов под ключ", langs=["en","zh","ar"], context="marketing")'},
+      {prompt:'agent', text:'[context: marketing] Адаптирую под рекламный тон...\n[batch] Перевожу на 3 языка параллельно...'},
+      {prompt:'system', text:'── TRANSLATION RESULTS ───────────────\nИсходник (RU): "Разработка AI-агентов под ключ"\nКонтекст: marketing\n\n🇬🇧 EN: "Turnkey AI Agent Development"\n   tone: confident, professional ✅\n\n🇨🇳 ZH: "交钥匙AI智能体开发"\n   tone: formal business ✅\n\n🇸🇦 AR: "تطوير وكلاء الذكاء الاصطناعي بشكل متكامل"\n   direction: RTL ✅\n\n⏱ 1.2 сек · токены: 234'},
+    ]
+  },
+  automation: {
+    title: 'automation_agent.py — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'run_workflow("new_lead_pipeline", lead={name:"Марат", budget:"200к"})'},
+      {prompt:'agent', text:'[step 1/4] qualify_lead — SPIN-анализ бюджета...\n[step 2/4] enrich_contact — поиск LinkedIn/2GIS...\n[step 3/4] score_lead — расчёт вероятности сделки...\n[step 4/4] create_task — создаю задачу в CRM...'},
+      {prompt:'system', text:'── WORKFLOW COMPLETE ─────────────────\nЛид: Марат · Бюджет: 200 000 ₸\n\nРезультаты:\n✅ Квалификация: горячий лид\n✅ Обогащение: найден LinkedIn, 2GIS-карточка\n✅ Score: 91/100 (высокий приоритет)\n✅ CRM: задача создана → менеджер Аиша\n✅ WhatsApp: приветственное сообщение отправлено\n\n⏱ Pipeline: 3.8 сек · шагов: 4'},
+    ]
+  },
+  mobile: {
+    title: 'mobile_apps_showcase — terminal',
+    type: 'terminal',
+    steps: [
+      {prompt:'user', text:'list_apps()'},
+      {prompt:'system', text:'── MOBILE APPS ×5 ────────────────────\nСтек: React Native 0.74 + Expo SDK 51\n\n1. FitTracker — трекер тренировок\n   Claude: генерация программ, AI-тренер\n   Фичи: прогресс, графики, таймер\n\n2. MoneyMap — личные финансы\n   Claude: анализ трат, советы экономии\n   Фичи: категории, бюджет, отчёты\n\n3. QuickEats — доставка еды\n   Claude: умные рекомендации блюд\n   Фичи: меню, корзина, трекинг курьера\n\n4. TaskFlow — таск-менеджер\n   Claude: приоритизация, декомпозиция\n   Фичи: проекты, Kanban, уведомления\n\n5. ShopEasy — мобильный магазин\n   Claude: поиск по фото, рекомендации\n   Фичи: каталог, корзина, Kaspi оплата\n\nПлатформы: iOS + Android · Публикация: включена'},
+    ]
+  },
+
+  // BOTS (telegram style)
+  bot_support: {
+    title: '@artesuave_support_bot — LIVE',
+    type: 'telegram',
+    live: true,
+    liveLink: 'https://t.me/artesuave_support_bot',
+    steps: [
+      {from:'bot', text:'👋 Привет!\n\nЯ AI-ассистент портфолио Artesuave — разработчика лендингов, AI-агентов и Telegram-ботов.\n\nСпрашивай про услуги, цены, сроки 💬'},
+      {from:'user', text:'Сколько стоит сделать Telegram-бота?'},
+      {from:'bot', text:'Telegram-боты — от 40 000 ₸ ($100), срок 3–7 дней 📱\n\nВходит:\n• aiogram 3 + FSM состояния\n• Inline-клавиатуры и меню\n• Интеграция оплаты (Kaspi/Click)\n• Панель администратора\n\nЦена зависит от функционала — напишите @chief_irs, обсудим детали!'},
+      {from:'user', text:'А если нужен AI в боте?'},
+      {from:'bot', text:'Тогда это AI-агент в Telegram 🤖\n\nДобавляем Claude API — бот будет:\n• Помнить историю диалога\n• Отвечать на вопросы по вашей базе знаний (RAG)\n• Квалифицировать лидов, принимать заявки\n\nЦена от 80 000 ₸, срок 5–10 дней\n\nЕсть живой пример — это я сам! 😄'},
+    ]
+  },
+  bot_restaurant: {
+    title: '@restaurant_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'🍽 Добро пожаловать в ресторан Ember!\n\nВыберите действие:', buttons:['📋 Меню','🗓 Забронировать стол','🤖 AI-сомелье']},
+      {from:'user', text:'🗓 Забронировать стол'},
+      {from:'bot', text:'Отлично! На сколько персон бронируем? 👥'},
+      {from:'user', text:'На 2 человека'},
+      {from:'bot', text:'Выберите дату:'},
+      {from:'user', text:'Завтра, 19:00'},
+      {from:'bot', text:'✅ Стол забронирован!\n\nДетали брони:\n📅 27 июня, 19:00\n👥 2 персоны\n📍 Ember Restaurant\n\nЗа час до визита придёт напоминание. Ждём вас! 🕯'},
+    ]
+  },
+  bot_shop: {
+    title: '@shop_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'🛍 Добро пожаловать в магазин!\n\nКаталог:', buttons:['☕ Кофе','🍵 Чай','🍰 Десерты']},
+      {from:'user', text:'☕ Кофе'},
+      {from:'bot', text:'☕ Раздел: Кофе\n\n• Эфиопия Yirgacheffe — 3 200 ₸\n• Колумбия Supremo — 2 800 ₸\n• Бразилия Santos — 2 400 ₸\n\nВыберите товар для добавления в корзину:'},
+      {from:'user', text:'Эфиопия Yirgacheffe'},
+      {from:'bot', text:'✅ Добавлено в корзину!\n\n🛒 Корзина: 1 товар · 3 200 ₸\n\nПродолжить покупки или оформить заказ?', buttons:['🛒 Оформить','← Назад']},
+      {from:'user', text:'🛒 Оформить'},
+      {from:'bot', text:'💳 Выберите способ оплаты:', buttons:['Kaspi Pay','Наличные','Карта']},
+    ]
+  },
+  bot_quiz: {
+    title: '@quiz_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'🎯 Квиз: Python для начинающих\n\nВопрос 1/5 (AI-генерация):\n\n```python\nx = [1, 2, 3]\nprint(x[-1])\n```\nЧто выведет этот код?', buttons:['A: 1','B: 3','C: -1','D: Ошибка']},
+      {from:'user', text:'B: 3'},
+      {from:'bot', text:'✅ Верно! +10 очков\n\nОбъяснение: x[-1] — отрицательный индекс, обращается к последнему элементу списка. В Python -1 = последний, -2 = предпоследний и т.д.\n\nСчёт: 10/10 ⭐\n\nВопрос 2/5 →'},
+    ]
+  },
+  bot_feedback: {
+    title: '@feedback_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'⭐ Оцените ваш визит в барбершоп BRATAN!\n\nВыберите оценку:', buttons:['⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐']},
+      {from:'user', text:'⭐⭐⭐⭐⭐'},
+      {from:'bot', text:'Отлично! 🎉 Напишите короткий отзыв (или пропустите):'},
+      {from:'user', text:'Отличный мастер, очень доволен стрижкой!'},
+      {from:'bot', text:'[AI анализ] Тональность: позитивная ✅\nКлючевые слова: мастер, доволен, стрижка\n\nСпасибо за отзыв! Он будет опубликован после модерации.\n\n🎁 Бонус: скидка 10% на следующий визит — код BRATAN10'},
+    ]
+  },
+  bot_hr: {
+    title: '@hr_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'👔 HR-бот компании\n\nПришлите резюме в PDF для AI-скрининга на вакансию Frontend Developer:'},
+      {from:'user', text:'📎 cv_frontend.pdf (124 КБ)'},
+      {from:'bot', text:'⏳ Анализирую резюме через Claude AI...\n\n[████████░░] 80%'},
+      {from:'bot', text:'📋 Результат скрининга:\n\nКандидат: Алия С., 26 лет\n✅ React — 3 года\n✅ TypeScript — 2 года\n⚠️ Redux — базовый уровень\n\nScore: 74/100\nРешение: MAYBE → технический звонок\n\n[HR-менеджер уведомлён]'},
+    ]
+  },
+  bot_lang: {
+    title: '@language_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'🌍 Language Bot\n\nВыберите язык для изучения:', buttons:['🇬🇧 English','🇩🇪 Deutsch','🇫🇷 Français','🇪🇸 Español','🇰🇿 Қазақша']},
+      {from:'user', text:'🇬🇧 English'},
+      {from:'bot', text:'English · Урок 12: Conditionals\n\nУровень: Intermediate\nПрогресс: ████████░░ 78%\n\n📝 Упражнение:\nПереведите: "Если бы у меня было время, я бы изучил программирование"'},
+      {from:'user', text:'If I had time, I would learn programming'},
+      {from:'bot', text:'✅ Отлично! Правильно!\n\nАнализ:\n→ had — Past Simple в условии (тип 2)\n→ would learn — правильный модальный глагол\n\n🏆 +15 XP · Серия: 7 дней подряд 🔥'},
+    ]
+  },
+  bot_analytics: {
+    title: '@analytics_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'📊 Analytics Bot\n\nПришлите файл данных для анализа (CSV, JSON, XLSX):'},
+      {from:'user', text:'📎 sales_june.csv (48 КБ)'},
+      {from:'bot', text:'⏳ Загружаю и анализирую через Claude AI...'},
+      {from:'bot', text:'📈 Отчёт: sales_june.csv\n\n💰 Выручка: 1 240 000 ₸\n📦 Заказов: 347 · Ср.чек: 3 574 ₸\n📅 Лучший день: пятница (+41%)\n\n🔍 AI-инсайты:\n→ Топ-товар: кофе (22% выручки)\n→ Аномалия 15 июня: -65% (праздник)\n→ Рекомендация: акция в среду-четверг\n\n📊 Скачать полный отчёт:', buttons:['📥 Отчёт PDF']},
+    ]
+  },
+  bot_faq: {
+    title: '@faq_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'❓ База знаний\n\nЗадайте вопрос — отвечу из базы знаний или подключу AI:'},
+      {from:'user', text:'Как оформить возврат товара?'},
+      {from:'bot', text:'[TF-IDF поиск] Найдено 3 совпадения...\n\n📋 Возврат товара:\n\n1. Обратитесь в течение 14 дней с чеком\n2. Товар должен быть в оригинальной упаковке\n3. Заполните форму на сайте или напишите нам\n\n📞 Отдел возвратов: +7 700 000 0000\n\nЭто помогло?', buttons:['✅ Да','❌ Нет — нужно другое']},
+      {from:'user', text:'❌ Нет — нужно другое'},
+      {from:'bot', text:'[AI fallback] Уточните пожалуйста вопрос — передаю Claude AI для развёрнутого ответа...'},
+    ]
+  },
+  bot_news: {
+    title: '@news_demo_bot — Telegram',
+    type: 'telegram',
+    steps: [
+      {from:'bot', text:'📰 Ежедневный дайджест · 27 июня 2026\n\nВыберите темы подписки:', buttons:['💻 Технологии','💰 Финансы','🇰🇿 Казахстан','🌍 Мир']},
+      {from:'user', text:'💻 Технологии'},
+      {from:'bot', text:'✅ Подписка: Технологии\n\n📬 Дайджест придёт сегодня в 08:00\n\n── Сегодняшние топ-3 ──────────\n🔵 Anthropic выпустила Claude 4.5 Sonnet\n   ↳ Новая модель для агентов и кода\n\n🔵 OpenAI открыла API o3 для всех\n   ↳ Рассуждения на уровне PhD\n\n🔵 Apple Intelligence в iOS 19 beta\n   ↳ Siri на базе LLM наконец работает\n\n[AI суммаризация через Claude]'},
+    ]
+  },
+}
+
+// ── DEMO PLAYER ──
+let currentDemo = null
+let currentStep = 0
+let isPlaying = false
+
+function openDemo(key) {
+  const d = DEMOS[key]
+  if (!d) return
+  currentDemo = d
+  currentStep = 0
+  isPlaying = false
+
+  document.getElementById('modal-title').textContent = d.title
+  document.getElementById('modal-body').innerHTML = ''
+
+  if (d.live) {
+    const liveRow = document.getElementById('modal-input-row')
+    liveRow.innerHTML = `
+      <a href="${d.liveLink}" target="_blank" style="display:flex;align-items:center;gap:10px;flex:1;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.3);border-radius:4px;padding:10px 16px;font-family:monospace;font-size:12px;color:var(--green);text-decoration:none;transition:.2s" onmouseover="this.style.background='rgba(0,255,136,.14)'" onmouseout="this.style.background='rgba(0,255,136,.08)'">
+        <span>●</span><span>Открыть живой бот → t.me/artesuave_support_bot</span>
+      </a>
+      <button class="modal-send" onclick="nextStep()">Демо →</button>
+    `
+  } else {
+    document.getElementById('modal-input-row').innerHTML = `
+      <input class="modal-input" id="modal-input" placeholder="Нажмите Enter или кнопку →" readonly>
+      <button class="modal-send" onclick="nextStep()">→</button>
+    `
+    document.getElementById('modal-input').addEventListener('keydown', e => { if(e.key==='Enter') nextStep() })
+  }
+
+  document.getElementById('overlay').classList.add('on')
+  nextStep()
+}
+
+function closeDemo() {
+  document.getElementById('overlay').classList.remove('on')
+  currentDemo = null
+  isPlaying = false
+}
+
+function closeOnBg(e) {
+  if (e.target === document.getElementById('overlay')) closeDemo()
+}
+
+function nextStep() {
+  if (!currentDemo || isPlaying) return
+  if (currentStep >= currentDemo.steps.length) {
+    addReplay()
+    return
+  }
+
+  const step = currentDemo.steps[currentStep]
+  currentStep++
+
+  if (currentDemo.type === 'terminal') {
+    playTerminalStep(step)
+  } else {
+    playTelegramStep(step)
+  }
+}
+
+function playTerminalStep(step) {
+  isPlaying = true
+  const body = document.getElementById('modal-body')
+
+  if (step.prompt === 'system') {
+    const el = document.createElement('div')
+    el.className = 'msg-terminal'
+    el.style.background = 'rgba(0,0,0,.3)'
+    el.style.padding = '10px 12px'
+    el.style.borderRadius = '4px'
+    el.style.borderLeft = '2px solid var(--dim)'
+    body.appendChild(el)
+    typeLines(el, step.text, () => { isPlaying = false })
+    return
+  }
+
+  const el = document.createElement('div')
+  el.className = 'msg-terminal'
+  body.appendChild(el)
+
+  const color = step.prompt === 'user' ? 'var(--accent)' : 'var(--green)'
+  const label = step.prompt === 'user' ? '❯ user' : '❯ agent'
+  el.innerHTML = `<span class="prompt" style="color:${color}">${label}: </span><span class="cmd"></span>`
+  const cmdEl = el.querySelector('.cmd')
+
+  typeText(cmdEl, step.text, () => {
+    if (step.prompt === 'agent') {
+      const outEl = document.createElement('span')
+      outEl.className = 'out'
+      el.appendChild(outEl)
+    }
+    body.scrollTop = body.scrollHeight
+    isPlaying = false
+  })
+}
+
+function playTelegramStep(step) {
+  isPlaying = true
+  const body = document.getElementById('modal-body')
+
+  if (!body.querySelector('.tg-wrap')) {
+    const wrap = document.createElement('div')
+    wrap.className = 'tg-wrap'
+    body.appendChild(wrap)
+  }
+  const wrap = body.querySelector('.tg-wrap')
+
+  if (step.from === 'bot') {
+    // Show typing indicator first
+    const typing = document.createElement('div')
+    typing.className = 'tg-typing'
+    typing.innerHTML = '<div class="tg-dot"></div><div class="tg-dot"></div><div class="tg-dot"></div>'
+    wrap.appendChild(typing)
+    body.scrollTop = body.scrollHeight
+
+    setTimeout(() => {
+      wrap.removeChild(typing)
+      const msg = document.createElement('div')
+      msg.className = 'tg-msg bot'
+      msg.innerHTML = `<div class="tg-name">🤖 Bot</div><span></span>${step.buttons ? buildButtons(step.buttons) : ''}<div class="tg-time">${getTime()}</div>`
+      wrap.appendChild(msg)
+      const span = msg.querySelector('span')
+      typeText(span, step.text, () => {
+        body.scrollTop = body.scrollHeight
+        isPlaying = false
+      })
+    }, 900)
+  } else {
+    const msg = document.createElement('div')
+    msg.className = 'tg-msg user'
+    msg.innerHTML = `${escHtml(step.text)}<div class="tg-time">${getTime()} ✓✓</div>`
+    wrap.appendChild(msg)
+    body.scrollTop = body.scrollHeight
+    setTimeout(() => { isPlaying = false }, 300)
+  }
+}
+
+function buildButtons(btns) {
+  return '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">' +
+    btns.map(b => `<span style="background:rgba(0,217,255,.15);border:1px solid rgba(0,217,255,.3);border-radius:4px;padding:4px 10px;font-size:11px;font-family:monospace;color:var(--accent);cursor:default">${escHtml(b)}</span>`).join('') +
+    '</div>'
+}
+
+function addReplay() {
+  const body = document.getElementById('modal-body')
+  if (body.querySelector('.replay-btn')) return
+  const btn = document.createElement('button')
+  btn.className = 'replay-btn'
+  btn.textContent = '↺ Повторить демо'
+  btn.onclick = () => {
+    body.innerHTML = ''
+    currentStep = 0
+    isPlaying = false
+    nextStep()
+  }
+  body.appendChild(btn)
+}
+
+function typeText(el, text, cb) {
+  const lines = text.split('\n')
+  let li = 0, ci = 0
+  el.innerHTML = ''
+
+  function tick() {
+    if (li >= lines.length) { cb && cb(); return }
+    const line = lines[li]
+    if (ci < line.length) {
+      el.innerHTML = lines.slice(0, li).join('<br>') + (li > 0 ? '<br>' : '') + escHtml(line.slice(0, ++ci))
+      setTimeout(tick, ci === 1 ? 0 : 14)
+    } else {
+      li++; ci = 0
+      el.innerHTML = lines.slice(0, li).join('<br>')
+      setTimeout(tick, 40)
+    }
+  }
+  tick()
+}
+
+function typeLines(el, text, cb) {
+  typeText(el, text, cb)
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')
+}
+
+function getTime() {
+  const d = new Date()
+  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`
+}
+
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeDemo() })
+
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = location.hash.slice(1)
+  if (hash && DEMOS[hash]) {
+    if (hash.startsWith('bot_')) switchTab('bots')
+    setTimeout(() => openDemo(hash), 150)
+  }
+})
+</script>
+</body>
+</html>
