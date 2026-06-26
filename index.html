@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Портфолио — лендинги, боты, ИИ-агенты</title>
-<meta name="description" content="Демо-работы: 11 лендингов под разные ниши, мобильные приложения, ИИ-агенты. Каждый лендинг — с онлайн-записью в WhatsApp.">
+<meta name="description" content="Демо-работы: 20 лендингов, 10 AI-агентов, 10 Telegram-ботов, 5 мобильных приложений.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -38,17 +38,23 @@
   h2{font-size:clamp(24px,3.4vw,34px);margin-bottom:8px}
   .sub{color:var(--soft);margin-bottom:32px;font-size:16px}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
   .work{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:border-color .25s,transform .25s ease-out;display:block}
   .work:hover{border-color:var(--accent);transform:translateY(-4px)}
   .thumb{height:140px;display:flex;align-items:center;justify-content:center;font-family:var(--h);font-weight:700;font-size:24px;letter-spacing:1px}
+  .thumb-sm{height:110px;font-size:18px}
   .meta{padding:18px 20px 20px}
   .meta h3{font-size:17px;margin-bottom:5px}
   .meta p{font-size:13.5px;color:var(--soft)}
   .meta .go{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-family:var(--h);font-size:13px;font-weight:600;color:var(--accent)}
+  .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.5px;padding:3px 10px;border-radius:20px;margin-bottom:10px;background:rgba(79,142,247,.12);color:var(--accent)}
+  .tag.purple{background:rgba(155,108,255,.12);color:var(--accent2)}
+  .tag.green{background:rgba(52,211,153,.12);color:#34D399}
 
   footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;color:var(--soft);font-size:14px;margin-top:40px}
+  @media(max-width:1000px){.grid-4{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:580px){.grid{grid-template-columns:1fr}.hero{padding-top:70px}}
+  @media(max-width:580px){.grid,.grid-4{grid-template-columns:1fr}.hero{padding-top:70px}}
 </style>
 </head>
 <body>
@@ -57,11 +63,12 @@
   <div class="glow"></div>
   <div class="container">
     <h1 data-reveal>Сайты, которые <span>приводят клиентов</span></h1>
-    <p data-reveal>Демо-работы: лендинги под разные ниши с онлайн-записью в WhatsApp, мобильные приложения и ИИ-агенты. Любой из них могу собрать под ваш бизнес за 7 дней.</p>
+    <p data-reveal>Демо-работы: 20 лендингов, 10 AI-агентов на Python, 10 Telegram-ботов и 5 мобильных приложений. Любой проект могу собрать под ваш бизнес за 7 дней.</p>
     <div class="stats" data-reveal>
-      <div><b data-count="12">0</b><span>лендингов</span></div>
-      <div><b data-count="5">0</b><span>мобильных приложений</span></div>
-      <div><b data-count="5">0</b><span>ИИ-агентов</span></div>
+      <div><b>20</b><span>лендингов</span></div>
+      <div><b>10</b><span>AI-агентов</span></div>
+      <div><b>10</b><span>Telegram-ботов</span></div>
+      <div><b>5</b><span>мобильных приложений</span></div>
     </div>
   </div>
 </section>
@@ -71,7 +78,7 @@
     <h2 data-reveal>Лендинги</h2>
     <p class="sub" data-reveal>Каждый — с формой записи: заявка с сайта падает владельцу прямо в WhatsApp.</p>
     <div class="grid">
-      <a class="work" data-reveal href="sato-kimonos/"><div class="thumb" style="background:linear-gradient(135deg,#0B0B0E,#1B2438);color:#C8202F">SATO 刀</div><div class="meta"><h3>3D-витрина бренда кимоно</h3><p>Three.js: камера летает вокруг 3D-ги при скролле, 6 расцветок, реальные текстуры</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="sato-kimonos/"><div class="thumb" style="background:linear-gradient(135deg,#0B0B0E,#1B2438);color:#C8202F">SATO 刀</div><div class="meta"><h3>3D-витрина бренда кимоно</h3><p>Three.js: камера летает вокруг 3D-ги при скролле, 6 расцветок</p><span class="go">Открыть демо →</span></div></a>
       <a class="work" data-reveal href="dental/"><div class="thumb" style="background:linear-gradient(135deg,#0891B2,#059669);color:#fff">Денталь</div><div class="meta"><h3>Стоматология</h3><p>Цены, врачи, онлайн-запись, FAQ со снятием страхов</p><span class="go">Открыть демо →</span></div></a>
       <a class="work" data-reveal href="barbershop/"><div class="thumb" style="background:linear-gradient(135deg,#1A1A1A,#3A2E18);color:#D9A441">BRATAN</div><div class="meta"><h3>Барбершоп</h3><p>Тёмная тема, мастера, бронь времени в WhatsApp</p><span class="go">Открыть демо →</span></div></a>
       <a class="work" data-reveal href="flowers/"><div class="thumb" style="background:linear-gradient(135deg,#C4707E,#E8B7C0);color:#fff">La Fleur</div><div class="meta"><h3>Цветочный магазин</h3><p>Каталог букетов с заказом в один клик</p><span class="go">Открыть демо →</span></div></a>
@@ -83,18 +90,54 @@
       <a class="work" data-reveal href="law/"><div class="thumb" style="background:linear-gradient(135deg,#11203C,#A8854B);color:#fff">Прецедент</div><div class="meta"><h3>Юридическая фирма</h3><p>Практики, кейсы с цифрами, бесплатная оценка дела</p><span class="go">Открыть демо →</span></div></a>
       <a class="work" data-reveal href="realty/"><div class="thumb" style="background:linear-gradient(135deg,#22313A,#0E9488);color:#fff">Метраж</div><div class="meta"><h3>Недвижимость</h3><p>Подбор за 3 дня, услуги с фикс-комиссией</p><span class="go">Открыть демо →</span></div></a>
       <a class="work" data-reveal href="course/"><div class="thumb" style="background:linear-gradient(135deg,#473A9E,#F2674D);color:#fff">Прокачка</div><div class="meta"><h3>Школа английского</h3><p>Тарифы, метод, запись на пробный урок</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="gym/"><div class="thumb" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a);color:#ff4d00">IronGym</div><div class="meta"><h3>Фитнес-клуб — премиум</h3><p>Зоны зала, тренеры, тарифы, тёмная тема с оранжевым</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="saas/"><div class="thumb" style="background:linear-gradient(135deg,#0d1117,#161b22);color:#6366f1">FlowSync</div><div class="meta"><h3>SaaS-платформа</h3><p>Dashboard-превью, анимированный статус, тарифы</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="clinic/"><div class="thumb" style="background:linear-gradient(135deg,#f8fafc,#e0f2fe);color:#0ea5e9">МедЦентр</div><div class="meta"><h3>Медицинский центр</h3><p>Быстрая запись, карточки врачей, светлый дизайн</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="crypto/"><div class="thumb" style="background:linear-gradient(135deg,#060612,#150a2d);color:#a855f7">NexChain</div><div class="meta"><h3>DeFi / Крипто</h3><p>Неоновые глоу-блобы, тикер цен, TVL статистика</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="travel/"><div class="thumb" style="background:linear-gradient(135deg,#1c0a00,#92400e);color:#fcd34d">Wanderlust</div><div class="meta"><h3>Туризм</h3><p>Sticky nav, сетка направлений, карточки туров</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="agency/"><div class="thumb" style="background:linear-gradient(135deg,#09090b,#18181b);color:#22d3ee">pixel.agency</div><div class="meta"><h3>Digital-агентство</h3><p>Кастомный курсор, marquee-лента, портфолио кейсов</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="event/"><div class="thumb" style="background:linear-gradient(135deg,#0f0a1e,#1a1030);color:#e040fb">EventPro</div><div class="meta"><h3>Организация мероприятий</h3><p>CSS-конфетти, портфолио, шаги работы</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="realestate/"><div class="thumb" style="background:linear-gradient(135deg,#f9f7f4,#f0ebe3);color:#b45309">PrimeEstate</div><div class="meta"><h3>Элитная недвижимость</h3><p>Тёплая кремовая тема, бейджи ЭКСКЛЮЗИВ/ГОРЯЧЕЕ</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="portfolio-dev/"><div class="thumb" style="background:linear-gradient(135deg,#0a0f0a,#0d1a0d);color:#00ff41">Idris.dev</div><div class="meta"><h3>Developer Portfolio</h3><p>Матричный эффект, terminal UI, монопространственный шрифт</p><span class="go">Открыть демо →</span></div></a>
+      <a class="work" data-reveal href="restaurant/"><div class="thumb" style="background:linear-gradient(135deg,#0c0905,#1a1005);color:#c9963a;font-style:italic">Ember</div><div class="meta"><h3>Ресторан высокой кухни</h3><p>Тёмная люкс-тема, золотые акценты, меню с ценами</p><span class="go">Открыть демо →</span></div></a>
     </div>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <h2 data-reveal>Приложения и ИИ-агенты</h2>
-    <p class="sub" data-reveal>Реальный код в репозитории: Python + Claude API, React Native (Expo).</p>
-    <div class="grid">
-      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents"><div class="thumb" style="background:linear-gradient(135deg,#1A2530,#2D4A3E);color:#5FD4C8">ИИ-агенты</div><div class="meta"><h3>5 ИИ-агентов</h3><p>Поддержка, продажи, Telegram-бот, автоматизация, аналитика</p><span class="go">Код на GitHub →</span></div></a>
-      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/mobile-apps"><div class="thumb" style="background:linear-gradient(135deg,#1E2433,#3D2E5C);color:#9B6CFF">Мобильные</div><div class="meta"><h3>5 приложений</h3><p>Задачи, финансы, магазин, еда, фитнес — React Native</p><span class="go">Код на GitHub →</span></div></a>
-      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio"><div class="thumb" style="background:linear-gradient(135deg,#16202B,#1E3A5F);color:#4F8EF7">GitHub</div><div class="meta"><h3>Весь репозиторий</h3><p>Исходники всех демо-работ в одном месте</p><span class="go">Открыть →</span></div></a>
+    <h2 data-reveal>AI-агенты <span style="color:var(--soft);font-size:16px;font-weight:400">— Python + Claude API</span></h2>
+    <p class="sub" data-reveal>Реальный код: инструменты, FSM, tool use. Запускаются из CLI или интегрируются в бэкенд.</p>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/support"><div class="thumb" style="background:linear-gradient(135deg,#0f2027,#203a43);color:#38bdf8"><div class="tag green">Поддержка</div><br>Support Agent</div><div class="meta"><h3>Агент поддержки</h3><p>История диалога на пользователя, Claude API, контекстный ответ</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/sales"><div class="thumb" style="background:linear-gradient(135deg,#1a1000,#3d2a00);color:#fbbf24"><div class="tag" style="background:rgba(251,191,36,.12);color:#fbbf24">Продажи</div><br>Sales Agent</div><div class="meta"><h3>Агент продаж</h3><p>Квалификация лидов, SPIN-методология, скоринг</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/hr"><div class="thumb" style="background:linear-gradient(135deg,#0a1628,#1e3a5f);color:#60a5fa"><div class="tag">HR</div><br>HR Agent</div><div class="meta"><h3>HR-скрининг резюме</h3><p>Score 0–100, hire/reject/maybe, анализ навыков и опыта</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/content"><div class="thumb" style="background:linear-gradient(135deg,#1a0a1a,#3d1a3d);color:#c084fc"><div class="tag purple">Контент</div><br>Content Agent</div><div class="meta"><h3>Контент-генератор</h3><p>post/email/article/ad, варианты по количеству, тон и аудитория</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/research"><div class="thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a3a1a);color:#4ade80"><div class="tag green">Research</div><br>Research Agent</div><div class="meta"><h3>Веб-ресёрч агент</h3><p>Tool Use: search_web + fetch_page + save_note, глубина quick/medium/deep</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/code_review"><div class="thumb" style="background:linear-gradient(135deg,#1a1a0a,#2d2d00);color:#facc15"><div class="tag" style="background:rgba(250,204,21,.12);color:#facc15">Code Review</div><br>Review Agent</div><div class="meta"><h3>Ревью кода</h3><p>Issues по severity (critical/warning/suggestion), score 1–10, авто-детект языка</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/analytics"><div class="thumb" style="background:linear-gradient(135deg,#1A2530,#2D4A3E);color:#5FD4C8">Analytics Agent</div><div class="meta"><h3>AI-аналитик</h3><p>Анализ данных, JSON/CSV инсайты через Claude</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/translator"><div class="thumb" style="background:linear-gradient(135deg,#0f0a1e,#1a1030);color:#a78bfa"><div class="tag purple">Translate</div><br>Translator Agent</div><div class="meta"><h3>Переводчик</h3><p>7 языков, 6 контекстов (general/technical/legal/medical…), batch-перевод</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/ai-agents/automation"><div class="thumb" style="background:linear-gradient(135deg,#0a1a2a,#1a3a5a);color:#38bdf8">Automation Agent</div><div class="meta"><h3>Агент автоматизации</h3><p>Workflow chains, lead processing, интеграция с внешними системами</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/mobile-apps"><div class="thumb" style="background:linear-gradient(135deg,#1E2433,#3D2E5C);color:#9B6CFF">Mobile Apps</div><div class="meta"><h3>5 мобильных приложений</h3><p>React Native + Expo: фитнес, финансы, магазин, задачи, еда</p><span class="go">Код →</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 data-reveal>Telegram-боты <span style="color:var(--soft);font-size:16px;font-weight:400">— aiogram 3 + Claude API</span></h2>
+    <p class="sub" data-reveal>FSM, inline-клавиатуры, работа с файлами, per-user история диалога через Claude.</p>
+    <div class="grid-4">
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/restaurant_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#1a0a00,#3d1a00);color:#f97316">🍽️ Ресторан</div><div class="meta"><h3>Бронирование</h3><p>FSM запись, меню, AI-чат</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/support_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#0a1628,#1e3a5f);color:#60a5fa">🎧 Поддержка</div><div class="meta"><h3>Тех-поддержка</h3><p>Тикеты, эскалация, авто-ответ</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/ecommerce_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#0a1a0a,#1a3a1a);color:#4ade80">🛍️ Магазин</div><div class="meta"><h3>Ecommerce</h3><p>Каталог, корзина, оформление</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/quiz_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#1a1000,#3d2a00);color:#fbbf24">🎯 Квиз</div><div class="meta"><h3>Квиз-бот</h3><p>AI-вопросы, счёт, объяснения</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/feedback_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#1a0a1a,#3d1a3d);color:#c084fc">⭐ Отзывы</div><div class="meta"><h3>Сбор отзывов</h3><p>Рейтинг 1-5, сентимент AI</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/hr_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#0a1628,#1e3a5f);color:#38bdf8">👔 HR-бот</div><div class="meta"><h3>Вакансии</h3><p>AI-скрининг резюме, кандидаты</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/language_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#0f1a0a,#1a3a0a);color:#86efac">🌍 Языки</div><div class="meta"><h3>Изучение языков</h3><p>EN/DE/FR/ES/KZ, упражнения</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/analytics_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#1a1a0a,#2d2d00);color:#facc15">📊 Аналитика</div><div class="meta"><h3>Анализ данных</h3><p>CSV/JSON upload, AI-инсайты</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/faq_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#0a1a2a,#1a3a5a);color:#67e8f9">❓ FAQ</div><div class="meta"><h3>База знаний</h3><p>TF-IDF поиск, AI fallback</p><span class="go">Код →</span></div></a>
+      <a class="work" data-reveal href="https://github.com/artesuavee/portfolio/tree/main/chatbots/news_bot"><div class="thumb thumb-sm" style="background:linear-gradient(135deg,#1a0a0a,#3a1a1a);color:#f87171">📰 Новости</div><div class="meta"><h3>Дайджест</h3><p>RSS-парсинг, Claude суммаризация</p><span class="go">Код →</span></div></a>
     </div>
   </div>
 </section>
@@ -103,6 +146,11 @@
   <div class="container">Портфолио демо-работ · 2026 · Сделаю такой же сайт под ваш бизнес за 7 дней</div>
 </footer>
 
-<script src="assets/motion.js"></script>
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in') })
+}, {threshold: 0.1})
+document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el))
+</script>
 </body>
 </html>
