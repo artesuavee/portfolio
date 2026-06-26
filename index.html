@@ -605,7 +605,7 @@ function type(){
   const p=phrases[pi]
   if(!del){tw.textContent=p.slice(0,++ci);if(ci===p.length){del=true;setTimeout(type,1600);return}}
   else{tw.textContent=p.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return}}
-  setTimeout(type,del?38:70+Math.random()*30)
+  setTimeout(type,del?60:90+Math.random()*40)
 }
 setTimeout(type,800)
 
