@@ -6,8 +6,9 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--accent:#f59e0b;--accent2:#d97706;--text:#1c1917;--muted:#78716c;--bg:#fffbf7;--white:#fff}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
-nav{position:fixed;width:100%;z-index:100;padding:20px 80px;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+nav{position:fixed;width:100%;z-index:100;padding:20px 80px;display:flex;justify-content:space-between;align-items:center;transition:.4s}
 nav.scrolled{background:rgba(255,251,247,.95);backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(0,0,0,.08)}
 .logo{font-size:24px;font-weight:800;color:var(--white)}
 nav.scrolled .logo{color:var(--text)}
@@ -15,11 +16,38 @@ nav.scrolled .logo{color:var(--text)}
 .nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
 nav.scrolled .nav-links a{color:var(--muted)}
 .nav-links a:hover{color:var(--accent)}
-.btn{background:var(--accent);color:var(--text);border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.btn{background:var(--accent);color:var(--text);border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--accent2);transform:translateY(-1px)}
+
+/* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1c0a00,#7c2d12,#92400e);z-index:0}
-.hero-overlay{position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><radialGradient id="g"><stop offset="0%25" stop-color="%23f59e0b" stop-opacity=".1"/><stop offset="100%25" stop-color="transparent"/></radialGradient></defs><ellipse cx="300" cy="150" rx="200" ry="200" fill="url(%23g)"/></svg>') center/cover;z-index:1}
-.hero-content{position:relative;z-index:2;padding:120px 80px 80px;color:var(--white);max-width:700px}
+
+/* Animated background shapes */
+.hero-shape{position:absolute;pointer-events:none;z-index:1}
+.shape-circle1{width:400px;height:400px;border-radius:50%;border:1px solid rgba(245,158,11,.12);right:-100px;top:10%;animation:shapeSpin 25s linear infinite}
+.shape-circle2{width:600px;height:600px;border-radius:50%;border:1px solid rgba(245,158,11,.07);right:-200px;top:-10%;animation:shapeSpin 35s linear infinite reverse}
+.shape-circle3{width:200px;height:200px;border-radius:50%;border:1px solid rgba(245,158,11,.18);right:8%;top:20%;animation:shapeSpin 18s linear infinite}
+@keyframes shapeSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Flying plane */
+.plane{position:absolute;z-index:2;font-size:28px;animation:planeFly 18s linear infinite;top:18%;opacity:.7}
+@keyframes planeFly{
+  0%{left:-60px;transform:translateY(0) rotate(-5deg)}
+  30%{transform:translateY(-30px) rotate(3deg)}
+  60%{transform:translateY(10px) rotate(-3deg)}
+  100%{left:calc(100% + 60px);transform:translateY(-20px) rotate(-5deg)}
+}
+
+/* Floating pins */
+.pin{position:absolute;z-index:2;font-size:22px;animation:pinFloat 4s ease-in-out infinite}
+.pin1{left:15%;top:30%;animation-delay:0s}
+.pin2{left:60%;top:15%;animation-delay:1.5s}
+.pin3{left:80%;top:55%;animation-delay:.8s}
+.pin4{left:35%;top:65%;animation-delay:2.2s}
+@keyframes pinFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.hero-content{position:relative;z-index:3;padding:120px 80px 80px;color:var(--white);max-width:700px}
 .hero-tag{display:inline-block;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:28px}
 h1{font-size:clamp(44px,6vw,80px);font-weight:900;line-height:1.05;margin-bottom:20px;letter-spacing:-1px}
 h1 em{font-style:normal;color:var(--accent)}
@@ -28,40 +56,63 @@ h1 em{font-style:normal;color:var(--accent)}
 .btn-lg{padding:16px 36px;font-size:16px;border-radius:10px}
 .btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3);padding:16px 36px;font-size:16px;border-radius:10px;cursor:pointer;backdrop-filter:blur(8px);transition:.2s}
 .btn-ghost:hover{background:rgba(255,255,255,.2)}
-.search-bar{background:var(--white);border-radius:16px;padding:20px 24px;display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin:60px 80px -50px;position:relative;z-index:10;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+
+/* Hero stats bar */
+.hero-stats{position:relative;z-index:3;display:flex;gap:60px;padding:0 80px 60px;color:#fff}
+.hstat-n{font-size:36px;font-weight:900;color:var(--accent)}
+.hstat-l{font-size:12px;opacity:.65;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+.search-bar{background:var(--white);border-radius:16px;padding:20px 24px;display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin:0 80px -50px;position:relative;z-index:10;box-shadow:0 20px 60px rgba(0,0,0,.15)}
 .s-field{flex:1;min-width:140px}
 .s-field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
 .s-field input,.s-field select{width:100%;border:1px solid #e7e5e4;border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:.2s}
 .s-field input:focus,.s-field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,158,11,.1)}
 .s-divider{width:1px;background:#e7e5e4;height:44px;align-self:flex-end}
+
+/* DESTINATIONS */
 .destinations{padding:140px 80px 100px;max-width:1200px;margin:0 auto}
 h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;margin-bottom:12px}
 .accent{color:var(--accent)}
 .section-sub{color:var(--muted);font-size:16px;margin-bottom:56px}
+
 .dest-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:20px}
-.dest-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;min-height:220px;display:flex;align-items:flex-end}
+.dest-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;min-height:220px;display:flex;align-items:flex-end;
+  transition:transform .4s ease,box-shadow .4s ease}
 .dest-card:first-child{grid-row:span 2;min-height:460px}
-.dest-bg{position:absolute;inset:0;transition:.5s}
-.dest-card:hover .dest-bg{transform:scale(1.05)}
+.dest-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 24px 48px rgba(0,0,0,.2)}
+
+.dest-bg{position:absolute;inset:0;transition:.6s ease}
+.dest-card:hover .dest-bg{transform:scale(1.08)}
 .dest1 .dest-bg{background:linear-gradient(135deg,#1e3a5f,#4a90d9,#87ceeb)}
 .dest2 .dest-bg{background:linear-gradient(135deg,#2d5a27,#52b788,#90e0a0)}
 .dest3 .dest-bg{background:linear-gradient(135deg,#7c3d0a,#d4891c,#f4c842)}
 .dest4 .dest-bg{background:linear-gradient(135deg,#1a0030,#6b0f8e,#c040fb)}
 .dest5 .dest-bg{background:linear-gradient(135deg,#0d2137,#1a5276,#2e86c1)}
-.dest-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;opacity:.4}
-.dest-info{position:relative;z-index:1;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,.7));width:100%}
+
+.dest-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;opacity:.3;transition:.4s}
+.dest-card:hover .dest-emoji{opacity:.5;transform:translate(-50%,-60%) scale(1.15)}
+
+.dest-info{position:relative;z-index:1;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,.75));width:100%}
 .dest-name{font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
 .dest-price{font-size:13px;color:rgba(255,255,255,.8)}
 .dest-price span{color:var(--accent);font-weight:700;font-size:16px}
+
+/* Badge NEW */
+.dest-badge{position:absolute;top:16px;right:16px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:100px;letter-spacing:1px;z-index:2}
+
+/* TOURS */
 .tours{padding:0 80px 100px;max-width:1200px;margin:0 auto}
 .tours-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px}
-.tour-card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:.3s}
-.tour-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.12);transform:translateY(-4px)}
-.tour-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:70px;position:relative}
-.t1{background:linear-gradient(135deg,#0ea5e9,#38bdf8,#7dd3fc)}
-.t2{background:linear-gradient(135deg,#16a34a,#4ade80)}
-.t3{background:linear-gradient(135deg,#dc2626,#f87171)}
-.tour-badge{position:absolute;top:16px;left:16px;background:var(--accent);color:var(--text);font-size:11px;font-weight:800;padding:4px 12px;border-radius:100px;letter-spacing:.5px}
+.tour-card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:.35s;cursor:pointer}
+.tour-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.14);transform:translateY(-6px)}
+.tour-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:70px;position:relative;overflow:hidden}
+.tour-img-bg{position:absolute;inset:0;transition:.5s}
+.tour-card:hover .tour-img-bg{transform:scale(1.08)}
+.t1 .tour-img-bg{background:linear-gradient(135deg,#0ea5e9,#38bdf8,#7dd3fc)}
+.t2 .tour-img-bg{background:linear-gradient(135deg,#16a34a,#4ade80)}
+.t3 .tour-img-bg{background:linear-gradient(135deg,#dc2626,#f87171)}
+.tour-emoji{position:relative;z-index:1;font-size:70px}
+.tour-badge{position:absolute;top:16px;left:16px;background:var(--accent);color:var(--text);font-size:11px;font-weight:800;padding:4px 12px;border-radius:100px;letter-spacing:.5px;z-index:2}
 .tour-body{padding:24px}
 .tour-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .tag{background:#fef3c7;color:#92400e;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px}
@@ -70,24 +121,37 @@ h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;margin-bottom:12px}
 .tour-footer{display:flex;justify-content:space-between;align-items:center}
 .tour-price{font-size:22px;font-weight:800;color:var(--accent)}
 .tour-price small{font-size:13px;color:var(--muted);font-weight:400}
-.btn-sm{background:var(--accent);color:var(--text);border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
-.why{background:linear-gradient(135deg,#1c0a00,#7c2d12);padding:80px;color:#fff;text-align:center}
-.why h2{color:#fff;margin-bottom:16px}
-.why .section-sub{color:rgba(255,255,255,.6)}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;max-width:900px;margin:0 auto}
-.why-item{text-align:center}
-.why-icon{font-size:44px;margin-bottom:16px}
+.btn-sm{background:var(--accent);color:var(--text);border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.btn-sm:hover{background:var(--accent2)}
+
+/* WHY */
+.why{background:linear-gradient(135deg,#1c0a00,#7c2d12);padding:80px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.why::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23f59e0b' opacity='.08'/%3E%3C/svg%3E") repeat}
+.why h2{color:#fff;margin-bottom:16px;position:relative}
+.why .section-sub{color:rgba(255,255,255,.6);position:relative}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;max-width:900px;margin:0 auto;position:relative}
+.why-item{text-align:center;transition:.3s}
+.why-item:hover{transform:translateY(-4px)}
+.why-icon{font-size:44px;margin-bottom:16px;display:block;transition:.3s}
+.why-item:hover .why-icon{transform:scale(1.15)}
 .why-item h3{font-size:16px;font-weight:700;margin-bottom:8px}
 .why-item p{font-size:13px;opacity:.7;line-height:1.6}
+
 .cta{padding:80px;text-align:center;background:var(--accent)}
 .cta h2{font-size:40px;font-weight:900;color:var(--text);margin-bottom:16px}
 .cta p{font-size:16px;color:var(--text);opacity:.8;margin-bottom:32px}
-.btn-dark{background:var(--text);color:#fff;border:none;padding:16px 40px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
+.btn-dark{background:var(--text);color:#fff;border:none;padding:16px 40px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+
 footer{padding:40px 80px;background:var(--text);color:#fff;display:flex;justify-content:space-between;align-items:center}
 .footer-logo{font-size:22px;font-weight:800}
 .footer-logo span{color:var(--accent)}
 footer p{font-size:13px;opacity:.5}
-@media(max-width:768px){nav,.hero-content,.search-bar,.destinations,.tours,.why,.cta,footer{padding-left:24px;padding-right:24px}.dest-grid{grid-template-columns:1fr}.dest-card:first-child{grid-row:span 1;min-height:220px}.search-bar{margin:40px 24px 0}.s-divider{display:none}}
+
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal].in{opacity:1;transform:none}
+
+@media(max-width:768px){nav,.hero-content,.hero-stats,.search-bar,.destinations,.tours,.why,.cta,footer{padding-left:24px;padding-right:24px}.dest-grid{grid-template-columns:1fr}.dest-card:first-child{grid-row:span 1;min-height:220px}.search-bar{margin:40px 24px 0}.s-divider{display:none}}
 </style>
 </head>
 <body>
@@ -99,7 +163,18 @@ footer p{font-size:13px;opacity:.5}
 
 <div class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
+  <!-- Rotating ring shapes -->
+  <div class="hero-shape shape-circle1"></div>
+  <div class="hero-shape shape-circle2"></div>
+  <div class="hero-shape shape-circle3"></div>
+  <!-- Flying plane -->
+  <div class="plane">✈️</div>
+  <!-- Floating map pins -->
+  <div class="pin pin1">📍</div>
+  <div class="pin pin2">📍</div>
+  <div class="pin pin3">📍</div>
+  <div class="pin pin4">📍</div>
+
   <div class="hero-content">
     <div class="hero-tag">✈️ Более 500 направлений</div>
     <h1>Откройте мир<br>вместе с <em>нами</em></h1>
@@ -108,6 +183,11 @@ footer p{font-size:13px;opacity:.5}
       <button class="btn btn-lg">Найти тур</button>
       <button class="btn-ghost">Посмотреть направления</button>
     </div>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hstat-n" data-count="500">0</div><div class="hstat-l">Направлений</div></div>
+    <div><div class="hstat-n" data-count="50000">0</div><div class="hstat-l">Довольных туристов</div></div>
+    <div><div class="hstat-n" data-count="15">0</div><div class="hstat-l">Лет опыта</div></div>
   </div>
 </div>
 
@@ -123,24 +203,33 @@ footer p{font-size:13px;opacity:.5}
 </div>
 
 <div class="destinations" id="destinations">
-  <h2>Популярные <span class="accent">направления</span></h2>
-  <p class="section-sub">Лучшие места планеты для вашего отдыха</p>
+  <h2 data-reveal>Популярные <span class="accent">направления</span></h2>
+  <p class="section-sub" data-reveal>Лучшие места планеты для вашего отдыха</p>
   <div class="dest-grid">
-    <div class="dest-card dest1"><div class="dest-bg"></div><span class="dest-emoji">🏔️</span><div class="dest-info"><div class="dest-name">Европа</div><div class="dest-price">от <span>180 000 ₸</span></div></div></div>
-    <div class="dest-card dest2"><div class="dest-bg"></div><span class="dest-emoji">🌴</span><div class="dest-info"><div class="dest-name">Таиланд</div><div class="dest-price">от <span>220 000 ₸</span></div></div></div>
-    <div class="dest-card dest3"><div class="dest-bg"></div><span class="dest-emoji">🕌</span><div class="dest-info"><div class="dest-name">Турция</div><div class="dest-price">от <span>150 000 ₸</span></div></div></div>
-    <div class="dest-card dest4"><div class="dest-bg"></div><span class="dest-emoji">🏝️</span><div class="dest-info"><div class="dest-name">Мальдивы</div><div class="dest-price">от <span>450 000 ₸</span></div></div></div>
-    <div class="dest-card dest5"><div class="dest-bg"></div><span class="dest-emoji">🗼</span><div class="dest-info"><div class="dest-name">ОАЭ</div><div class="dest-price">от <span>280 000 ₸</span></div></div></div>
+    <div class="dest-card dest1" data-reveal><div class="dest-bg"></div><span class="dest-badge">ХИТ</span><span class="dest-emoji">🏔️</span><div class="dest-info"><div class="dest-name">Европа</div><div class="dest-price">от <span>180 000 ₸</span></div></div></div>
+    <div class="dest-card dest2" data-reveal style="transition-delay:.05s"><div class="dest-bg"></div><span class="dest-emoji">🌴</span><div class="dest-info"><div class="dest-name">Таиланд</div><div class="dest-price">от <span>220 000 ₸</span></div></div></div>
+    <div class="dest-card dest3" data-reveal style="transition-delay:.10s"><div class="dest-bg"></div><span class="dest-emoji">🕌</span><div class="dest-info"><div class="dest-name">Турция</div><div class="dest-price">от <span>150 000 ₸</span></div></div></div>
+    <div class="dest-card dest4" data-reveal style="transition-delay:.15s"><div class="dest-bg"></div><span class="dest-badge">НОВОЕ</span><span class="dest-emoji">🏝️</span><div class="dest-info"><div class="dest-name">Мальдивы</div><div class="dest-price">от <span>450 000 ₸</span></div></div></div>
+    <div class="dest-card dest5" data-reveal style="transition-delay:.20s"><div class="dest-bg"></div><span class="dest-emoji">🗼</span><div class="dest-info"><div class="dest-name">ОАЭ</div><div class="dest-price">от <span>280 000 ₸</span></div></div></div>
   </div>
 </div>
 
 <div class="tours" id="tours">
-  <h2>Горящие <span class="accent">туры</span></h2>
-  <p class="section-sub">Успей забронировать по специальной цене</p>
+  <h2 data-reveal>Горящие <span class="accent">туры</span></h2>
+  <p class="section-sub" data-reveal>Успей забронировать по специальной цене</p>
   <div class="tours-grid">
-    <div class="tour-card"><div class="tour-img t1">🇹🇷<div class="tour-badge">ГОРЯЩИЙ</div></div><div class="tour-body"><div class="tour-tags"><span class="tag">Пляж</span><span class="tag">All inclusive</span><span class="tag">7 ночей</span></div><div class="tour-title">Анталья — пляжный рай</div><div class="tour-desc">Отель 5★ с прямым выходом к морю. Перелёт + трансфер включены.</div><div class="tour-footer"><div class="tour-price">189 000 ₸<br><small>за 2 чел.</small></div><button class="btn-sm">Забронировать</button></div></div></div>
-    <div class="tour-card"><div class="tour-img t2">🇹🇭<div class="tour-badge">ХИТ</div></div><div class="tour-body"><div class="tour-tags"><span class="tag">Экзотика</span><span class="tag">Острова</span><span class="tag">10 ночей</span></div><div class="tour-title">Таиланд — Пхукет & Самуи</div><div class="tour-desc">Два острова, дайвинг, тайская кухня и вилла с бассейном.</div><div class="tour-footer"><div class="tour-price">310 000 ₸<br><small>за 2 чел.</small></div><button class="btn-sm">Забронировать</button></div></div></div>
-    <div class="tour-card"><div class="tour-img t3">🇮🇹<div class="tour-badge">НОВИНКА</div></div><div class="tour-body"><div class="tour-tags"><span class="tag">Культура</span><span class="tag">Гастротур</span><span class="tag">8 ночей</span></div><div class="tour-title">Италия — Рим, Флоренция, Венеция</div><div class="tour-desc">Классический маршрут по трём городам с гидом. Питание включено.</div><div class="tour-footer"><div class="tour-price">420 000 ₸<br><small>за 2 чел.</small></div><button class="btn-sm">Забронировать</button></div></div></div>
+    <div class="tour-card" data-reveal style="transition-delay:.05s">
+      <div class="tour-img t1"><div class="tour-img-bg"></div><span class="tour-emoji">🇹🇷</span><div class="tour-badge">ГОРЯЩИЙ</div></div>
+      <div class="tour-body"><div class="tour-tags"><span class="tag">Пляж</span><span class="tag">All inclusive</span><span class="tag">7 ночей</span></div><div class="tour-title">Анталья — пляжный рай</div><div class="tour-desc">Отель 5★ с прямым выходом к морю. Перелёт + трансфер включены.</div><div class="tour-footer"><div class="tour-price">189 000 ₸<br><small>за 2 чел.</small></div><button class="btn-sm">Забронировать</button></div></div>
+    </div>
+    <div class="tour-card" data-reveal style="transition-delay:.10s">
+      <div class="tour-img t2"><div class="tour-img-bg"></div><span class="tour-emoji">🇹🇭</span><div class="tour-badge">ХИТ</div></div>
+      <div class="tour-body"><div class="tour-tags"><span class="tag">Экзотика</span><span class="tag">Острова</span><span class="tag">10 ночей</span></div><div class="tour-title">Таиланд — Пхукет & Самуи</div><div class="tour-desc">Два острова, дайвинг, тайская кухня и вилла с бассейном.</div><div class="tour-footer"><div class="tour-price">310 000 ₸<br><small>за 2 чел.</small></div><button class="btn-sm">Забронировать</button></div></div>
+    </div>
+    <div class="tour-card" data-reveal style="transition-delay:.15s">
+      <div class="tour-img t3"><div class="tour-img-bg"></div><span class="tour-emoji">🇮🇹</span><div class="tour-badge">НОВИНКА</div></div>
+      <div class="tour-body"><div class="tour-tags"><span class="tag">Культура</span><span class="tag">Гастротур</span><span class="tag">8 ночей</span></div><div class="tour-title">Италия — Рим, Флоренция, Венеция</div><div class="tour-desc">Классический маршрут по трём городам с гидом. Питание включено.</div><div class="tour-footer"><div class="tour-price">420 000 ₸<br><small>за 2 чел.</small></div><button class="btn-sm">Забронировать</button></div></div>
+    </div>
   </div>
 </div>
 
@@ -148,20 +237,69 @@ footer p{font-size:13px;opacity:.5}
   <h2>Почему выбирают нас</h2>
   <p class="section-sub" style="margin-bottom:60px">15 лет опыта и 50 000 довольных путешественников</p>
   <div class="why-grid">
-    <div class="why-item"><div class="why-icon">🛡️</div><h3>Гарантия лучшей цены</h3><p>Найдёте дешевле — вернём разницу</p></div>
-    <div class="why-item"><div class="why-icon">✈️</div><h3>Прямые перелёты</h3><p>Работаем с 30+ авиакомпаниями</p></div>
-    <div class="why-item"><div class="why-icon">📱</div><h3>Поддержка 24/7</div><p>Всегда на связи в любой точке мира</p></div>
-    <div class="why-item"><div class="why-icon">💳</div><h3>Рассрочка 0%</h3><p>Оплата частями без переплат</p></div>
+    <div class="why-item"><span class="why-icon">🛡️</span><h3>Гарантия лучшей цены</h3><p>Найдёте дешевле — вернём разницу</p></div>
+    <div class="why-item"><span class="why-icon">✈️</span><h3>Прямые перелёты</h3><p>Работаем с 30+ авиакомпаниями</p></div>
+    <div class="why-item"><span class="why-icon">📱</span><h3>Поддержка 24/7</h3><p>Всегда на связи в любой точке мира</p></div>
+    <div class="why-item"><span class="why-icon">💳</span><h3>Рассрочка 0%</h3><p>Оплата частями без переплат</p></div>
   </div>
 </div>
 
-<div class="cta"><h2>Мечтаете о путешествии?</h2><p>Подберём тур мечты за 15 минут бесплатно</p><button class="btn-dark">Получить консультацию</button></div>
+<div class="cta">
+  <h2>Мечтаете о путешествии?</h2>
+  <p>Подберём тур мечты за 15 минут бесплатно</p>
+  <button class="btn-dark">Получить консультацию</button>
+</div>
 
 <footer>
   <div class="footer-logo">Wander<span>lust</span></div>
   <p>ул. Достык 10, Алматы · +7 (727) 234-56-78</p>
   <p>© 2026 Wanderlust Travel. Лицензия МТ №0012</p>
 </footer>
-<script>window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)})</script>
+
+<script>
+// Sticky nav
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50))
+
+// Counter animation
+function countUp(el, target){
+  const dur = 2000, start = performance.now()
+  const fmt = n => target >= 1000 ? (n/1000).toFixed(0)+'K+' : n+'+'
+  const tick = now => {
+    const t = Math.min((now-start)/dur, 1)
+    const val = Math.round((1-Math.pow(1-t,3))*target)
+    el.textContent = fmt(val)
+    if(t<1) requestAnimationFrame(tick)
+  }
+  requestAnimationFrame(tick)
+}
+
+// Run counters on load
+setTimeout(()=>{
+  document.querySelectorAll('[data-count]').forEach(el => countUp(el, +el.dataset.count))
+}, 500)
+
+// Reveal on scroll
+const io = new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting) e.target.classList.add('in')
+}), {threshold:.12})
+document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el))
+
+// 3D tilt on destination cards
+document.querySelectorAll('.dest-card').forEach(card=>{
+  card.addEventListener('mousemove', e=>{
+    const r = card.getBoundingClientRect()
+    const x = (e.clientX-r.left)/r.width - .5
+    const y = (e.clientY-r.top)/r.height - .5
+    card.style.transform = `translateY(-6px) rotateY(${x*10}deg) rotateX(${-y*8}deg) scale(1.02)`
+  })
+  card.addEventListener('mouseleave', ()=>{
+    card.style.transform = ''
+    card.style.transition = 'transform .5s ease, box-shadow .4s ease'
+  })
+  card.addEventListener('mouseenter', ()=>{
+    card.style.transition = 'transform .1s ease, box-shadow .4s ease'
+  })
+})
+</script>
 </body>
 </html>

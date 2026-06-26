@@ -6,7 +6,8 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f8fafc;--white:#fff;--accent:#0ea5e9;--accent2:#0284c7;--text:#0f172a;--muted:#64748b;--light:#e0f2fe;--border:#e2e8f0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
 nav{background:var(--white);border-bottom:1px solid var(--border);padding:16px 80px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .logo{display:flex;align-items:center;gap:12px}
 .logo-icon{width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px}
@@ -15,62 +16,111 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:16px 8
 .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
 .nav-links a:hover{color:var(--accent)}
 .btn{background:var(--accent);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
-.btn:hover{background:var(--accent2)}
+.btn:hover{background:var(--accent2);transform:translateY(-1px)}
+
+/* HERO */
 .hero{background:linear-gradient(135deg,#0c4a6e,#0369a1,#0ea5e9);padding:80px;min-height:520px;display:flex;align-items:center;position:relative;overflow:hidden}
-.hero::after{content:'🏥';position:absolute;right:10%;bottom:-20px;font-size:200px;opacity:.06}
-.hero-content{max-width:620px;color:#fff}
+
+/* Floating medical crosses */
+.cross{position:absolute;color:rgba(255,255,255,.06);font-size:60px;font-weight:100;pointer-events:none;animation:crossFloat 8s ease-in-out infinite;user-select:none;line-height:1}
+.cross1{top:10%;left:5%;animation-delay:0s;font-size:80px}
+.cross2{top:20%;right:8%;animation-delay:1.5s;font-size:50px}
+.cross3{bottom:15%;left:12%;animation-delay:3s;font-size:40px}
+.cross4{bottom:20%;right:15%;animation-delay:2s;font-size:70px}
+.cross5{top:50%;left:40%;animation-delay:.8s;font-size:30px}
+@keyframes crossFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(10deg)}}
+
+/* Animated circles in background */
+.bg-circle{position:absolute;border-radius:50%;pointer-events:none}
+.bg-circle1{width:400px;height:400px;border:1px solid rgba(255,255,255,.08);right:-100px;top:-100px;animation:spin 30s linear infinite}
+.bg-circle2{width:250px;height:250px;border:1px solid rgba(255,255,255,.12);right:5%;bottom:-60px;animation:spin 20s linear infinite reverse}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* ECG line */
+.ecg-wrap{position:absolute;bottom:0;left:0;right:0;height:80px;overflow:hidden;opacity:.15}
+.ecg-line{animation:ecgScroll 3s linear infinite}
+@keyframes ecgScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.hero-content{max-width:620px;color:#fff;position:relative;z-index:2}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:24px}
 h1{font-size:clamp(36px,4.5vw,60px);font-weight:800;line-height:1.15;margin-bottom:16px}
 .hero p{font-size:17px;opacity:.9;line-height:1.7;margin-bottom:36px;max-width:480px}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
-.btn-white{background:#fff;color:var(--accent2);border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-white{background:#fff;color:var(--accent2);border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
 .btn-outline-white{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
 .btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.1)}
-.quick-book{display:flex;gap:0;background:var(--white);border-radius:12px;padding:24px;max-width:900px;margin:-40px auto 0;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.1);flex-wrap:wrap;gap:16px}
+
+/* Quick book */
+.quick-book{display:flex;background:var(--white);border-radius:12px;padding:24px;max-width:900px;margin:-40px auto 0;position:relative;z-index:10;box-shadow:0 10px 40px rgba(0,0,0,.1);flex-wrap:wrap;gap:16px}
 .book-field{flex:1;min-width:160px}
 .book-field label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.book-field select,.book-field input{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:14px;color:var(--text);background:var(--bg);outline:none}
-.book-field select:focus,.book-field input:focus{border-color:var(--accent)}
+.book-field select,.book-field input{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:14px;color:var(--text);background:var(--bg);outline:none;transition:.2s}
+.book-field select:focus,.book-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(14,165,233,.1)}
+
+/* SERVICES */
 .services{padding:100px 80px;max-width:1200px;margin:0 auto}
 h2{font-size:clamp(28px,3.5vw,40px);font-weight:800;margin-bottom:12px}
 .accent{color:var(--accent)}
 .section-sub{color:var(--muted);font-size:16px;margin-bottom:56px}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
-.svc-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px 24px;text-align:center;transition:.2s;cursor:pointer}
-.svc-card:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(14,165,233,.1);transform:translateY(-2px)}
-.svc-icon{font-size:36px;margin-bottom:14px}
+.svc-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px 24px;text-align:center;transition:.3s;cursor:pointer;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transition:.3s;transform-origin:center}
+.svc-card:hover{border-color:var(--accent);box-shadow:0 12px 32px rgba(14,165,233,.12);transform:translateY(-4px)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-icon{font-size:36px;margin-bottom:14px;display:block;transition:.3s}
+.svc-card:hover .svc-icon{transform:scale(1.15)}
 .svc-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
 .svc-card p{font-size:12px;color:var(--muted)}
+
+/* DOCTORS */
 .doctors{padding:0 80px 100px;max-width:1200px;margin:0 auto}
 .doctors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
-.doctor-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.2s}
-.doctor-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
-.doctor-photo{height:200px;background:linear-gradient(135deg,var(--light),#bae6fd);display:flex;align-items:center;justify-content:center;font-size:64px}
+.doctor-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.3s}
+.doctor-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.1);transform:translateY(-4px)}
+.doctor-photo{height:200px;background:linear-gradient(135deg,var(--light),#bae6fd);display:flex;align-items:center;justify-content:center;font-size:64px;transition:.4s;overflow:hidden}
+.doctor-card:hover .doctor-photo{transform:scale(1.05)}
 .doctor-info{padding:20px}
 .doctor-name{font-size:16px;font-weight:700;margin-bottom:4px}
 .doctor-spec{color:var(--accent);font-size:13px;font-weight:600;margin-bottom:8px}
 .doctor-exp{color:var(--muted);font-size:12px;margin-bottom:16px}
 .btn-sm{background:var(--light);color:var(--accent2);border:none;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
 .btn-sm:hover{background:var(--accent);color:#fff}
-.trust{background:var(--accent);padding:60px 80px}
-.trust-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;color:#fff}
-.trust-num{font-size:44px;font-weight:800;margin-bottom:8px}
-.trust-label{font-size:13px;opacity:.85}
+
+/* TRUST STATS */
+.trust{background:linear-gradient(135deg,#0c4a6e,#0284c7);padding:60px 80px;position:relative;overflow:hidden}
+.trust::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1' fill='white' opacity='.06'/%3E%3C/svg%3E") repeat}
+.trust-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;color:#fff;position:relative}
+.trust-num{font-size:44px;font-weight:800;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.trust-label{font-size:13px;opacity:.8}
+
+/* REVIEWS */
 .reviews{padding:80px;background:var(--bg)}
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1000px;margin:40px auto 0}
-.review-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px}
+.review-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;transition:.3s}
+.review-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.07);transform:translateY(-2px)}
 .stars{color:#f59e0b;font-size:18px;margin-bottom:12px}
 .review-text{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:16px}
 .reviewer{display:flex;align-items:center;gap:12px}
 .reviewer-avatar{width:40px;height:40px;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:20px}
 .reviewer-name{font-size:14px;font-weight:600}
 .reviewer-dept{font-size:12px;color:var(--muted)}
-.cta-section{background:linear-gradient(135deg,#0c4a6e,#0369a1);padding:80px;text-align:center;color:#fff}
-.cta-section h2{font-size:36px;margin-bottom:16px}
-.cta-section p{font-size:16px;opacity:.85;margin-bottom:32px}
+
+.cta-section{background:linear-gradient(135deg,#0c4a6e,#0369a1);padding:80px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(255,255,255,.08);top:-150px;right:-100px}
+.cta-section::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(255,255,255,.06);bottom:-120px;left:-80px}
+.cta-section h2{font-size:36px;margin-bottom:16px;position:relative}
+.cta-section p{font-size:16px;opacity:.85;margin-bottom:32px;position:relative}
+
 footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-content:space-between;align-items:center}
-.footer-info{font-size:13px;color:rgba(255,255,255,.6)}
-@media(max-width:768px){nav,section,.hero,.services,.doctors,.trust,.reviews,.cta-section,footer{padding-left:24px;padding-right:24px}.trust-grid{grid-template-columns:repeat(2,1fr)}.quick-book{margin:20px 24px}}
+.footer-info{font-size:13px;color:rgba(255,255,255,.5)}
+
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal].in{opacity:1;transform:none}
+[data-reveal-left]{opacity:0;transform:translateX(-28px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal-left].in{opacity:1;transform:none}
+
+@media(max-width:768px){nav,.hero,.services,.doctors,.trust,.reviews,.cta-section,footer{padding-left:24px;padding-right:24px}.trust-grid{grid-template-columns:repeat(2,1fr)}.quick-book{margin:20px 24px}}
 </style>
 </head>
 <body>
@@ -86,6 +136,23 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
 </nav>
 
 <div class="hero">
+  <!-- Floating medical cross symbols -->
+  <div class="cross cross1">✚</div>
+  <div class="cross cross2">✚</div>
+  <div class="cross cross3">✚</div>
+  <div class="cross cross4">✚</div>
+  <div class="cross cross5">✚</div>
+  <!-- Background rings -->
+  <div class="bg-circle bg-circle1"></div>
+  <div class="bg-circle bg-circle2"></div>
+  <!-- ECG line at bottom -->
+  <div class="ecg-wrap">
+    <svg class="ecg-line" viewBox="0 0 1200 80" preserveAspectRatio="none" width="200%" height="80">
+      <polyline points="0,40 60,40 80,40 90,10 100,70 110,10 120,40 180,40 200,40 210,20 220,60 230,20 240,40 300,40 320,40 330,5 340,75 350,5 360,40 420,40 440,40 450,15 460,65 470,15 480,40 540,40 560,40 570,10 580,70 590,10 600,40 660,40 680,40 690,20 700,60 710,20 720,40 780,40 800,40 810,5 820,75 830,5 840,40 900,40 920,40 930,15 940,65 950,15 960,40 1020,40 1040,40 1050,10 1060,70 1070,10 1080,40 1140,40 1160,40 1170,20 1180,60 1190,20 1200,40"
+        fill="none" stroke="white" stroke-width="2"/>
+    </svg>
+  </div>
+
   <div class="hero-content">
     <div class="hero-badge">⭐ Клиника года 2025</div>
     <h1>Ваше здоровье — наша забота</h1>
@@ -114,49 +181,49 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
 </div>
 
 <div class="services" id="services">
-  <h2>Наши <span class="accent">специализации</span></h2>
-  <p class="section-sub">40+ направлений медицинской помощи</p>
+  <h2 data-reveal>Наши <span class="accent">специализации</span></h2>
+  <p class="section-sub" data-reveal>40+ направлений медицинской помощи</p>
   <div class="services-grid">
-    <div class="svc-card"><div class="svc-icon">❤️</div><h3>Кардиология</h3><p>ЭКГ, УЗИ сердца, Холтер</p></div>
-    <div class="svc-card"><div class="svc-icon">🧠</div><h3>Неврология</h3><p>МРТ, консультации</p></div>
-    <div class="svc-card"><div class="svc-icon">🦷</div><h3>Стоматология</h3><p>Лечение, имплантация</p></div>
-    <div class="svc-card"><div class="svc-icon">👁️</div><h3>Офтальмология</h3><p>Диагностика, коррекция</p></div>
-    <div class="svc-card"><div class="svc-icon">🦴</div><h3>Ортопедия</h3><p>Суставы, позвоночник</p></div>
-    <div class="svc-card"><div class="svc-icon">🔬</div><h3>Лаборатория</h3><p>2000+ анализов</p></div>
-    <div class="svc-card"><div class="svc-icon">🤰</div><h3>Гинекология</h3><p>Ведение беременности</p></div>
-    <div class="svc-card"><div class="svc-icon">🧒</div><h3>Педиатрия</h3><p>От рождения до 18 лет</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.03s"><span class="svc-icon">❤️</span><h3>Кардиология</h3><p>ЭКГ, УЗИ сердца, Холтер</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.06s"><span class="svc-icon">🧠</span><h3>Неврология</h3><p>МРТ, консультации</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.09s"><span class="svc-icon">🦷</span><h3>Стоматология</h3><p>Лечение, имплантация</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.12s"><span class="svc-icon">👁️</span><h3>Офтальмология</h3><p>Диагностика, коррекция</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.15s"><span class="svc-icon">🦴</span><h3>Ортопедия</h3><p>Суставы, позвоночник</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.18s"><span class="svc-icon">🔬</span><h3>Лаборатория</h3><p>2000+ анализов</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.21s"><span class="svc-icon">🤰</span><h3>Гинекология</h3><p>Ведение беременности</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.24s"><span class="svc-icon">🧒</span><h3>Педиатрия</h3><p>От рождения до 18 лет</p></div>
   </div>
 </div>
 
 <div class="doctors" id="doctors">
-  <h2>Наши <span class="accent">специалисты</span></h2>
-  <p class="section-sub">Врачи высшей категории с международным опытом</p>
+  <h2 data-reveal>Наши <span class="accent">специалисты</span></h2>
+  <p class="section-sub" data-reveal>Врачи высшей категории с международным опытом</p>
   <div class="doctors-grid">
-    <div class="doctor-card"><div class="doctor-photo">👨‍⚕️</div><div class="doctor-info"><div class="doctor-name">Ахметов Бейбут</div><div class="doctor-spec">Кардиолог</div><div class="doctor-exp">Опыт: 18 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
-    <div class="doctor-card"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Смирнова Ольга</div><div class="doctor-spec">Невролог</div><div class="doctor-exp">Опыт: 14 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
-    <div class="doctor-card"><div class="doctor-photo">🧑‍⚕️</div><div class="doctor-info"><div class="doctor-name">Касенов Ерлан</div><div class="doctor-spec">Хирург</div><div class="doctor-exp">Опыт: 20 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
-    <div class="doctor-card"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Нурланова Айгуль</div><div class="doctor-spec">Педиатр</div><div class="doctor-exp">Опыт: 10 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.05s"><div class="doctor-photo">👨‍⚕️</div><div class="doctor-info"><div class="doctor-name">Ахметов Бейбут</div><div class="doctor-spec">Кардиолог</div><div class="doctor-exp">Опыт: 18 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.10s"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Смирнова Ольга</div><div class="doctor-spec">Невролог</div><div class="doctor-exp">Опыт: 14 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.15s"><div class="doctor-photo">🧑‍⚕️</div><div class="doctor-info"><div class="doctor-name">Касенов Ерлан</div><div class="doctor-spec">Хирург</div><div class="doctor-exp">Опыт: 20 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.20s"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Нурланова Айгуль</div><div class="doctor-spec">Педиатр</div><div class="doctor-exp">Опыт: 10 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
   </div>
 </div>
 
 <div class="trust">
   <div class="trust-grid">
-    <div><div class="trust-num">25 000+</div><div class="trust-label">Пациентов в год</div></div>
-    <div><div class="trust-num">40+</div><div class="trust-label">Специализаций</div></div>
-    <div><div class="trust-num">120+</div><div class="trust-label">Врачей</div></div>
-    <div><div class="trust-num">15</div><div class="trust-label">Лет на рынке</div></div>
+    <div data-reveal style="transition-delay:.05s"><div class="trust-num" data-count="25000">0</div><div class="trust-label">Пациентов в год</div></div>
+    <div data-reveal style="transition-delay:.10s"><div class="trust-num" data-count="40">0</div><div class="trust-label">Специализаций</div></div>
+    <div data-reveal style="transition-delay:.15s"><div class="trust-num" data-count="120">0</div><div class="trust-label">Врачей</div></div>
+    <div data-reveal style="transition-delay:.20s"><div class="trust-num" data-count="15">0</div><div class="trust-label">Лет на рынке</div></div>
   </div>
 </div>
 
 <div class="reviews" id="reviews">
   <div style="max-width:1000px;margin:0 auto;text-align:center">
-    <h2>Отзывы <span class="accent">пациентов</span></h2>
-    <p class="section-sub">Более 4.9★ на 2ГИС и Google</p>
+    <h2 data-reveal>Отзывы <span class="accent">пациентов</span></h2>
+    <p class="section-sub" data-reveal>Более 4.9★ на 2ГИС и Google</p>
   </div>
   <div class="reviews-grid">
-    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">Отличная клиника! Быстро записали, врач уделил достаточно времени. Диагностика на современном оборудовании. Рекомендую.</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Алия М.</div><div class="reviewer-dept">Кардиология</div></div></div></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">Привела ребёнка к педиатру. Доктор очень внимательный, всё объяснил понятно. Анализы готовы через 2 часа. Спасибо!</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Светлана К.</div><div class="reviewer-dept">Педиатрия</div></div></div></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">Делал МРТ. Результаты с описанием получил сразу. Врач подробно всё объяснил и выписал лечение. Очень доволен.</p><div class="reviewer"><div class="reviewer-avatar">👨</div><div><div class="reviewer-name">Нурлан Б.</div><div class="reviewer-dept">Неврология</div></div></div></div>
+    <div class="review-card" data-reveal style="transition-delay:.05s"><div class="stars">★★★★★</div><p class="review-text">Отличная клиника! Быстро записали, врач уделил достаточно времени. Диагностика на современном оборудовании. Рекомендую.</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Алия М.</div><div class="reviewer-dept">Кардиология</div></div></div></div>
+    <div class="review-card" data-reveal style="transition-delay:.10s"><div class="stars">★★★★★</div><p class="review-text">Привела ребёнка к педиатру. Доктор очень внимательный, всё объяснил понятно. Анализы готовы через 2 часа. Спасибо!</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Светлана К.</div><div class="reviewer-dept">Педиатрия</div></div></div></div>
+    <div class="review-card" data-reveal style="transition-delay:.15s"><div class="stars">★★★★★</div><p class="review-text">Делал МРТ. Результаты с описанием получил сразу. Врач подробно всё объяснил и выписал лечение. Очень доволен.</p><div class="reviewer"><div class="reviewer-avatar">👨</div><div><div class="reviewer-name">Нурлан Б.</div><div class="reviewer-dept">Неврология</div></div></div></div>
   </div>
 </div>
 
@@ -170,5 +237,53 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
   <div><div style="font-size:18px;font-weight:700;margin-bottom:4px">МедЦентр Здоровье</div><div class="footer-info">ул. Республики 5 · Пн–Вс 8:00–21:00</div></div>
   <div class="footer-info" style="text-align:right">📞 8-800-555-35-35 (бесплатно)<br>© 2026 МедЦентр Здоровье</div>
 </footer>
+
+<script>
+// Counter animation with smart formatting
+function countUp(el, target){
+  const dur = 1800, start = performance.now()
+  const fmt = n => {
+    if(target >= 10000) return (n/1000).toFixed(0) + ' 000+'
+    if(target > 99) return n + '+'
+    return n + ''
+  }
+  const tick = now => {
+    const t = Math.min((now-start)/dur, 1)
+    const val = Math.round((1-Math.pow(1-t,3))*target)
+    el.textContent = fmt(val)
+    if(t<1) requestAnimationFrame(tick)
+  }
+  requestAnimationFrame(tick)
+}
+
+// IntersectionObserver for reveals + counters
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return
+    e.target.classList.add('in')
+    const counter = e.target.querySelector('[data-count]') || (e.target.dataset.count ? e.target : null)
+    if(counter && counter.dataset.count){
+      countUp(counter, +counter.dataset.count)
+      io.unobserve(e.target)
+    }
+  })
+}, {threshold: 0.15})
+
+document.querySelectorAll('[data-reveal],[data-reveal-left]').forEach(el => io.observe(el))
+
+// Also watch counter parents in trust section
+document.querySelectorAll('[data-count]').forEach(el => {
+  const parent = el.closest('[data-reveal]') || el
+  const counterIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        countUp(el, +el.dataset.count)
+        counterIo.unobserve(e.target)
+      }
+    })
+  }, {threshold: 0.3})
+  counterIo.observe(parent)
+})
+</script>
 </body>
 </html>

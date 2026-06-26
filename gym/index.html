@@ -6,18 +6,44 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0a0a0a;--card:#111;--accent:#ff4d00;--text:#fff;--muted:#888}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 nav{display:flex;justify-content:space-between;align-items:center;padding:20px 60px;position:fixed;width:100%;z-index:100;background:rgba(10,10,10,.9);backdrop-filter:blur(10px)}
 .logo{font-size:24px;font-weight:900;letter-spacing:2px}
 .logo span{color:var(--accent)}
 .nav-links a{color:var(--muted);text-decoration:none;margin-left:30px;font-size:14px;transition:.3s}
 .nav-links a:hover{color:var(--accent)}
-.btn{background:var(--accent);color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase}
-.btn:hover{background:#e64400}
+.btn{background:var(--accent);color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase;transition:.2s}
+.btn:hover{background:#e64400;transform:translateY(-1px)}
+
+/* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 50%,rgba(255,77,0,.08))}
-.hero-bg{position:absolute;right:0;top:0;width:60%;height:100%;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23111" width="100" height="100"/><text x="50" y="55" font-size="40" text-anchor="middle" fill="%23ff4d0011">💪</text></svg>') center/cover;opacity:.3}
-.hero-content{position:relative;max-width:600px}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 50%,rgba(255,77,0,.05))}
+
+/* Animated rings */
+.rings{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:700px;height:700px;pointer-events:none}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,77,0,.15);animation:ringPulse 3s ease-in-out infinite}
+.ring:nth-child(1){animation-delay:0s;transform:scale(.25)}
+.ring:nth-child(2){animation-delay:.4s;transform:scale(.45)}
+.ring:nth-child(3){animation-delay:.8s;transform:scale(.65)}
+.ring:nth-child(4){animation-delay:1.2s;transform:scale(.82)}
+.ring:nth-child(5){animation-delay:1.6s;transform:scale(1)}
+@keyframes ringPulse{
+  0%{border-color:rgba(255,77,0,.35);box-shadow:0 0 20px rgba(255,77,0,.15)}
+  50%{border-color:rgba(255,77,0,.08);box-shadow:none}
+  100%{border-color:rgba(255,77,0,.35);box-shadow:0 0 20px rgba(255,77,0,.15)}
+}
+
+/* Floating geometric shapes */
+.geo{position:absolute;pointer-events:none;opacity:.12}
+.geo1{width:60px;height:60px;border:2px solid var(--accent);transform:rotate(45deg);top:20%;left:10%;animation:float1 6s ease-in-out infinite}
+.geo2{width:30px;height:30px;background:var(--accent);border-radius:50%;top:70%;left:5%;animation:float2 5s ease-in-out infinite}
+.geo3{width:0;height:0;border-left:25px solid transparent;border-right:25px solid transparent;border-bottom:43px solid var(--accent);top:35%;right:30%;animation:float1 7s ease-in-out infinite reverse}
+.geo4{width:50px;height:50px;border:2px solid var(--accent);border-radius:50%;bottom:25%;right:20%;animation:float2 4.5s ease-in-out infinite}
+.geo5{width:20px;height:20px;background:var(--accent);transform:rotate(45deg);top:60%;left:25%;animation:float1 8s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(-20px)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+
+.hero-content{position:relative;z-index:2;max-width:600px}
 .hero-badge{display:inline-block;border:1px solid var(--accent);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:3px;padding:6px 16px;margin-bottom:24px;text-transform:uppercase}
 h1{font-size:clamp(48px,6vw,80px);font-weight:900;line-height:1;margin-bottom:20px;text-transform:uppercase}
 h1 em{font-style:normal;color:var(--accent);display:block}
@@ -25,22 +51,33 @@ h1 em{font-style:normal;color:var(--accent);display:block}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
 .btn-outline{background:transparent;color:#fff;border:1px solid #333;padding:12px 28px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase;transition:.3s}
 .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
 .stats{display:flex;gap:60px;margin-top:60px}
-.stat-num{font-size:48px;font-weight:900;color:var(--accent)}
+.stat-num{font-size:48px;font-weight:900;color:var(--accent);font-variant-numeric:tabular-nums}
 .stat-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* SECTIONS */
 section{padding:100px 60px}
 h2{font-size:clamp(32px,4vw,52px);font-weight:900;text-transform:uppercase;margin-bottom:16px}
 h2 span{color:var(--accent)}
 .section-sub{color:var(--muted);font-size:16px;margin-bottom:60px}
+
+/* SERVICE CARDS */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
-.service-card{background:var(--card);border:1px solid #222;padding:40px 32px;transition:.3s}
-.service-card:hover{border-color:var(--accent);transform:translateY(-4px)}
-.service-icon{font-size:40px;margin-bottom:20px}
+.service-card{background:var(--card);border:1px solid #222;padding:40px 32px;transition:.4s;cursor:default;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,77,0,.08),transparent);opacity:0;transition:.4s}
+.service-card:hover{border-color:var(--accent);transform:translateY(-6px) scale(1.02);box-shadow:0 20px 40px rgba(255,77,0,.15)}
+.service-card:hover::before{opacity:1}
+.service-icon{font-size:40px;margin-bottom:20px;display:block;transition:.3s}
+.service-card:hover .service-icon{transform:scale(1.15) rotate(-5deg)}
 .service-card h3{font-size:20px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
 .service-card p{color:var(--muted);font-size:14px;line-height:1.7}
+
+/* PRICING */
 .pricing{background:var(--card)}
 .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
 .plan{background:var(--bg);border:1px solid #222;padding:40px;text-align:center;transition:.3s;position:relative}
+.plan:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
 .plan.popular{border-color:var(--accent)}
 .plan.popular::before{content:'ЛУЧШИЙ ВЫБОР';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);font-size:10px;font-weight:700;letter-spacing:2px;padding:4px 16px}
 .plan-name{font-size:14px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:20px}
@@ -49,22 +86,38 @@ h2 span{color:var(--accent)}
 .plan-features{list-style:none;text-align:left;margin-bottom:32px}
 .plan-features li{padding:10px 0;border-bottom:1px solid #222;color:var(--muted);font-size:14px}
 .plan-features li::before{content:'✓ ';color:var(--accent);font-weight:700}
+
+/* TRAINERS */
 .trainers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
-.trainer-card{background:var(--card);border:1px solid #222;overflow:hidden}
-.trainer-photo{height:260px;background:linear-gradient(135deg,#1a1a1a,#222);display:flex;align-items:center;justify-content:center;font-size:80px}
+.trainer-card{background:var(--card);border:1px solid #222;overflow:hidden;transition:.3s}
+.trainer-card:hover{transform:translateY(-4px);border-color:#333}
+.trainer-photo{height:260px;background:linear-gradient(135deg,#1a1a1a,#222);display:flex;align-items:center;justify-content:center;font-size:80px;transition:.4s}
+.trainer-card:hover .trainer-photo{transform:scale(1.04)}
 .trainer-info{padding:24px}
 .trainer-name{font-size:18px;font-weight:700;margin-bottom:4px}
 .trainer-spec{color:var(--accent);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
 .trainer-exp{color:var(--muted);font-size:13px}
-.cta-section{background:linear-gradient(135deg,var(--accent),#ff8c00);text-align:center;padding:80px 60px}
-.cta-section h2{color:#fff}
-.cta-section p{color:rgba(255,255,255,.8);font-size:18px;margin:16px 0 40px}
-.btn-white{background:#fff;color:var(--accent);border:none;padding:16px 40px;font-size:16px;font-weight:800;letter-spacing:1px;cursor:pointer;text-transform:uppercase}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--accent),#ff8c00);text-align:center;padding:80px 60px;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.03) 30px,rgba(255,255,255,.03) 31px);pointer-events:none}
+.cta-section h2{color:#fff;position:relative}
+.cta-section p{color:rgba(255,255,255,.8);font-size:18px;margin:16px 0 40px;position:relative}
+.btn-white{background:#fff;color:var(--accent);border:none;padding:16px 40px;font-size:16px;font-weight:800;letter-spacing:1px;cursor:pointer;text-transform:uppercase;transition:.2s;position:relative}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
 footer{padding:40px 60px;border-top:1px solid #222;display:flex;justify-content:space-between;align-items:center}
 .footer-logo{font-size:20px;font-weight:900;letter-spacing:2px}
 .footer-logo span{color:var(--accent)}
 footer p{color:var(--muted);font-size:13px}
-@media(max-width:768px){nav{padding:16px 24px}.hero,.section{padding:80px 24px 60px}section{padding:60px 24px}.stats{gap:30px}.stat-num{font-size:36px}footer{flex-direction:column;gap:16px;text-align:center}}
+
+/* REVEAL */
+[data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal].in{opacity:1;transform:none}
+[data-reveal-scale]{opacity:0;transform:scale(.94);transition:opacity .6s ease,transform .6s ease}
+[data-reveal-scale].in{opacity:1;transform:scale(1)}
+
+@media(max-width:768px){nav{padding:16px 24px}.hero,.cta-section{padding:80px 24px 60px}section{padding:60px 24px}.stats{gap:30px}.stat-num{font-size:36px}footer{flex-direction:column;gap:16px;text-align:center}}
 </style>
 </head>
 <body>
@@ -79,7 +132,18 @@ footer p{color:var(--muted);font-size:13px}
 </nav>
 
 <section class="hero">
-  <div class="hero-bg"></div>
+  <!-- Animated concentric rings -->
+  <div class="rings">
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div>
+  </div>
+  <!-- Floating 2D shapes -->
+  <div class="geo geo1"></div>
+  <div class="geo geo2"></div>
+  <div class="geo geo3"></div>
+  <div class="geo geo4"></div>
+  <div class="geo geo5"></div>
+
   <div class="hero-content">
     <div class="hero-badge">💪 Фитнес-клуб #1 в городе</div>
     <h1>Трансформируй<em>своё тело</em></h1>
@@ -89,52 +153,49 @@ footer p{color:var(--muted);font-size:13px}
       <button class="btn-outline">Смотреть зал</button>
     </div>
     <div class="stats">
-      <div><div class="stat-num">1200+</div><div class="stat-label">Членов клуба</div></div>
-      <div><div class="stat-num">15</div><div class="stat-label">Тренеров</div></div>
-      <div><div class="stat-num">8</div><div class="stat-label">Лет опыта</div></div>
+      <div><div class="stat-num" data-count="1200">0</div><div class="stat-label">Членов клуба</div></div>
+      <div><div class="stat-num" data-count="15">0</div><div class="stat-label">Тренеров</div></div>
+      <div><div class="stat-num" data-count="8">0</div><div class="stat-label">Лет опыта</div></div>
     </div>
   </div>
 </section>
 
-<section id="services">
+<section id="services" data-reveal>
   <h2>Наши <span>зоны</span></h2>
   <p class="section-sub">4000 м² тренировочного пространства</p>
   <div class="services-grid">
-    <div class="service-card"><div class="service-icon">🏋️</div><h3>Силовая зона</h3><p>Более 200 единиц профессионального оборудования. Свободные веса, тренажёры, силовые стойки.</p></div>
-    <div class="service-card"><div class="service-icon">🏃</div><h3>Кардио зона</h3><p>50 беговых дорожек, эллипсы, велотренажёры с интерактивными экранами.</p></div>
-    <div class="service-card"><div class="service-icon">🥊</div><h3>Единоборства</h3><p>Боксёрские ринг, груши, оборудование для MMA. Занятия 7 дней в неделю.</p></div>
-    <div class="service-card"><div class="service-icon">🧘</div><h3>Йога и растяжка</h3><p>Просторные залы с деревянным полом. Групповые занятия йогой, пилатесом, стретчингом.</p></div>
-    <div class="service-card"><div class="service-icon">🏊</div><h3>Бассейн</h3><p>25-метровый бассейн, сауна, джакузи. Доступны занятия с инструктором по плаванию.</p></div>
-    <div class="service-card"><div class="service-icon">🥗</div><h3>Nutrition Bar</h3><p>Протеиновые коктейли, здоровое питание, спортивное питание прямо в клубе.</p></div>
+    <div class="service-card" data-reveal style="transition-delay:.05s"><span class="service-icon">🏋️</span><h3>Силовая зона</h3><p>Более 200 единиц профессионального оборудования. Свободные веса, тренажёры, силовые стойки.</p></div>
+    <div class="service-card" data-reveal style="transition-delay:.1s"><span class="service-icon">🏃</span><h3>Кардио зона</h3><p>50 беговых дорожек, эллипсы, велотренажёры с интерактивными экранами.</p></div>
+    <div class="service-card" data-reveal style="transition-delay:.15s"><span class="service-icon">🥊</span><h3>Единоборства</h3><p>Боксёрский ринг, груши, оборудование для MMA. Занятия 7 дней в неделю.</p></div>
+    <div class="service-card" data-reveal style="transition-delay:.2s"><span class="service-icon">🧘</span><h3>Йога и растяжка</h3><p>Просторные залы с деревянным полом. Групповые занятия йогой, пилатесом, стретчингом.</p></div>
+    <div class="service-card" data-reveal style="transition-delay:.25s"><span class="service-icon">🏊</span><h3>Бассейн</h3><p>25-метровый бассейн, сауна, джакузи. Доступны занятия с инструктором по плаванию.</p></div>
+    <div class="service-card" data-reveal style="transition-delay:.3s"><span class="service-icon">🥗</span><h3>Nutrition Bar</h3><p>Протеиновые коктейли, здоровое питание, спортивное питание прямо в клубе.</p></div>
   </div>
 </section>
 
 <section id="pricing" class="pricing">
-  <h2>Тарифы <span>и цены</span></h2>
-  <p class="section-sub">Первое занятие бесплатно</p>
+  <h2 data-reveal>Тарифы <span>и цены</span></h2>
+  <p class="section-sub" data-reveal>Первое занятие бесплатно</p>
   <div class="plans">
-    <div class="plan">
+    <div class="plan" data-reveal-scale style="transition-delay:.05s">
       <div class="plan-name">Базовый</div>
-      <div class="plan-price">8 900</div>
-      <div class="plan-period">₸ / месяц</div>
+      <div class="plan-price">8 900</div><div class="plan-period">₸ / месяц</div>
       <ul class="plan-features">
         <li>Силовая зона</li><li>Кардио зона</li><li>Групповые занятия (3/нед)</li><li>Раздевалка и душ</li>
       </ul>
       <button class="btn">Выбрать</button>
     </div>
-    <div class="plan popular">
+    <div class="plan popular" data-reveal-scale style="transition-delay:.1s">
       <div class="plan-name">Про</div>
-      <div class="plan-price">15 900</div>
-      <div class="plan-period">₸ / месяц</div>
+      <div class="plan-price">15 900</div><div class="plan-period">₸ / месяц</div>
       <ul class="plan-features">
         <li>Все зоны без ограничений</li><li>Групповые занятия (∞)</li><li>Бассейн и spa</li><li>1 персональная тренировка</li><li>Nutrition Bar скидка 15%</li>
       </ul>
       <button class="btn">Выбрать</button>
     </div>
-    <div class="plan">
+    <div class="plan" data-reveal-scale style="transition-delay:.15s">
       <div class="plan-name">VIP</div>
-      <div class="plan-price">35 900</div>
-      <div class="plan-period">₸ / месяц</div>
+      <div class="plan-price">35 900</div><div class="plan-period">₸ / месяц</div>
       <ul class="plan-features">
         <li>Всё из Про</li><li>8 персональных тренировок</li><li>Персональный нутрициолог</li><li>Приоритетная запись</li><li>Гостевой доступ ×4</li>
       </ul>
@@ -144,13 +205,13 @@ footer p{color:var(--muted);font-size:13px}
 </section>
 
 <section id="trainers">
-  <h2>Наши <span>тренеры</span></h2>
-  <p class="section-sub">Команда сертифицированных профессионалов</p>
+  <h2 data-reveal>Наши <span>тренеры</span></h2>
+  <p class="section-sub" data-reveal>Команда сертифицированных профессионалов</p>
   <div class="trainers">
-    <div class="trainer-card"><div class="trainer-photo">👨‍🏋️</div><div class="trainer-info"><div class="trainer-name">Алексей Морозов</div><div class="trainer-spec">Силовой тренинг</div><div class="trainer-exp">12 лет опыта · Мастер спорта по пауэрлифтингу</div></div></div>
-    <div class="trainer-card"><div class="trainer-photo">👩‍🏋️</div><div class="trainer-info"><div class="trainer-name">Анастасия Ким</div><div class="trainer-spec">Фитнес и йога</div><div class="trainer-exp">8 лет опыта · Сертификат ACSM</div></div></div>
-    <div class="trainer-card"><div class="trainer-photo">🥊</div><div class="trainer-info"><div class="trainer-name">Дмитрий Захаров</div><div class="trainer-spec">MMA и бокс</div><div class="trainer-exp">15 лет опыта · Чемпион России</div></div></div>
-    <div class="trainer-card"><div class="trainer-photo">🧘</div><div class="trainer-info"><div class="trainer-name">Мария Волкова</div><div class="trainer-spec">Пилатес и стретчинг</div><div class="trainer-exp">6 лет опыта · Инструктор BASI Pilates</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.05s"><div class="trainer-photo">👨‍🏋️</div><div class="trainer-info"><div class="trainer-name">Алексей Морозов</div><div class="trainer-spec">Силовой тренинг</div><div class="trainer-exp">12 лет опыта · Мастер спорта по пауэрлифтингу</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.1s"><div class="trainer-photo">👩‍🏋️</div><div class="trainer-info"><div class="trainer-name">Анастасия Ким</div><div class="trainer-spec">Фитнес и йога</div><div class="trainer-exp">8 лет опыта · Сертификат ACSM</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.15s"><div class="trainer-photo">🥊</div><div class="trainer-info"><div class="trainer-name">Дмитрий Захаров</div><div class="trainer-spec">MMA и бокс</div><div class="trainer-exp">15 лет опыта · Чемпион России</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.2s"><div class="trainer-photo">🧘</div><div class="trainer-info"><div class="trainer-name">Мария Волкова</div><div class="trainer-spec">Пилатес и стретчинг</div><div class="trainer-exp">6 лет опыта · Инструктор BASI Pilates</div></div></div>
   </div>
 </section>
 
@@ -165,5 +226,44 @@ footer p{color:var(--muted);font-size:13px}
   <p>ул. Спортивная 1 · Пн-Вс 06:00–24:00 · +7 (777) 111-22-33</p>
   <p>© 2026 IronGym. Все права защищены.</p>
 </footer>
+
+<script>
+// Counter animation
+function animateCount(el, target, suffix=''){
+  const start = performance.now()
+  const dur = 1800
+  const update = (now) => {
+    const t = Math.min((now-start)/dur, 1)
+    const ease = 1-Math.pow(1-t,3)
+    el.textContent = Math.round(ease*target).toLocaleString('ru') + suffix
+    if(t<1) requestAnimationFrame(update)
+  }
+  requestAnimationFrame(update)
+}
+
+// Intersection Observer for reveals + counters
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return
+    const el = e.target
+    el.classList.add('in')
+    if(el.dataset.count) {
+      animateCount(el, parseInt(el.dataset.count), el.dataset.count.length > 2 ? '+' : '')
+      io.unobserve(el)
+    }
+  })
+}, {threshold:0.15})
+
+document.querySelectorAll('[data-reveal],[data-reveal-scale],[data-count]').forEach(el => io.observe(el))
+
+// Trigger counters in hero on load
+setTimeout(() => {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const suffix = parseInt(el.dataset.count) > 99 ? '+' : ''
+    animateCount(el, parseInt(el.dataset.count), suffix)
+    io.unobserve(el)
+  })
+}, 400)
+</script>
 </body>
 </html>

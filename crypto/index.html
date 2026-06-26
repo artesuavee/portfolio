@@ -7,20 +7,30 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#060612;--card:#0d0d1f;--border:#1a1a3e;--accent:#7c3aed;--accent2:#06b6d4;--neon:#a855f7;--text:#f1f5f9;--muted:#64748b;--green:#10b981}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-.glow{position:fixed;pointer-events:none;z-index:0;width:600px;height:600px;border-radius:50%;filter:blur(120px);opacity:.15}
-.glow1{background:var(--accent);top:-100px;left:-100px}
-.glow2{background:var(--accent2);bottom:-100px;right:-100px}
+
+/* Hex grid canvas */
+#hexcanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.35}
+
+.glow{position:fixed;pointer-events:none;z-index:0;width:700px;height:700px;border-radius:50%;filter:blur(140px);opacity:.12;transition:2s}
+.glow1{background:var(--accent);top:-200px;left:-200px;animation:glowMove1 12s ease-in-out infinite}
+.glow2{background:var(--accent2);bottom:-200px;right:-200px;animation:glowMove2 15s ease-in-out infinite}
+@keyframes glowMove1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
+@keyframes glowMove2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-80px)}}
+
 nav{display:flex;justify-content:space-between;align-items:center;padding:20px 80px;position:relative;z-index:10;border-bottom:1px solid var(--border)}
-.logo{font-size:22px;font-weight:800;letter-spacing:-0.5px}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.5px}
 .logo span{color:var(--neon)}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
 .nav-links a:hover{color:var(--text)}
 .btn{background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
-.btn:hover{opacity:.85}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+
+/* HERO */
 .hero{padding:120px 80px 80px;text-align:center;position:relative;z-index:1}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);color:var(--neon);font-size:12px;padding:6px 16px;border-radius:100px;margin-bottom:32px}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 4px var(--green)}50%{opacity:.3;box-shadow:none}}
+
 h1{font-size:clamp(44px,6vw,80px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:20px}
 .gradient{background:linear-gradient(135deg,var(--accent),var(--neon),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero p{font-size:18px;color:var(--muted);max-width:520px;margin:0 auto 40px;line-height:1.7}
@@ -28,47 +38,76 @@ h1{font-size:clamp(44px,6vw,80px);font-weight:900;line-height:1.05;letter-spacin
 .btn-lg{padding:16px 36px;font-size:16px;border-radius:10px}
 .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:16px 36px;font-size:16px;border-radius:10px;cursor:pointer;transition:.2s}
 .btn-outline:hover{border-color:var(--neon);color:var(--neon)}
+
+/* COIN TICKER */
 .ticker{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
-.coin-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 28px;display:flex;align-items:center;gap:16px;min-width:180px}
-.coin-logo{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.coin-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 28px;display:flex;align-items:center;gap:16px;min-width:180px;transition:.3s;cursor:pointer;position:relative;overflow:hidden}
+.coin-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(168,85,247,.06),transparent);opacity:0;transition:.3s}
+.coin-card:hover{border-color:rgba(168,85,247,.5);transform:translateY(-3px) scale(1.02);box-shadow:0 12px 32px rgba(168,85,247,.15)}
+.coin-card:hover::before{opacity:1}
+.coin-logo{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .coin-btc{background:linear-gradient(135deg,#f7931a,#ffd700)}
 .coin-eth{background:linear-gradient(135deg,#627eea,#a0aaff)}
 .coin-sol{background:linear-gradient(135deg,#9945ff,#14f195)}
 .coin-name{font-size:13px;font-weight:700}
-.coin-price{font-size:18px;font-weight:800}
+.coin-price{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
 .coin-change{font-size:12px;color:var(--green)}
+.coin-change.down{color:#ef4444}
+
+/* Animated price flash */
+@keyframes priceFlash{0%{color:var(--green)}100%{color:inherit}}
+.flash{animation:priceFlash .4s ease}
+
 section{padding:100px 80px;position:relative;z-index:1}
-h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-0.5px;margin-bottom:12px}
+h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
 .section-sub{color:var(--muted);font-size:16px;margin-bottom:60px}
+
+/* FEATURES */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;transition:.3s;position:relative;overflow:hidden}
-.feat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,.05),transparent);opacity:0;transition:.3s}
-.feat-card:hover{border-color:rgba(168,85,247,.5);transform:translateY(-4px)}
-.feat-card:hover::before{opacity:1}
-.feat-icon{font-size:36px;margin-bottom:20px}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;transition:.35s;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--neon));transform:scaleX(0);transition:.35s;transform-origin:left}
+.feat-card:hover{border-color:rgba(168,85,247,.4);transform:translateY(-5px);box-shadow:0 20px 40px rgba(124,58,237,.12)}
+.feat-card:hover::before{transform:scaleX(1)}
+.feat-icon{font-size:36px;margin-bottom:20px;display:block;transition:.3s}
+.feat-card:hover .feat-icon{transform:scale(1.15)}
 .feat-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
 .feat-card p{color:var(--muted);font-size:14px;line-height:1.7}
+
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:900px;margin:0 auto;text-align:center}
-.stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px}
-.stat-n{font-size:40px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;transition:.3s;position:relative;overflow:hidden}
+.stat-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.stat-box:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.4)}
+.stat-n{font-size:40px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-variant-numeric:tabular-nums}
 .stat-l{color:var(--muted);font-size:13px;margin-top:8px}
+
+/* HOW */
 .how{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;max-width:900px;margin:0 auto}
-.step{text-align:center}
-.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;margin:0 auto 20px}
+.step{text-align:center;position:relative}
+.step:not(:last-child)::after{content:'→';position:absolute;right:-20px;top:20px;color:rgba(168,85,247,.4);font-size:24px}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;margin:0 auto 20px;box-shadow:0 0 20px rgba(168,85,247,.3);transition:.3s}
+.step:hover .step-num{transform:scale(1.1);box-shadow:0 0 30px rgba(168,85,247,.5)}
 .step h3{font-size:16px;font-weight:700;margin-bottom:8px}
 .step p{color:var(--muted);font-size:13px}
-.cta-section{text-align:center;background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(6,182,212,.1));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+.cta-section{text-align:center;background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.08));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .cta-section h2{margin-bottom:16px}
 .cta-section p{color:var(--muted);margin-bottom:32px}
-footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
 .footer-logo{font-size:20px;font-weight:800}
 .footer-logo span{color:var(--neon)}
 footer p{color:var(--muted);font-size:13px}
-@media(max-width:768px){nav,section,footer{padding-left:24px;padding-right:24px}.stats-row{grid-template-columns:repeat(2,1fr)}.ticker{gap:12px}}
+
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal].in{opacity:1;transform:none}
+
+@media(max-width:768px){nav,section,footer{padding-left:24px;padding-right:24px}.stats-row{grid-template-columns:repeat(2,1fr)}.ticker{gap:12px}.step::after{display:none}}
 </style>
 </head>
 <body>
+
+<canvas id="hexcanvas"></canvas>
 <div class="glow glow1"></div>
 <div class="glow glow2"></div>
 
@@ -89,33 +128,42 @@ footer p{color:var(--muted);font-size:13px}
     <button class="btn-outline">Читать документацию</button>
   </div>
   <div class="ticker">
-    <div class="coin-card"><div class="coin-logo coin-btc">₿</div><div><div class="coin-name">Bitcoin</div><div class="coin-price">$67,450</div><div class="coin-change">▲ +2.3%</div></div></div>
-    <div class="coin-card"><div class="coin-logo coin-eth">Ξ</div><div><div class="coin-name">Ethereum</div><div class="coin-price">$3,820</div><div class="coin-change">▲ +1.8%</div></div></div>
-    <div class="coin-card"><div class="coin-logo coin-sol">◎</div><div><div class="coin-name">Solana</div><div class="coin-price">$185</div><div class="coin-change">▲ +4.1%</div></div></div>
+    <div class="coin-card">
+      <div class="coin-logo coin-btc">₿</div>
+      <div><div class="coin-name">Bitcoin</div><div class="coin-price" id="btc-price">$67,450</div><div class="coin-change" id="btc-change">▲ +2.3%</div></div>
+    </div>
+    <div class="coin-card">
+      <div class="coin-logo coin-eth">Ξ</div>
+      <div><div class="coin-name">Ethereum</div><div class="coin-price" id="eth-price">$3,820</div><div class="coin-change" id="eth-change">▲ +1.8%</div></div>
+    </div>
+    <div class="coin-card">
+      <div class="coin-logo coin-sol">◎</div>
+      <div><div class="coin-name">Solana</div><div class="coin-price" id="sol-price">$185</div><div class="coin-change" id="sol-change">▲ +4.1%</div></div>
+    </div>
   </div>
 </section>
 
-<section id="features">
+<section id="features" data-reveal>
   <h2>Продукты <span class="gradient">NexChain</span></h2>
   <p class="section-sub">Всё для децентрализованных финансов в одном месте</p>
   <div class="features-grid">
-    <div class="feat-card"><div class="feat-icon">🔄</div><h3>DEX Свопы</h3><p>Торгуй 500+ токенами с минимальным slippage. Агрегируем ликвидность из 20+ протоколов.</p></div>
-    <div class="feat-card"><div class="feat-icon">💰</div><h3>Yield Farming</h3><p>APY до 340%. Автоматическая реинвестиция прибыли. Один клик — начинаешь зарабатывать.</p></div>
-    <div class="feat-card"><div class="feat-icon">🏦</div><h3>Lending & Borrowing</h3><p>Занимай под залог криптоактивов. Ставки от 2.5% APR. Без проверки кредитной истории.</p></div>
-    <div class="feat-card"><div class="feat-icon">🖼️</div><h3>NFT Маркетплейс</h3><p>Покупай, продавай и создавай NFT. Минимальная комиссия 1.5%. Поддержка 12 сетей.</p></div>
-    <div class="feat-card"><div class="feat-icon">🔐</div><h3>Кроссчейн мост</h3><p>Переводи активы между Ethereum, BNB, Polygon, Solana за секунды и копейки.</p></div>
-    <div class="feat-card"><div class="feat-icon">📊</div><h3>Portfolio Tracker</h3><p>Отслеживай все свои позиции в одном дашборде. PnL, история, аналитика.</p></div>
+    <div class="feat-card" data-reveal style="transition-delay:.05s"><span class="feat-icon">🔄</span><h3>DEX Свопы</h3><p>Торгуй 500+ токенами с минимальным slippage. Агрегируем ликвидность из 20+ протоколов.</p></div>
+    <div class="feat-card" data-reveal style="transition-delay:.10s"><span class="feat-icon">💰</span><h3>Yield Farming</h3><p>APY до 340%. Автоматическая реинвестиция прибыли. Один клик — начинаешь зарабатывать.</p></div>
+    <div class="feat-card" data-reveal style="transition-delay:.15s"><span class="feat-icon">🏦</span><h3>Lending & Borrowing</h3><p>Занимай под залог криптоактивов. Ставки от 2.5% APR. Без проверки кредитной истории.</p></div>
+    <div class="feat-card" data-reveal style="transition-delay:.20s"><span class="feat-icon">🖼️</span><h3>NFT Маркетплейс</h3><p>Покупай, продавай и создавай NFT. Минимальная комиссия 1.5%. Поддержка 12 сетей.</p></div>
+    <div class="feat-card" data-reveal style="transition-delay:.25s"><span class="feat-icon">🔐</span><h3>Кроссчейн мост</h3><p>Переводи активы между Ethereum, BNB, Polygon, Solana за секунды и копейки.</p></div>
+    <div class="feat-card" data-reveal style="transition-delay:.30s"><span class="feat-icon">📊</span><h3>Portfolio Tracker</h3><p>Отслеживай все свои позиции в одном дашборде. PnL, история, аналитика.</p></div>
   </div>
 </section>
 
-<section style="text-align:center">
-  <h2>Протокол в <span class="gradient">цифрах</span></h2>
-  <p class="section-sub" style="margin-bottom:40px">Рост с момента запуска</p>
+<section style="text-align:center;padding-top:0">
+  <h2 data-reveal>Протокол в <span class="gradient">цифрах</span></h2>
+  <p class="section-sub" data-reveal style="margin-bottom:40px">Рост с момента запуска</p>
   <div class="stats-row">
-    <div class="stat-box"><div class="stat-n">$2.4B</div><div class="stat-l">Total Value Locked</div></div>
-    <div class="stat-box"><div class="stat-n">1.2M</div><div class="stat-l">Активных кошельков</div></div>
-    <div class="stat-box"><div class="stat-n">12</div><div class="stat-l">Поддерживаемых сетей</div></div>
-    <div class="stat-box"><div class="stat-n">$45B</div><div class="stat-l">Объём торгов (всего)</div></div>
+    <div class="stat-box" data-reveal style="transition-delay:.05s"><div class="stat-n">$2.4B</div><div class="stat-l">Total Value Locked</div></div>
+    <div class="stat-box" data-reveal style="transition-delay:.10s"><div class="stat-n">1.2M</div><div class="stat-l">Активных кошельков</div></div>
+    <div class="stat-box" data-reveal style="transition-delay:.15s"><div class="stat-n">12</div><div class="stat-l">Поддерживаемых сетей</div></div>
+    <div class="stat-box" data-reveal style="transition-delay:.20s"><div class="stat-n">$45B</div><div class="stat-l">Объём торгов (всего)</div></div>
   </div>
 </section>
 
@@ -124,9 +172,9 @@ footer p{color:var(--muted);font-size:13px}
     <h2>Как начать за <span class="gradient">3 шага</span></h2>
   </div>
   <div class="steps">
-    <div class="step"><div class="step-num">1</div><h3>Подключи кошелёк</h3><p>MetaMask, WalletConnect, Coinbase Wallet — любой Web3 кошелёк</p></div>
-    <div class="step"><div class="step-num">2</div><h3>Пополни баланс</h3><p>Переведи крипту или купи прямо в приложении через карту</p></div>
-    <div class="step"><div class="step-num">3</div><h3>Начни зарабатывать</h3><p>Торгуй, фармь, стакай — выбирай стратегию и получай доход</p></div>
+    <div class="step" data-reveal><div class="step-num">1</div><h3>Подключи кошелёк</h3><p>MetaMask, WalletConnect, Coinbase Wallet — любой Web3 кошелёк</p></div>
+    <div class="step" data-reveal style="transition-delay:.1s"><div class="step-num">2</div><h3>Пополни баланс</h3><p>Переведи крипту или купи прямо в приложении через карту</p></div>
+    <div class="step" data-reveal style="transition-delay:.2s"><div class="step-num">3</div><h3>Начни зарабатывать</h3><p>Торгуй, фармь, стакай — выбирай стратегию и получай доход</p></div>
   </div>
 </section>
 
@@ -142,5 +190,77 @@ footer p{color:var(--muted);font-size:13px}
   <p>© 2026 NexChain Protocol. Decentralized & Open Source.</p>
   <p>Docs · GitHub · Discord · Twitter</p>
 </footer>
+
+<script>
+// --- Hexagonal grid canvas ---
+const canvas = document.getElementById('hexcanvas')
+const ctx = canvas.getContext('2d')
+let W, H
+
+function resize(){
+  W = canvas.width = window.innerWidth
+  H = canvas.height = window.innerHeight
+}
+resize()
+window.addEventListener('resize', resize)
+
+let t = 0
+function drawHex(){
+  ctx.clearRect(0,0,W,H)
+  const size = 40, cols = Math.ceil(W/(size*1.732))+2, rows = Math.ceil(H/(size*1.5))+2
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const x = c*size*1.732 + (r%2)*size*.866
+      const y = r*size*1.5
+      const phase = Math.sin(t*.008 + c*.3 + r*.4)
+      const alpha = (phase+1)/2 * .15
+      ctx.beginPath()
+      for(let i=0;i<6;i++){
+        const a = i*Math.PI/3 - Math.PI/6
+        const px = x + size*.9*Math.cos(a)
+        const py = y + size*.9*Math.sin(a)
+        i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)
+      }
+      ctx.closePath()
+      ctx.strokeStyle = `rgba(168,85,247,${alpha})`
+      ctx.lineWidth = .8
+      ctx.stroke()
+    }
+  }
+  t++
+  requestAnimationFrame(drawHex)
+}
+drawHex()
+
+// --- Live price simulation ---
+const prices = {btc:67450, eth:3820, sol:185}
+const changes = {btc:2.3, eth:1.8, sol:4.1}
+
+function updatePrices(){
+  for(const [coin, base] of Object.entries(prices)){
+    const delta = (Math.random()-.48) * base * .002
+    prices[coin] = +(prices[coin] + delta).toFixed(0)
+    changes[coin] = +(changes[coin] + (Math.random()-.48)*.05).toFixed(2)
+    const priceEl = document.getElementById(`${coin}-price`)
+    const changeEl = document.getElementById(`${coin}-change`)
+    if(priceEl){
+      priceEl.textContent = '$' + prices[coin].toLocaleString('en')
+      priceEl.classList.remove('flash')
+      void priceEl.offsetWidth
+      priceEl.classList.add('flash')
+    }
+    if(changeEl){
+      const up = changes[coin] >= 0
+      changeEl.textContent = (up?'▲ +':'▼ ') + Math.abs(changes[coin]).toFixed(2) + '%'
+      changeEl.className = 'coin-change' + (up?'':' down')
+    }
+  }
+}
+setInterval(updatePrices, 2500)
+
+// --- Reveal ---
+const io = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12})
+document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el))
+</script>
 </body>
 </html>
