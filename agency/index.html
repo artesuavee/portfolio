@@ -10,14 +10,16 @@ body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);ov
 @media(max-width:900px){body{cursor:auto}#cur,#cur-ring{display:none}}
 
 /* CUSTOM CURSOR */
-#cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
-#cur-ring{width:36px;height:36px;border:1.5px solid rgba(34,211,238,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+#cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity .3s}
+#cur-ring{width:36px;height:36px;border:1.5px solid rgba(34,211,238,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s,opacity .3s;opacity:0}
 body:has(.mag-btn:hover) #cur-ring{width:64px;height:64px;border-color:var(--accent)}
 
 /* CURSOR TRAIL PARTICLES */
 #trail-canvas{position:fixed;inset:0;pointer-events:none;z-index:9990}
 
-nav{padding:20px 80px;display:flex;justify-content:space-between;align-items:center;position:fixed;width:100%;z-index:200;background:rgba(9,9,11,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+/* FIXED HEADER = marquee + nav in one unit */
+.site-header{position:fixed;top:0;width:100%;z-index:200}
+nav{padding:20px 80px;display:flex;justify-content:space-between;align-items:center;width:100%;background:rgba(9,9,11,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
 .logo{font-size:20px;font-weight:700;letter-spacing:1px;color:var(--text)}
 .logo span{color:var(--accent)}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:28px;transition:.2s}
@@ -118,20 +120,21 @@ footer p{font-size:12px;color:var(--muted)}
 <div id="cur-ring"></div>
 <canvas id="trail-canvas"></canvas>
 
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span>Брендинг</span><span class="dot">·</span><span>Веб-разработка</span><span class="dot">·</span><span>UX/UI Дизайн</span><span class="dot">·</span><span>Digital Marketing</span><span class="dot">·</span><span>SEO</span><span class="dot">·</span><span>Motion</span><span class="dot">·</span><span>Разработка приложений</span><span class="dot">·</span>
-    <span>Брендинг</span><span class="dot">·</span><span>Веб-разработка</span><span class="dot">·</span><span>UX/UI Дизайн</span><span class="dot">·</span><span>Digital Marketing</span><span class="dot">·</span><span>SEO</span><span class="dot">·</span><span>Motion</span><span class="dot">·</span><span>Разработка приложений</span><span class="dot">·</span>
+<header class="site-header">
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span>Брендинг</span><span class="dot">·</span><span>Веб-разработка</span><span class="dot">·</span><span>UX/UI Дизайн</span><span class="dot">·</span><span>Digital Marketing</span><span class="dot">·</span><span>SEO</span><span class="dot">·</span><span>Motion</span><span class="dot">·</span><span>Разработка приложений</span><span class="dot">·</span>
+      <span>Брендинг</span><span class="dot">·</span><span>Веб-разработка</span><span class="dot">·</span><span>UX/UI Дизайн</span><span class="dot">·</span><span>Digital Marketing</span><span class="dot">·</span><span>SEO</span><span class="dot">·</span><span>Motion</span><span class="dot">·</span><span>Разработка приложений</span><span class="dot">·</span>
+    </div>
   </div>
-</div>
-
-<nav>
-  <div class="logo">Pixel<span>.</span>Agency</div>
-  <div class="nav-links">
-    <a href="#works">Проекты</a><a href="#services">Услуги</a><a href="#cta">Контакты</a>
-  </div>
-  <button class="nav-cta">Обсудить проект</button>
-</nav>
+  <nav>
+    <div class="logo">Pixel<span>.</span>Agency</div>
+    <div class="nav-links">
+      <a href="#works">Проекты</a><a href="#services">Услуги</a><a href="#cta">Контакты</a>
+    </div>
+    <button class="nav-cta">Обсудить проект</button>
+  </nav>
+</header>
 
 <section class="hero">
   <div class="hero-bg"></div>
@@ -208,8 +211,11 @@ footer p{font-size:12px;color:var(--muted)}
 <script>
 // CUSTOM CURSOR
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring')
-let mx=0,my=0,rx=0,ry=0
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+let mx=0,my=0,rx=0,ry=0,cursorVisible=false
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY
+  if(!cursorVisible){cursorVisible=true;cur.style.opacity='1';ring.style.opacity='1'}
+});
 (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})()
 
 // CURSOR TRAIL PARTICLES
