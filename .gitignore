@@ -5,6 +5,8 @@
 *.png
 # ...кроме текстур и фото 3D-витрины SATO
 !sato-kimonos/assets/*.jpg
+# ...и скриншотов-превью проектов
+!assets/previews/*.jpg
 .DS_Store
 Thumbs.db
 
