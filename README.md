@@ -52,6 +52,8 @@
 
 Рабочий код: Tool Use, RAG, streaming, per-user контекст. Общий `ClaudeClient` в `core/`, единый веб-API на FastAPI в `api/`, smoke-тесты.
 
+Три флагманских агента вынесены в отдельные репозитории с подробными английскими README: [claude-research-agent](https://github.com/artesuavee/claude-research-agent) (реальный веб-поиск и парсинг), [claude-support-agent](https://github.com/artesuavee/claude-support-agent), [claude-sales-agent](https://github.com/artesuavee/claude-sales-agent).
+
 | Агент | Назначение | Ключевые возможности |
 |---|---|---|
 | support | Клиентская поддержка 24/7 | База знаний, статус заказа, история диалога |
