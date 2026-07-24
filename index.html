@@ -27,6 +27,7 @@
       </nav>
       <div class="header-actions">
         <div class="language-switch" role="group" aria-label="Выбор языка">
+          <span class="language-thumb" aria-hidden="true"></span>
           <button type="button" data-lang="ru" aria-label="Переключить на русский язык" aria-pressed="true">RU</button>
           <button type="button" data-lang="en" aria-label="Switch to English" aria-pressed="false">EN</button>
         </div>
@@ -47,7 +48,7 @@
         </div>
         <dl class="hero-facts" aria-label="Ключевые направления">
           <div><dt>02</dt><dd>флагманских продукта</dd></div>
-          <div><dt>49</dt><dd>проектов в лаборатории</dd></div>
+          <div><dt>04</dt><dd>направления работ</dd></div>
           <div><dt>Full cycle</dt><dd>идея → код → запуск</dd></div>
         </dl>
       </div>
@@ -156,32 +157,52 @@
 
     <section class="lab section" id="lab">
       <div class="section-heading split">
-        <div><p class="eyebrow"><span></span> Product lab</p><h2>Лаборатория, где проверяю широту инженерного подхода.</h2></div>
-        <p>Вторичный каталог: интерфейсы, агенты, боты и мобильные прототипы. Эти работы показывают диапазон, но не подменяют два продуктовых кейса выше.</p>
+        <div><p class="eyebrow"><span></span> Product lab</p><h2>Четыре направления. Один инженерный подход.</h2></div>
+        <p>22 лендинга, 10 AI-агентов, 10 Telegram-ботов и 5 мобильных приложений показывают широту практики, не конкурируя с двумя флагманскими продуктами.</p>
       </div>
-      <div class="lab-stats">
-        <article><b>22</b><span>Лендинга</span><small>HTML · CSS · JS · Three.js</small></article>
-        <article><b>10</b><span>AI-агентов</span><small>Tool use · RAG · FastAPI</small></article>
-        <article><b>12</b><span>Telegram-ботов</span><small>aiogram · FSM · integrations</small></article>
-        <article><b>5</b><span>Mobile apps</span><small>React Native · Expo</small></article>
+      <div class="lab-stats" aria-label="Направления и количество работ">
+        <article class="landing-capability"><b>22</b><span>Лендинга</span><small>Продуктовые страницы · интерактивные интерфейсы</small></article>
+        <article class="agent-capability"><b>10</b><span>AI-агентов</span><small>Инструменты · RAG · автоматизация процессов</small></article>
+        <article class="bot-capability"><b>10</b><span>Telegram-ботов</span><small>Поддержка · продажи · сервисные сценарии</small></article>
+        <article class="mobile-capability"><b>5</b><span>Мобильных приложений</span><small>React Native · Expo · продуктовые прототипы</small></article>
+      </div>
+      <div class="lab-filters" role="toolbar" aria-label="Фильтр проектов">
+        <button type="button" class="is-active" data-filter="all" aria-pressed="true">Все</button>
+        <button type="button" data-filter="landing" aria-pressed="false">Лендинги</button>
+        <button type="button" data-filter="agent" aria-pressed="false">AI-агенты</button>
+        <button type="button" data-filter="bot" aria-pressed="false">Telegram-боты</button>
+        <button type="button" data-filter="mobile" aria-pressed="false">Мобильные</button>
       </div>
       <div class="gallery" aria-label="Избранные проекты лаборатории">
-        <a href="sato-kimonos/" class="gallery-card"><img src="assets/previews/sato-kimonos.jpg" alt=""><span><small>Landing · demo</small><b>SATO KIMONOS</b><i>Three.js product experience ↗</i></span></a>
-        <a href="restaurant/" class="gallery-card"><img src="assets/previews/restaurant.jpg" alt=""><span><small>Landing · demo</small><b>Ember</b><i>Restaurant experience ↗</i></span></a>
-        <a href="_apps/agent-support.html" class="gallery-card"><img src="assets/previews/app-agent-support.jpg" alt=""><span><small>AI interface · demo</small><b>Support Agent</b><i>Knowledge-base assistant ↗</i></span></a>
-        <a href="_apps/agent-analytics.html" class="gallery-card"><img src="assets/previews/app-agent-analytics.jpg" alt=""><span><small>AI interface · demo</small><b>Analytics Agent</b><i>Data-to-insight workflow ↗</i></span></a>
-        <a href="_apps/finance-app.html" class="gallery-card"><img src="assets/previews/app-finance-app.jpg" alt=""><span><small>Mobile · prototype</small><b>MoneyKeep</b><i>Finance tracker ↗</i></span></a>
-        <a href="_apps/fitness-app.html" class="gallery-card"><img src="assets/previews/app-fitness-app.jpg" alt=""><span><small>Mobile · prototype</small><b>FitPulse</b><i>Fitness progress app ↗</i></span></a>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="sato" data-src="sato-kimonos/" data-title="SATO KIMONOS"><img src="assets/previews/sato-kimonos.jpg" alt=""><span><small>Лендинг · демо</small><b>SATO KIMONOS</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="ember" data-src="restaurant/" data-title="Ember"><img src="assets/previews/restaurant.jpg" alt=""><span><small>Лендинг · демо</small><b>Ember</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="agency" data-src="agency/" data-title="Pixel Agency" data-secondary hidden><img src="assets/previews/agency.jpg" alt=""><span><small>Лендинг · демо</small><b>Pixel Agency</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="barbershop" data-src="barbershop/" data-title="BRATAN" data-secondary hidden><img src="assets/previews/barbershop.jpg" alt=""><span><small>Лендинг · демо</small><b>BRATAN</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="beauty" data-src="beauty/" data-title="MUSE" data-secondary hidden><img src="assets/previews/beauty.jpg" alt=""><span><small>Лендинг · демо</small><b>MUSE</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="car-service" data-src="car-service/" data-title="МЕХАНИКА" data-secondary hidden><img src="assets/previews/car-service.jpg" alt=""><span><small>Лендинг · демо</small><b>МЕХАНИКА</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="clinic" data-src="clinic/" data-title="МедЦентр Здоровье" data-secondary hidden><img src="assets/previews/clinic.jpg" alt=""><span><small>Лендинг · демо</small><b>МедЦентр Здоровье</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="coffee" data-src="coffee/" data-title="KOFEYNYA" data-secondary hidden><img src="assets/previews/coffee.jpg" alt=""><span><small>Лендинг · демо</small><b>KOFEYNYA</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="course" data-src="course/" data-title="Прокачка" data-secondary hidden><img src="assets/previews/course.jpg" alt=""><span><small>Лендинг · демо</small><b>Прокачка</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="crypto" data-src="crypto/" data-title="NexChain" data-secondary hidden><img src="assets/previews/crypto.jpg" alt=""><span><small>Лендинг · демо</small><b>NexChain</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="dental" data-src="dental/" data-title="Денталь" data-secondary hidden><img src="assets/previews/dental.jpg" alt=""><span><small>Лендинг · демо</small><b>Денталь</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="event" data-src="event/" data-title="EventPro" data-secondary hidden><img src="assets/previews/event.jpg" alt=""><span><small>Лендинг · демо</small><b>EventPro</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="fitness-landing" data-src="fitness/" data-title="PULSE GYM" data-secondary hidden><img src="assets/previews/fitness.jpg" alt=""><span><small>Лендинг · демо</small><b>PULSE GYM</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="flowers" data-src="flowers/" data-title="La Fleur" data-secondary hidden><img src="assets/previews/flowers.jpg" alt=""><span><small>Лендинг · демо</small><b>La Fleur</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="food-delivery" data-src="food-delivery/" data-title="ОГОНЬ" data-secondary hidden><img src="assets/previews/food-delivery.jpg" alt=""><span><small>Лендинг · демо</small><b>ОГОНЬ</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="gym" data-src="gym/" data-title="IRON GYM" data-secondary hidden><img src="assets/previews/gym.jpg" alt=""><span><small>Лендинг · демо</small><b>IRON GYM</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="law" data-src="law/" data-title="Прецедент" data-secondary hidden><img src="assets/previews/law.jpg" alt=""><span><small>Лендинг · демо</small><b>Прецедент</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="portfolio-dev" data-src="portfolio-dev/" data-title="Idris" data-secondary hidden><img src="assets/previews/portfolio-dev.jpg" alt=""><span><small>Лендинг · демо</small><b>Idris</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="realestate" data-src="realestate/" data-title="PrimeEstate" data-secondary hidden><img src="assets/previews/realestate.jpg" alt=""><span><small>Лендинг · демо</small><b>PrimeEstate</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="realty" data-src="realty/" data-title="Метраж" data-secondary hidden><img src="assets/previews/realty.jpg" alt=""><span><small>Лендинг · демо</small><b>Метраж</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="saas" data-src="saas/" data-title="FlowSync" data-secondary hidden><img src="assets/previews/saas.jpg" alt=""><span><small>Лендинг · демо</small><b>FlowSync</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="landing" data-preview="travel" data-src="travel/" data-title="Wanderlust" data-secondary hidden><img src="assets/previews/travel.jpg" alt=""><span><small>Лендинг · демо</small><b>Wanderlust</b><i>Открыть внутри сайта ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="agent" data-preview="support"><img src="assets/previews/app-agent-support.jpg" alt=""><span><small>AI-агент · сценарное демо</small><b>Support Agent</b><i>Проиграть сценарий ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="agent" data-preview="analytics"><img src="assets/previews/app-agent-analytics.jpg" alt=""><span><small>AI-агент · сценарное демо</small><b>Analytics Agent</b><i>Проиграть сценарий ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="bot" data-preview="bot-support"><img src="assets/previews/app-agent-telegram.jpg" alt=""><span><small>Telegram-бот · сценарное демо</small><b>Support Bot</b><i>Проиграть чат ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="bot" data-preview="bot-analytics"><img src="assets/previews/app-agent-automation.jpg" alt=""><span><small>Telegram-бот · сценарное демо</small><b>Analytics Bot</b><i>Проиграть чат ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="mobile" data-preview="money"><img src="assets/previews/app-finance-app.jpg" alt=""><span><small>Мобильное · прототип</small><b>MoneyKeep</b><i>Открыть макет ↗</i></span></button>
+        <button type="button" class="gallery-card" data-category="mobile" data-preview="fitness"><img src="assets/previews/app-fitness-app.jpg" alt=""><span><small>Мобильное · прототип</small><b>FitPulse</b><i>Открыть макет ↗</i></span></button>
       </div>
-      <details class="catalogue">
-        <summary>Открыть полный каталог <span>49 проектов</span></summary>
-        <div class="catalogue-grid">
-          <div><b>Лендинги · 22</b><p>SATO KIMONOS, NexChain, Ember, Pixel Agency, FlowSync, BRATAN, MUSE, МЕХАНИКА, МедЦентр Здоровье, KOFEYNYA, Прокачка, Денталь, EventPro, PULSE GYM, La Fleur, ОГОНЬ, IRON GYM, Прецедент, Idris.dev, PrimeEstate, Метраж, Wanderlust.</p></div>
-          <div><b>AI-агенты · 10</b><p>Support, Sales, Automation, Analytics, Telegram, HR, Content, Research, Code Review, Translator.</p></div>
-          <div><b>Telegram-боты · 12</b><p>Restaurant, Booking, Sales, Feedback, Support, Quiz, Language, Analytics, Ecommerce, FAQ, News, HR. Support-бот отмечен в исходном проекте как production.</p></div>
-          <div><b>Mobile · 5</b><p>FitPulse, FoodGo, MoneyKeep, TaskFlow, ShopMate — React Native / Expo прототипы.</p></div>
-        </div>
-      </details>
     </section>
 
     <section class="contact section" id="contact">
@@ -197,6 +218,19 @@
       </div>
     </section>
   </main>
+  <dialog class="preview-dialog" id="preview-dialog" aria-labelledby="preview-title" aria-describedby="preview-status">
+    <div class="preview-shell">
+      <header class="preview-head">
+        <div><p class="preview-kicker" id="preview-status">Сценарное демо</p><h2 id="preview-title">Preview</h2></div>
+        <button class="preview-close" type="button" aria-label="Закрыть превью"><span aria-hidden="true">×</span></button>
+      </header>
+      <div class="preview-body" id="preview-body"></div>
+      <footer class="preview-foot">
+        <p>Демонстрационный интерфейс из исходного портфолио. Не является заявлением о работающем клиентском продукте.</p>
+        <button class="preview-replay" type="button">Повторить демо</button>
+      </footer>
+    </div>
+  </dialog>
   <footer><span>© 2026 Idris Dabyl</span><span>AI products · automation · engineering</span><a href="#top">Наверх ↑</a></footer>
 </body>
 </html>
