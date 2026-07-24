@@ -2,20 +2,12 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
 <title>Pixel Agency — Digital агентство</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#09090b;--card:#111113;--border:#1f1f23;--accent:#22d3ee;--accent2:#0ea5e9;--text:#f4f4f5;--muted:#71717a}
-body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
-@media(max-width:900px){body{cursor:auto}#cur,#cur-ring{display:none}}
-
-/* CUSTOM CURSOR */
-#cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity .3s}
-#cur-ring{width:36px;height:36px;border:1.5px solid rgba(34,211,238,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s,opacity .3s;opacity:0}
-body:has(.mag-btn:hover) #cur-ring{width:64px;height:64px;border-color:var(--accent)}
-
-/* CURSOR TRAIL PARTICLES */
-#trail-canvas{position:fixed;inset:0;pointer-events:none;z-index:9990}
+:root{--bg:#09090b;--card:#111113;--border:#1f1f23;--accent:#22d3ee;--accent2:#0ea5e9;--text:#f4f4f5;--muted:#a1a1aa}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
 /* FIXED HEADER = marquee + nav in one unit */
 .site-header{position:fixed;top:0;width:100%;z-index:200}
@@ -24,7 +16,7 @@ nav{padding:20px 80px;display:flex;justify-content:space-between;align-items:cen
 .logo span{color:var(--accent)}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:28px;transition:.2s}
 .nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--accent);color:var(--bg);border:none;padding:10px 24px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:none;transition:.3s;border-radius:2px}
+.nav-cta{background:var(--accent);color:var(--bg);border:none;padding:10px 24px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:.3s;border-radius:2px}
 .nav-cta:hover{background:var(--accent2)}
 
 /* MARQUEE */
@@ -47,7 +39,7 @@ h1 em{color:var(--accent);font-style:normal;display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 
 /* MAGNETIC BUTTON */
-.mag-btn{padding:16px 44px;font-size:14px;font-weight:600;letter-spacing:1px;cursor:none;border:none;position:relative;overflow:hidden;transition:transform .2s}
+.mag-btn{padding:16px 44px;font-size:14px;font-weight:600;letter-spacing:1px;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .2s}
 .mag-btn-primary{background:var(--accent);color:var(--bg)}
 .mag-btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
 .mag-btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.1);transform:scaleX(0);transform-origin:left;transition:.3s}
@@ -67,7 +59,7 @@ h1 em{color:var(--accent);font-style:normal;display:block}
 .see-all{color:var(--accent);font-size:13px;letter-spacing:1px;cursor:pointer;text-decoration:none;transition:.2s;border-bottom:1px solid transparent}
 .see-all:hover{border-bottom-color:var(--accent)}
 .works-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.work-card{background:var(--card);border:1px solid var(--border);overflow:hidden;position:relative;transition:.4s;cursor:none}
+.work-card{background:var(--card);border:1px solid var(--border);overflow:hidden;position:relative;transition:.4s}
 .work-thumb{height:260px;display:flex;align-items:center;justify-content:center;font-size:80px;background:linear-gradient(135deg,#0f0f11,#1a1a20);position:relative;overflow:hidden;transition:.4s}
 .work-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(34,211,238,.04),transparent);opacity:0;transition:.4s}
 .work-card:hover .work-thumb{transform:scale(1.03)}
@@ -87,7 +79,7 @@ h1 em{color:var(--accent);font-style:normal;display:block}
 .services h2{font-size:clamp(28px,4vw,48px);font-weight:700;margin-bottom:56px;text-align:center}
 .services h2 span{color:var(--accent)}
 .services-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column}
-.svc-item{display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1px solid var(--border);transition:.3s;cursor:none;position:relative;overflow:hidden}
+.svc-item{display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1px solid var(--border);transition:.3s;position:relative;overflow:hidden}
 .svc-item::before{content:'';position:absolute;left:0;top:0;width:0;height:100%;background:rgba(34,211,238,.04);transition:.3s}
 .svc-item:hover::before{width:100%}
 .svc-item:hover{padding-left:16px}
@@ -112,13 +104,13 @@ footer p{font-size:12px;color:var(--muted)}
 [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 [data-reveal].in{opacity:1;transform:none}
 @media(max-width:768px){.works-grid{grid-template-columns:1fr}nav,.hero,.works,.services,.cta,footer,.metrics{padding-left:24px;padding-right:24px}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .hero-tag,h1,.hero-p,.hero-btns,[data-reveal]{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
-
-<div id="cur"></div>
-<div id="cur-ring"></div>
-<canvas id="trail-canvas"></canvas>
 
 <header class="site-header">
   <div class="marquee-wrap">
@@ -140,7 +132,7 @@ footer p{font-size:12px;color:var(--muted)}
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-tag">Digital агентство · с 2019</div>
+    <div class="hero-tag">Дизайн-лаборатория · концепт</div>
     <h1>Мы делаем<em>цифровые</em>продукты</h1>
     <p class="hero-p">Стратегия, дизайн и разработка — под одной крышей. Создаём сайты, бренды и приложения, которые работают на ваш бизнес.</p>
     <div class="hero-btns">
@@ -151,10 +143,10 @@ footer p{font-size:12px;color:var(--muted)}
 </section>
 
 <div class="metrics">
-  <div class="metric-item" data-reveal><span class="metric-num" data-count="120">0</span><span class="metric-label">Проектов сдано</span></div>
-  <div class="metric-item" data-reveal style="transition-delay:.1s"><span class="metric-num" data-count="60">0</span><span class="metric-label">Клиентов</span></div>
-  <div class="metric-item" data-reveal style="transition-delay:.2s"><span class="metric-num" data-count="5">0</span><span class="metric-label">Лет на рынке</span></div>
-  <div class="metric-item" data-reveal style="transition-delay:.3s"><span class="metric-num" data-count="14">0</span><span class="metric-label">Наград</span></div>
+  <div class="metric-item" data-reveal><span class="metric-num">01</span><span class="metric-label">Стратегия</span></div>
+  <div class="metric-item" data-reveal style="transition-delay:.1s"><span class="metric-num">02</span><span class="metric-label">Интерфейс</span></div>
+  <div class="metric-item" data-reveal style="transition-delay:.2s"><span class="metric-num">03</span><span class="metric-label">Прототип</span></div>
+  <div class="metric-item" data-reveal style="transition-delay:.3s"><span class="metric-num">04</span><span class="metric-label">Передача в разработку</span></div>
 </div>
 
 <section class="works" id="works">
@@ -165,19 +157,19 @@ footer p{font-size:12px;color:var(--muted)}
   <div class="works-grid">
     <div class="work-card" data-reveal style="transition-delay:.05s">
       <div class="work-thumb">🛍️</div>
-      <div class="work-info"><div class="work-tag">E-commerce · Брендинг</div><h3>KazMall — маркетплейс</h3><p>Полный редизайн и разработка с нуля. Рост конверсии на 47% в первый квартал.</p></div>
+      <div class="work-info"><div class="work-tag">E-commerce · Концепт</div><h3>Маркетплейс</h3><p>Сценарий каталога, поиска и оформления заказа для демонстрации продуктового подхода.</p></div>
     </div>
     <div class="work-card" data-reveal style="transition-delay:.10s">
       <div class="work-thumb">🏗️</div>
-      <div class="work-info"><div class="work-tag">Корпоративный сайт</div><h3>BuildGroup — строительный холдинг</h3><p>Брендинг, многоязычный сайт, цифровые тендерные каталоги.</p></div>
+      <div class="work-info"><div class="work-tag">Корпоративный сайт · Концепт</div><h3>Строительная компания</h3><p>Информационная архитектура, каталог проектов и многоязычный интерфейс.</p></div>
     </div>
     <div class="work-card" data-reveal style="transition-delay:.15s">
       <div class="work-thumb">🍕</div>
-      <div class="work-info"><div class="work-tag">Food-tech · Приложение</div><h3>PizzaRun — сеть доставки</h3><p>Мобильное приложение + CRM. 30K+ заказов в первые 3 месяца.</p></div>
+      <div class="work-info"><div class="work-tag">Food-tech · Концепт</div><h3>Сервис доставки</h3><p>Пользовательский путь от меню до статуса заказа и интерфейс оператора.</p></div>
     </div>
     <div class="work-card" data-reveal style="transition-delay:.20s">
       <div class="work-thumb">💊</div>
-      <div class="work-info"><div class="work-tag">MedTech · UX</div><h3>HealthNet — медицинская платформа</h3><p>UX-исследование, проектирование, разработка кабинета врача и пациента.</p></div>
+      <div class="work-info"><div class="work-tag">MedTech · Концепт</div><h3>Медицинский кабинет</h3><p>Прототип записи, истории обращений и рабочего пространства специалиста.</p></div>
     </div>
   </div>
 </section>
@@ -209,49 +201,6 @@ footer p{font-size:12px;color:var(--muted)}
 </footer>
 
 <script>
-// CUSTOM CURSOR
-const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring')
-let mx=0,my=0,rx=0,ry=0,cursorVisible=false
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY
-  if(!cursorVisible){cursorVisible=true;cur.style.opacity='1';ring.style.opacity='1'}
-});
-(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})()
-
-// CURSOR TRAIL PARTICLES
-const tc=document.getElementById('trail-canvas'),tctx=tc.getContext('2d')
-tc.width=window.innerWidth;tc.height=window.innerHeight
-window.addEventListener('resize',()=>{tc.width=window.innerWidth;tc.height=window.innerHeight})
-let trails=[]
-document.addEventListener('mousemove',e=>{
-  if(Math.random()>.6) return
-  trails.push({x:e.clientX,y:e.clientY,size:Math.random()*4+1,life:1,vx:(Math.random()-.5)*1.5,vy:(Math.random()-.5)*1.5-1})
-});
-(function tloop(){
-  tctx.clearRect(0,0,tc.width,tc.height)
-  trails=trails.filter(t=>{
-    t.life-=.04;t.x+=t.vx;t.y+=t.vy
-    if(t.life<=0)return false
-    tctx.beginPath();tctx.arc(t.x,t.y,t.size*t.life,0,Math.PI*2)
-    tctx.fillStyle=`rgba(34,211,238,${t.life*.5})`;tctx.fill()
-    return true
-  })
-  requestAnimationFrame(tloop)
-})()
-
-// MAGNETIC BUTTONS
-document.querySelectorAll('.mag-btn').forEach(btn=>{
-  btn.addEventListener('mousemove',function(e){
-    const r=this.getBoundingClientRect()
-    const cx=r.left+r.width/2,cy=r.top+r.height/2
-    const dx=e.clientX-cx,dy=e.clientY-cy
-    this.style.transform=`translate(${dx*.25}px,${dy*.25}px)`
-  })
-  btn.addEventListener('mouseleave',function(){
-    this.style.transform=''
-  })
-})
-
 // COUNTERS
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{

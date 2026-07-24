@@ -21,7 +21,7 @@ nav.scrolled .nav-links a{color:var(--muted)}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1c0a00,#7c2d12,#92400e);z-index:0}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 78% 28%,rgba(245,158,11,.18),transparent 26%),radial-gradient(circle at 18% 72%,rgba(255,255,255,.06),transparent 30%),linear-gradient(130deg,#090705 0%,#17100b 52%,#251207 100%);z-index:0}
 
 /* Animated background shapes */
 .hero-shape{position:absolute;pointer-events:none;z-index:1}
@@ -152,6 +152,10 @@ footer p{font-size:13px;opacity:.5}
 [data-reveal].in{opacity:1;transform:none}
 
 @media(max-width:768px){nav,.hero-content,.hero-stats,.search-bar,.destinations,.tours,.why,.cta,footer{padding-left:24px;padding-right:24px}.dest-grid{grid-template-columns:1fr}.dest-card:first-child{grid-row:span 1;min-height:220px}.search-bar{margin:40px 24px 0}.s-divider{display:none}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  [data-reveal]{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -163,31 +167,19 @@ footer p{font-size:13px;opacity:.5}
 
 <div class="hero">
   <div class="hero-bg"></div>
-  <!-- Rotating ring shapes -->
-  <div class="hero-shape shape-circle1"></div>
-  <div class="hero-shape shape-circle2"></div>
-  <div class="hero-shape shape-circle3"></div>
-  <!-- Flying plane -->
-  <div class="plane">✈️</div>
-  <!-- Floating map pins -->
-  <div class="pin pin1">📍</div>
-  <div class="pin pin2">📍</div>
-  <div class="pin pin3">📍</div>
-  <div class="pin pin4">📍</div>
-
   <div class="hero-content">
-    <div class="hero-tag">✈️ Более 500 направлений</div>
+    <div class="hero-tag">Маршрутный интерфейс · демо</div>
     <h1>Откройте мир<br>вместе с <em>нами</em></h1>
-    <p>Эксклюзивные туры, комфортный сервис и незабываемые впечатления. Ваш идеальный отпуск начинается здесь.</p>
+    <p>Концепт сервиса, который помогает сравнить маршруты, состав поездки и передать выбранный вариант специалисту.</p>
     <div class="hero-cta">
       <button class="btn btn-lg">Найти тур</button>
       <button class="btn-ghost">Посмотреть направления</button>
     </div>
   </div>
   <div class="hero-stats">
-    <div><div class="hstat-n" data-count="500">0</div><div class="hstat-l">Направлений</div></div>
-    <div><div class="hstat-n" data-count="50000">0</div><div class="hstat-l">Довольных туристов</div></div>
-    <div><div class="hstat-n" data-count="15">0</div><div class="hstat-l">Лет опыта</div></div>
+    <div><div class="hstat-n">01</div><div class="hstat-l">Сравнить маршрут</div></div>
+    <div><div class="hstat-n">02</div><div class="hstat-l">Проверить состав</div></div>
+    <div><div class="hstat-n">03</div><div class="hstat-l">Передать заявку</div></div>
   </div>
 </div>
 
@@ -215,8 +207,8 @@ footer p{font-size:13px;opacity:.5}
 </div>
 
 <div class="tours" id="tours">
-  <h2 data-reveal>Горящие <span class="accent">туры</span></h2>
-  <p class="section-sub" data-reveal>Успей забронировать по специальной цене</p>
+  <h2 data-reveal>Примеры <span class="accent">маршрутов</span></h2>
+  <p class="section-sub" data-reveal>Демонстрационные данные: цены и доступность требуют проверки перед публикацией</p>
   <div class="tours-grid">
     <div class="tour-card" data-reveal style="transition-delay:.05s">
       <div class="tour-img t1"><div class="tour-img-bg"></div><span class="tour-emoji">🇹🇷</span><div class="tour-badge">ГОРЯЩИЙ</div></div>
@@ -234,26 +226,26 @@ footer p{font-size:13px;opacity:.5}
 </div>
 
 <div class="why">
-  <h2>Почему выбирают нас</h2>
-  <p class="section-sub" style="margin-bottom:60px">15 лет опыта и 50 000 довольных путешественников</p>
+  <h2>Что показывает концепт</h2>
+  <p class="section-sub" style="margin-bottom:60px">Четыре опорных сценария для понятного выбора поездки</p>
   <div class="why-grid">
-    <div class="why-item"><span class="why-icon">🛡️</span><h3>Гарантия лучшей цены</h3><p>Найдёте дешевле — вернём разницу</p></div>
-    <div class="why-item"><span class="why-icon">✈️</span><h3>Прямые перелёты</h3><p>Работаем с 30+ авиакомпаниями</p></div>
-    <div class="why-item"><span class="why-icon">📱</span><h3>Поддержка 24/7</h3><p>Всегда на связи в любой точке мира</p></div>
-    <div class="why-item"><span class="why-icon">💳</span><h3>Рассрочка 0%</h3><p>Оплата частями без переплат</p></div>
+    <div class="why-item"><span class="why-icon">↔</span><h3>Сравнение вариантов</h3><p>Маршруты, длительность и состав поездки в одном формате</p></div>
+    <div class="why-item"><span class="why-icon">◎</span><h3>Контекст поездки</h3><p>Фильтры по цели, датам и количеству путешественников</p></div>
+    <div class="why-item"><span class="why-icon">≡</span><h3>Прозрачный состав</h3><p>Отдельно показано, что входит в предложенный маршрут</p></div>
+    <div class="why-item"><span class="why-icon">→</span><h3>Передача заявки</h3><p>Выбранный сценарий можно передать специалисту для проверки</p></div>
   </div>
 </div>
 
 <div class="cta">
   <h2>Мечтаете о путешествии?</h2>
-  <p>Подберём тур мечты за 15 минут бесплатно</p>
+  <p>Оставьте параметры поездки — специалист проверит актуальные варианты</p>
   <button class="btn-dark">Получить консультацию</button>
 </div>
 
 <footer>
   <div class="footer-logo">Wander<span>lust</span></div>
-  <p>ул. Достык 10, Алматы · +7 (727) 234-56-78</p>
-  <p>© 2026 Wanderlust Travel. Лицензия МТ №0012</p>
+  <p>Интерактивный концепт интерфейса туристического сервиса</p>
+  <p>Демо: контакты, цены и доступность не являются публичной офертой</p>
 </footer>
 
 <script>

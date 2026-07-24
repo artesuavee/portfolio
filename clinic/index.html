@@ -120,7 +120,11 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
 [data-reveal-left]{opacity:0;transform:translateX(-28px);transition:opacity .6s ease,transform .6s ease}
 [data-reveal-left].in{opacity:1;transform:none}
 
-@media(max-width:768px){nav,.hero,.services,.doctors,.trust,.reviews,.cta-section,footer{padding-left:24px;padding-right:24px}.trust-grid{grid-template-columns:repeat(2,1fr)}.quick-book{margin:20px 24px}}
+@media(max-width:768px){nav,.hero,.services,.doctors,.trust,.reviews,.cta-section,footer{padding-left:24px;padding-right:24px}.trust-grid{grid-template-columns:repeat(2,1fr)}.quick-book{margin:20px 24px;width:auto}.book-field{flex:1 1 100%;min-width:0}.quick-book .btn{width:100%}.nav-links{display:none}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  [data-reveal],[data-reveal-left]{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -130,7 +134,7 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
     <div><div class="logo-text">МедЦентр Здоровье</div><div class="logo-sub">Многопрофильная клиника</div></div>
   </div>
   <div class="nav-links">
-    <a href="#services">Услуги</a><a href="#doctors">Врачи</a><a href="#reviews">Отзывы</a>
+    <a href="#services">Услуги</a><a href="#doctors">Специалисты</a><a href="#reviews">Путь пациента</a>
   </div>
   <button class="btn">Записаться онлайн</button>
 </nav>
@@ -154,9 +158,9 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
   </div>
 
   <div class="hero-content">
-    <div class="hero-badge">⭐ Клиника года 2025</div>
+    <div class="hero-badge">Интерфейс клиники · демо</div>
     <h1>Ваше здоровье — наша забота</h1>
-    <p>Современная диагностика, опытные врачи и индивидуальный подход. Более 40 специализаций в одном месте.</p>
+    <p>Концепт записи на приём: выбор специальности, времени и подготовка к визиту в одном понятном сценарии.</p>
     <div class="hero-cta">
       <button class="btn-white">Записаться онлайн</button>
       <button class="btn-outline-white">📞 Вызов врача</button>
@@ -182,14 +186,14 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
 
 <div class="services" id="services">
   <h2 data-reveal>Наши <span class="accent">специализации</span></h2>
-  <p class="section-sub" data-reveal>40+ направлений медицинской помощи</p>
+  <p class="section-sub" data-reveal>Пример структуры каталога медицинской помощи</p>
   <div class="services-grid">
     <div class="svc-card" data-reveal style="transition-delay:.03s"><span class="svc-icon">❤️</span><h3>Кардиология</h3><p>ЭКГ, УЗИ сердца, Холтер</p></div>
     <div class="svc-card" data-reveal style="transition-delay:.06s"><span class="svc-icon">🧠</span><h3>Неврология</h3><p>МРТ, консультации</p></div>
     <div class="svc-card" data-reveal style="transition-delay:.09s"><span class="svc-icon">🦷</span><h3>Стоматология</h3><p>Лечение, имплантация</p></div>
     <div class="svc-card" data-reveal style="transition-delay:.12s"><span class="svc-icon">👁️</span><h3>Офтальмология</h3><p>Диагностика, коррекция</p></div>
     <div class="svc-card" data-reveal style="transition-delay:.15s"><span class="svc-icon">🦴</span><h3>Ортопедия</h3><p>Суставы, позвоночник</p></div>
-    <div class="svc-card" data-reveal style="transition-delay:.18s"><span class="svc-icon">🔬</span><h3>Лаборатория</h3><p>2000+ анализов</p></div>
+    <div class="svc-card" data-reveal style="transition-delay:.18s"><span class="svc-icon">🔬</span><h3>Лаборатория</h3><p>Выбор исследования и подготовка</p></div>
     <div class="svc-card" data-reveal style="transition-delay:.21s"><span class="svc-icon">🤰</span><h3>Гинекология</h3><p>Ведение беременности</p></div>
     <div class="svc-card" data-reveal style="transition-delay:.24s"><span class="svc-icon">🧒</span><h3>Педиатрия</h3><p>От рождения до 18 лет</p></div>
   </div>
@@ -197,45 +201,45 @@ footer{background:var(--text);color:#fff;padding:40px 80px;display:flex;justify-
 
 <div class="doctors" id="doctors">
   <h2 data-reveal>Наши <span class="accent">специалисты</span></h2>
-  <p class="section-sub" data-reveal>Врачи высшей категории с международным опытом</p>
+  <p class="section-sub" data-reveal>Демонстрационные профили: реальные данные добавляются после проверки</p>
   <div class="doctors-grid">
-    <div class="doctor-card" data-reveal style="transition-delay:.05s"><div class="doctor-photo">👨‍⚕️</div><div class="doctor-info"><div class="doctor-name">Ахметов Бейбут</div><div class="doctor-spec">Кардиолог</div><div class="doctor-exp">Опыт: 18 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
-    <div class="doctor-card" data-reveal style="transition-delay:.10s"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Смирнова Ольга</div><div class="doctor-spec">Невролог</div><div class="doctor-exp">Опыт: 14 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
-    <div class="doctor-card" data-reveal style="transition-delay:.15s"><div class="doctor-photo">🧑‍⚕️</div><div class="doctor-info"><div class="doctor-name">Касенов Ерлан</div><div class="doctor-spec">Хирург</div><div class="doctor-exp">Опыт: 20 лет · Д.м.н.</div><button class="btn-sm">Записаться</button></div></div>
-    <div class="doctor-card" data-reveal style="transition-delay:.20s"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Нурланова Айгуль</div><div class="doctor-spec">Педиатр</div><div class="doctor-exp">Опыт: 10 лет · К.м.н.</div><button class="btn-sm">Записаться</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.05s"><div class="doctor-photo">👨‍⚕️</div><div class="doctor-info"><div class="doctor-name">Профиль специалиста</div><div class="doctor-spec">Кардиология</div><div class="doctor-exp">Образование и опыт требуют подтверждения</div><button class="btn-sm">Выбрать время</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.10s"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Профиль специалиста</div><div class="doctor-spec">Неврология</div><div class="doctor-exp">Образование и опыт требуют подтверждения</div><button class="btn-sm">Выбрать время</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.15s"><div class="doctor-photo">🧑‍⚕️</div><div class="doctor-info"><div class="doctor-name">Профиль специалиста</div><div class="doctor-spec">Хирургия</div><div class="doctor-exp">Образование и опыт требуют подтверждения</div><button class="btn-sm">Выбрать время</button></div></div>
+    <div class="doctor-card" data-reveal style="transition-delay:.20s"><div class="doctor-photo">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Профиль специалиста</div><div class="doctor-spec">Педиатрия</div><div class="doctor-exp">Образование и опыт требуют подтверждения</div><button class="btn-sm">Выбрать время</button></div></div>
   </div>
 </div>
 
 <div class="trust">
   <div class="trust-grid">
-    <div data-reveal style="transition-delay:.05s"><div class="trust-num" data-count="25000">0</div><div class="trust-label">Пациентов в год</div></div>
-    <div data-reveal style="transition-delay:.10s"><div class="trust-num" data-count="40">0</div><div class="trust-label">Специализаций</div></div>
-    <div data-reveal style="transition-delay:.15s"><div class="trust-num" data-count="120">0</div><div class="trust-label">Врачей</div></div>
-    <div data-reveal style="transition-delay:.20s"><div class="trust-num" data-count="15">0</div><div class="trust-label">Лет на рынке</div></div>
+    <div data-reveal style="transition-delay:.05s"><div class="trust-num">01</div><div class="trust-label">Выбор специальности</div></div>
+    <div data-reveal style="transition-delay:.10s"><div class="trust-num">02</div><div class="trust-label">Подходящее время</div></div>
+    <div data-reveal style="transition-delay:.15s"><div class="trust-num">03</div><div class="trust-label">Подтверждение записи</div></div>
+    <div data-reveal style="transition-delay:.20s"><div class="trust-num">04</div><div class="trust-label">Подготовка к визиту</div></div>
   </div>
 </div>
 
 <div class="reviews" id="reviews">
   <div style="max-width:1000px;margin:0 auto;text-align:center">
-    <h2 data-reveal>Отзывы <span class="accent">пациентов</span></h2>
-    <p class="section-sub" data-reveal>Более 4.9★ на 2ГИС и Google</p>
+    <h2 data-reveal>Путь <span class="accent">пациента</span></h2>
+    <p class="section-sub" data-reveal>Сценарий от выбора услуги до визита</p>
   </div>
   <div class="reviews-grid">
-    <div class="review-card" data-reveal style="transition-delay:.05s"><div class="stars">★★★★★</div><p class="review-text">Отличная клиника! Быстро записали, врач уделил достаточно времени. Диагностика на современном оборудовании. Рекомендую.</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Алия М.</div><div class="reviewer-dept">Кардиология</div></div></div></div>
-    <div class="review-card" data-reveal style="transition-delay:.10s"><div class="stars">★★★★★</div><p class="review-text">Привела ребёнка к педиатру. Доктор очень внимательный, всё объяснил понятно. Анализы готовы через 2 часа. Спасибо!</p><div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Светлана К.</div><div class="reviewer-dept">Педиатрия</div></div></div></div>
-    <div class="review-card" data-reveal style="transition-delay:.15s"><div class="stars">★★★★★</div><p class="review-text">Делал МРТ. Результаты с описанием получил сразу. Врач подробно всё объяснил и выписал лечение. Очень доволен.</p><div class="reviewer"><div class="reviewer-avatar">👨</div><div><div class="reviewer-name">Нурлан Б.</div><div class="reviewer-dept">Неврология</div></div></div></div>
+    <div class="review-card" data-reveal style="transition-delay:.05s"><div class="stars">01</div><p class="review-text">Пользователь выбирает направление и видит, какие данные нужны для записи.</p><div class="reviewer"><div class="reviewer-avatar">⌕</div><div><div class="reviewer-name">Найти специалиста</div><div class="reviewer-dept">Каталог и фильтры</div></div></div></div>
+    <div class="review-card" data-reveal style="transition-delay:.10s"><div class="stars">02</div><p class="review-text">Свободные интервалы и формат приёма собраны в одном шаге без лишних переходов.</p><div class="reviewer"><div class="reviewer-avatar">□</div><div><div class="reviewer-name">Выбрать время</div><div class="reviewer-dept">Расписание</div></div></div></div>
+    <div class="review-card" data-reveal style="transition-delay:.15s"><div class="stars">03</div><p class="review-text">После подтверждения интерфейс показывает адрес, документы и правила подготовки.</p><div class="reviewer"><div class="reviewer-avatar">✓</div><div><div class="reviewer-name">Подготовиться</div><div class="reviewer-dept">Памятка к визиту</div></div></div></div>
   </div>
 </div>
 
 <div class="cta-section">
   <h2>Запишитесь прямо сейчас</h2>
-  <p>Консультация кардиолога или терапевта — сегодня. Без очередей.</p>
+  <p>Демо-сценарий записи: фактическая доступность зависит от подключённой клиники.</p>
   <button class="btn-white" style="font-size:16px;padding:16px 40px">Записаться онлайн</button>
 </div>
 
 <footer>
-  <div><div style="font-size:18px;font-weight:700;margin-bottom:4px">МедЦентр Здоровье</div><div class="footer-info">ул. Республики 5 · Пн–Вс 8:00–21:00</div></div>
-  <div class="footer-info" style="text-align:right">📞 8-800-555-35-35 (бесплатно)<br>© 2026 МедЦентр Здоровье</div>
+  <div><div style="font-size:18px;font-weight:700;margin-bottom:4px">МедЦентр Здоровье</div><div class="footer-info">Интерактивный концепт записи в клинику</div></div>
+  <div class="footer-info" style="text-align:right">Демо: контакты и расписание иллюстративны<br>Данные врачей добавляются после проверки</div>
 </footer>
 
 <script>

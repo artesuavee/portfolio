@@ -118,6 +118,10 @@ footer p{color:var(--muted);font-size:13px}
 [data-reveal-scale].in{opacity:1;transform:scale(1)}
 
 @media(max-width:768px){nav{padding:16px 24px}.hero,.cta-section{padding:80px 24px 60px}section{padding:60px 24px}.stats{gap:30px}.stat-num{font-size:36px}footer{flex-direction:column;gap:16px;text-align:center}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  [data-reveal],[data-reveal-scale]{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -145,24 +149,24 @@ footer p{color:var(--muted);font-size:13px}
   <div class="geo geo5"></div>
 
   <div class="hero-content">
-    <div class="hero-badge">💪 Фитнес-клуб #1 в городе</div>
+    <div class="hero-badge">Интерфейс фитнес-клуба · демо</div>
     <h1>Трансформируй<em>своё тело</em></h1>
-    <p>Современное оборудование, профессиональные тренеры и атмосфера победителей. Начни путь к лучшей версии себя.</p>
+    <p>Концепт сайта с зонами клуба, вариантами абонемента и профилями тренеров. Все коммерческие данные здесь иллюстративны.</p>
     <div class="hero-cta">
       <button class="btn">Бесплатное занятие</button>
       <button class="btn-outline">Смотреть зал</button>
     </div>
     <div class="stats">
-      <div><div class="stat-num" data-count="1200">0</div><div class="stat-label">Членов клуба</div></div>
-      <div><div class="stat-num" data-count="15">0</div><div class="stat-label">Тренеров</div></div>
-      <div><div class="stat-num" data-count="8">0</div><div class="stat-label">Лет опыта</div></div>
+      <div><div class="stat-num">01</div><div class="stat-label">Выбрать зону</div></div>
+      <div><div class="stat-num">02</div><div class="stat-label">Сравнить тариф</div></div>
+      <div><div class="stat-num">03</div><div class="stat-label">Оставить заявку</div></div>
     </div>
   </div>
 </section>
 
 <section id="services" data-reveal>
   <h2>Наши <span>зоны</span></h2>
-  <p class="section-sub">4000 м² тренировочного пространства</p>
+  <p class="section-sub">Пример структуры тренировочных направлений</p>
   <div class="services-grid">
     <div class="service-card" data-reveal style="transition-delay:.05s"><span class="service-icon">🏋️</span><h3>Силовая зона</h3><p>Более 200 единиц профессионального оборудования. Свободные веса, тренажёры, силовые стойки.</p></div>
     <div class="service-card" data-reveal style="transition-delay:.1s"><span class="service-icon">🏃</span><h3>Кардио зона</h3><p>50 беговых дорожек, эллипсы, велотренажёры с интерактивными экранами.</p></div>
@@ -206,12 +210,12 @@ footer p{color:var(--muted);font-size:13px}
 
 <section id="trainers">
   <h2 data-reveal>Наши <span>тренеры</span></h2>
-  <p class="section-sub" data-reveal>Команда сертифицированных профессионалов</p>
+  <p class="section-sub" data-reveal>Демонстрационные профили: квалификация добавляется только после проверки</p>
   <div class="trainers">
-    <div class="trainer-card" data-reveal style="transition-delay:.05s"><div class="trainer-photo">👨‍🏋️</div><div class="trainer-info"><div class="trainer-name">Алексей Морозов</div><div class="trainer-spec">Силовой тренинг</div><div class="trainer-exp">12 лет опыта · Мастер спорта по пауэрлифтингу</div></div></div>
-    <div class="trainer-card" data-reveal style="transition-delay:.1s"><div class="trainer-photo">👩‍🏋️</div><div class="trainer-info"><div class="trainer-name">Анастасия Ким</div><div class="trainer-spec">Фитнес и йога</div><div class="trainer-exp">8 лет опыта · Сертификат ACSM</div></div></div>
-    <div class="trainer-card" data-reveal style="transition-delay:.15s"><div class="trainer-photo">🥊</div><div class="trainer-info"><div class="trainer-name">Дмитрий Захаров</div><div class="trainer-spec">MMA и бокс</div><div class="trainer-exp">15 лет опыта · Чемпион России</div></div></div>
-    <div class="trainer-card" data-reveal style="transition-delay:.2s"><div class="trainer-photo">🧘</div><div class="trainer-info"><div class="trainer-name">Мария Волкова</div><div class="trainer-spec">Пилатес и стретчинг</div><div class="trainer-exp">6 лет опыта · Инструктор BASI Pilates</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.05s"><div class="trainer-photo">👨‍🏋️</div><div class="trainer-info"><div class="trainer-name">Профиль тренера</div><div class="trainer-spec">Силовой тренинг</div><div class="trainer-exp">Опыт и сертификаты требуют подтверждения</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.1s"><div class="trainer-photo">👩‍🏋️</div><div class="trainer-info"><div class="trainer-name">Профиль тренера</div><div class="trainer-spec">Фитнес и йога</div><div class="trainer-exp">Опыт и сертификаты требуют подтверждения</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.15s"><div class="trainer-photo">🥊</div><div class="trainer-info"><div class="trainer-name">Профиль тренера</div><div class="trainer-spec">MMA и бокс</div><div class="trainer-exp">Опыт и сертификаты требуют подтверждения</div></div></div>
+    <div class="trainer-card" data-reveal style="transition-delay:.2s"><div class="trainer-photo">🧘</div><div class="trainer-info"><div class="trainer-name">Профиль тренера</div><div class="trainer-spec">Пилатес и стретчинг</div><div class="trainer-exp">Опыт и сертификаты требуют подтверждения</div></div></div>
   </div>
 </section>
 
@@ -223,8 +227,8 @@ footer p{color:var(--muted);font-size:13px}
 
 <footer>
   <div class="footer-logo">IRON<span>GYM</span></div>
-  <p>ул. Спортивная 1 · Пн-Вс 06:00–24:00 · +7 (777) 111-22-33</p>
-  <p>© 2026 IronGym. Все права защищены.</p>
+  <p>Интерактивный концепт сайта фитнес-клуба</p>
+  <p>Демо: тарифы, расписание и контакты иллюстративны</p>
 </footer>
 
 <script>

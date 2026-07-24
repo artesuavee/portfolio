@@ -101,6 +101,10 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
 [data-reveal].in{opacity:1;transform:none}
 @media(max-width:900px){.about,.chef{grid-template-columns:1fr}}
 @media(max-width:768px){nav,.hero,.about,.menu-section,.reservation,.info-strip,footer{padding-left:24px;padding-right:24px}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .hero-sub,h1,.divider,.hero p,.hero-cta,[data-reveal]{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -119,7 +123,7 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
   <div class="hero-orb orb2"></div>
   <div class="hero-deco">🔥</div>
   <div class="hero-content">
-    <div class="hero-sub">Ресторан высокой кухни</div>
+    <div class="hero-sub">Ресторанный интерфейс · концепт</div>
     <h1>Ember</h1>
     <div class="divider"></div>
     <p>Где огонь встречает изысканность. Авторская кухня, создающая воспоминания, которые остаются навсегда.</p>
@@ -136,7 +140,7 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
     <span class="ornament">✦</span>
     <h2>Философия <span class="gold">вкуса</span></h2>
     <p>Ember — это место, где каждое блюдо рассказывает историю. Мы работаем только с локальными производителями и сезонными продуктами, создавая меню, которое меняется вместе с природой.</p>
-    <p>Наш шеф провёл годы в лучших ресторанах Европы, прежде чем вернуться на родину, чтобы переосмыслить казахскую кухню через призму современной гастрономии.</p>
+    <p>В демонстрационном сценарии история бренда строится вокруг локальных продуктов, сезонного меню и современной интерпретации региональной кухни.</p>
     <button class="nav-btn"><span>Наша история</span></button>
   </div>
 </section>
@@ -174,12 +178,12 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
   <div class="chef-photo" data-reveal>👨‍🍳</div>
   <div class="chef-info" data-reveal style="transition-delay:.15s">
     <span class="ornament">✦</span>
-    <h2>Шеф <span class="gold">Азамат Нуров</span></h2>
-    <p>Обладатель звезды Michelin, прошедший стажировку в El Bulli и Fat Duck. Вернулся в Казахстан, чтобы создать нечто своё — кухню, где встречаются традиции Великой Степи и современная гастрономия.</p>
+    <h2>Кухня <span class="gold">как система</span></h2>
+    <p>Этот блок показывает редакционную подачу команды и подхода без вымышленных наград или биографий. Перед запуском сюда добавляются подтверждённые имена, опыт и источники.</p>
     <div class="chef-awards">
-      <div class="award">Звезда Michelin Guide 2024</div>
-      <div class="award">Лучший ресторан Центральной Азии — Fine Dining Asia 2025</div>
-      <div class="award">Шеф года — Kazakhstan Culinary Awards 2023</div>
+      <div class="award">Сезонное меню</div>
+      <div class="award">Локальные продукты</div>
+      <div class="award">Открытая логика подачи</div>
     </div>
   </div>
 </section>
@@ -198,16 +202,16 @@ footer p{color:var(--muted);font-size:12px;font-family:'Segoe UI',sans-serif;let
 </section>
 
 <div class="info-strip">
-  <div class="info-item"><div class="info-label">Адрес</div><div class="info-val">ул. Кунаева 77, Алматы</div></div>
-  <div class="info-item"><div class="info-label">Часы работы</div><div class="info-val">Вт–Вс · 18:00 – 23:30</div></div>
-  <div class="info-item"><div class="info-label">Резервации</div><div class="info-val">+7 (727) 400-88-99</div></div>
+  <div class="info-item"><div class="info-label">Адрес</div><div class="info-val">Добавляется перед запуском</div></div>
+  <div class="info-item"><div class="info-label">Часы работы</div><div class="info-val">По подтверждённому расписанию</div></div>
+  <div class="info-item"><div class="info-label">Резервации</div><div class="info-val">Демо-форма</div></div>
   <div class="info-item"><div class="info-label">Дресс-код</div><div class="info-val">Smart casual</div></div>
 </div>
 
 <footer>
   <div class="footer-logo">Ember</div>
-  <p>© 2026 Ember Restaurant · Алматы</p>
-  <p>Instagram · Facebook · TripAdvisor</p>
+  <p>Интерактивный концепт ресторанного сайта</p>
+  <p>Контакты и меню иллюстративны</p>
 </footer>
 
 <script>
@@ -243,15 +247,16 @@ class Ember{
   }
 }
 
-const embers=Array.from({length:80},()=>{const e=new Ember();e.y=Math.random()*H;return e})
+const embers=Array.from({length:44},()=>{const e=new Ember();e.y=Math.random()*H;return e})
 function animate(){ctx.clearRect(0,0,W,H);embers.forEach(e=>{e.update();e.draw()});requestAnimationFrame(animate)}
-animate()
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches
+if(!reduceMotion)animate()
 
 // STICKY NAV
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('dark',scrollY>60)})
 
 // PARALLAX HERO DECORATION
-window.addEventListener('scroll',()=>{
+if(!reduceMotion)window.addEventListener('scroll',()=>{
   const d=document.querySelector('.hero-deco')
   if(d) d.style.transform=`translateY(${scrollY*.3}px)`
 })

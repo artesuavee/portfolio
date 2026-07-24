@@ -130,32 +130,36 @@ footer p{font-size:12px;color:rgba(255,255,255,.3)}
 [data-reveal].in{opacity:1;transform:none}
 @media(max-width:1024px){.prop-grid,.why-grid{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}
 @media(max-width:768px){.hero-right{display:none}nav,.hero-left,.properties,.why,.agents,.cta,footer{padding-left:24px;padding-right:24px}.prop-grid,.why-grid{grid-template-columns:1fr}.agents-row{gap:20px}.cta-form{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .hero-tag,h1,.hero-p,.hero-btns,.hero-stats,[data-reveal]{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="logo">Prime<span>Estate</span></div>
-  <div class="nav-links"><a href="#properties">Объекты</a><a href="#agents">Агенты</a><a href="#cta">Контакты</a></div>
-  <button class="nav-btn">Бесплатная консультация</button>
+  <div class="nav-links"><a href="#properties">Объекты</a><a href="#agents">Процесс</a><a href="#cta">Заявка</a></div>
+  <button class="nav-btn">Обсудить подбор</button>
 </nav>
 
 <section class="hero">
   <div class="hero-left">
     <div class="hero-orb"></div>
     <div class="hero-text">
-      <div class="hero-tag">Агентство недвижимости · с 2012</div>
+      <div class="hero-tag">Интерфейс подбора недвижимости · концепт</div>
       <h1>Найдём <span class="gold">идеальный</span><br>объект для вас</h1>
-      <p class="hero-p">Продажа, аренда, инвестиции. Более 500 объектов в Астане и Алматы. Работаем честно — без скрытых комиссий.</p>
+      <p class="hero-p">Концепт каталога для сравнения объектов, подготовки просмотра и передачи выбранных вариантов специалисту.</p>
       <div class="hero-btns">
         <button class="btn-gold">Подобрать объект</button>
         <button class="btn-outline-light">Оценить квартиру</button>
       </div>
     </div>
     <div class="hero-stats">
-      <div class="stat"><span class="stat-num" id="c1">0</span><span class="stat-label">Сделок в году</span></div>
-      <div class="stat"><span class="stat-num" id="c2">0</span><span class="stat-label">Объектов в базе</span></div>
-      <div class="stat"><span class="stat-num" id="c3">0</span><span class="stat-label">Лет на рынке</span></div>
+      <div class="stat"><span class="stat-num">01</span><span class="stat-label">Собрать критерии</span></div>
+      <div class="stat"><span class="stat-num">02</span><span class="stat-label">Сравнить объекты</span></div>
+      <div class="stat"><span class="stat-num">03</span><span class="stat-label">Назначить просмотр</span></div>
     </div>
   </div>
   <div class="hero-right">
@@ -190,8 +194,8 @@ footer p{font-size:12px;color:rgba(255,255,255,.3)}
 </section>
 
 <section class="properties" id="properties">
-  <div class="section-label" data-reveal>Каталог</div>
-  <h2 class="center" data-reveal>Горячие <span>предложения</span></h2>
+  <div class="section-label" data-reveal>Демо-каталог</div>
+  <h2 class="center" data-reveal>Примеры <span>объектов</span></h2>
   <div class="prop-grid">
     <!-- CARD 1 -->
     <div class="flip-card" data-reveal style="transition-delay:.05s">
@@ -274,27 +278,27 @@ footer p{font-size:12px;color:rgba(255,255,255,.3)}
 <section class="why">
   <h2 data-reveal>Почему <span>PrimeEstate</span>?</h2>
   <div class="why-grid">
-    <div class="why-item" data-reveal style="transition-delay:.05s"><span class="why-icon">⚡</span><h3>Быстро</h3><p>Подбираем объект за 24 часа, показ — в день обращения</p></div>
-    <div class="why-item" data-reveal style="transition-delay:.10s"><span class="why-icon">🔒</span><h3>Безопасно</h3><p>Юридическая проверка каждого объекта. Гарантируем чистоту сделки</p></div>
-    <div class="why-item" data-reveal style="transition-delay:.15s"><span class="why-icon">💰</span><h3>Выгодно</h3><p>Без скрытых комиссий. Помогаем с ипотекой и налоговым вычетом</p></div>
-    <div class="why-item" data-reveal style="transition-delay:.20s"><span class="why-icon">🤝</span><h3>Надёжно</h3><p>14 лет на рынке. Более 2 000 довольных клиентов по всему Казахстану</p></div>
+    <div class="why-item" data-reveal style="transition-delay:.05s"><span class="why-icon">⌕</span><h3>Критерии</h3><p>Фильтры по району, площади, бюджету и формату объекта</p></div>
+    <div class="why-item" data-reveal style="transition-delay:.10s"><span class="why-icon">✓</span><h3>Чек-лист</h3><p>Структура документов и вопросов для проверки перед просмотром</p></div>
+    <div class="why-item" data-reveal style="transition-delay:.15s"><span class="why-icon">↔</span><h3>Сравнение</h3><p>Цена, характеристики и дополнительные расходы в едином формате</p></div>
+    <div class="why-item" data-reveal style="transition-delay:.20s"><span class="why-icon">□</span><h3>План просмотра</h3><p>Выбранные объекты и доступные интервалы собраны в одном сценарии</p></div>
   </div>
 </section>
 
 <section class="agents" id="agents">
   <div class="section-label" data-reveal>Команда</div>
-  <h2 class="center" data-reveal>Наши <span>агенты</span></h2>
+  <h2 class="center" data-reveal>Роли <span>команды</span></h2>
   <div class="agents-row">
-    <div class="agent-card" data-reveal style="transition-delay:.05s"><div class="agent-avatar">👩</div><h4>Айгерим Сейткали</h4><p>Новостройки Астаны</p><div class="agent-sales">↑ 42 сделки / год</div></div>
-    <div class="agent-card" data-reveal style="transition-delay:.10s"><div class="agent-avatar">👨</div><h4>Бахыт Темиров</h4><p>Элитная недвижимость</p><div class="agent-sales">↑ 38 сделок / год</div></div>
-    <div class="agent-card" data-reveal style="transition-delay:.15s"><div class="agent-avatar">👩</div><h4>Дана Жаксыбекова</h4><p>Коммерция и аренда</p><div class="agent-sales">↑ 55 сделок / год</div></div>
-    <div class="agent-card" data-reveal style="transition-delay:.20s"><div class="agent-avatar">👨</div><h4>Ержан Мухамедов</h4><p>Алматинский рынок</p><div class="agent-sales">↑ 47 сделок / год</div></div>
+    <div class="agent-card" data-reveal style="transition-delay:.05s"><div class="agent-avatar">⌕</div><h4>Специалист по подбору</h4><p>Уточняет критерии и формирует выборку</p><div class="agent-sales">Демо-роли без вымышленных имён</div></div>
+    <div class="agent-card" data-reveal style="transition-delay:.10s"><div class="agent-avatar">□</div><h4>Координатор просмотров</h4><p>Собирает доступные интервалы и маршрут</p><div class="agent-sales">Сценарий взаимодействия</div></div>
+    <div class="agent-card" data-reveal style="transition-delay:.15s"><div class="agent-avatar">✓</div><h4>Специалист по документам</h4><p>Ведёт чек-лист материалов для проверки</p><div class="agent-sales">Без юридических гарантий в демо</div></div>
+    <div class="agent-card" data-reveal style="transition-delay:.20s"><div class="agent-avatar">→</div><h4>Менеджер сделки</h4><p>Показывает следующий шаг и статус заявки</p><div class="agent-sales">Концепт рабочего процесса</div></div>
   </div>
 </section>
 
 <section class="cta" id="cta">
   <h2 data-reveal>Найдём ваш <span>идеальный</span> объект</h2>
-  <p data-reveal>Оставьте номер — перезвоним в течение 15 минут и расскажем о лучших вариантах на сегодня.</p>
+  <p data-reveal>Оставьте критерии поиска — в рабочем продукте заявка будет передана специалисту для проверки актуальных вариантов.</p>
   <div class="cta-form" data-reveal>
     <input class="cta-input" type="tel" placeholder="+7 (___) ___-__-__">
     <button class="btn-gold" style="white-space:nowrap">Перезвоните мне</button>
@@ -303,24 +307,11 @@ footer p{font-size:12px;color:rgba(255,255,255,.3)}
 
 <footer>
   <div class="footer-logo">Prime<span>Estate</span></div>
-  <p>© 2026 PrimeEstate Kazakhstan</p>
-  <p>Астана · Алматы · Шымкент</p>
+  <p>Интерактивный концепт каталога недвижимости</p>
+  <p>Демо-объекты и цены иллюстративны</p>
 </footer>
 
 <script>
-// STATS COUNTER
-function countUp(id,target,suffix){
-  const el=document.getElementById(id)
-  if(!el)return
-  const start=Date.now(),dur=1600
-  ;(function tick(){
-    const t=Math.min((Date.now()-start)/dur,1),v=Math.round(target*(1-Math.pow(1-t,3)))
-    el.textContent=v+(t>=1?suffix:'')
-    if(t<1)requestAnimationFrame(tick)
-  })()
-}
-setTimeout(()=>{countUp('c1',420,'+');countUp('c2',500,'+');countUp('c3',14,'')},1000)
-
 // REVEAL
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12})
 document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el))
