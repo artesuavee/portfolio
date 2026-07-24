@@ -74,8 +74,8 @@ h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-.5px;margin-
 .feature-card p{color:var(--muted);font-size:14px}
 
 /* INTEGRATIONS MARQUEE */
-.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;background:rgba(22,27,34,.5)}
-.marquee{display:flex;gap:48px;animation:marquee 18s linear infinite;white-space:nowrap}
+.marquee-wrap{overflow:hidden;width:100%;height:58px;contain:layout paint size;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(22,27,34,.5)}
+.marquee{position:absolute;left:0;top:16px;display:flex;width:max-content;gap:48px;animation:marquee 18s linear infinite;white-space:nowrap}
 .marquee-item{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;font-weight:500}
 .marquee-item::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.6;flex-shrink:0}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -107,7 +107,15 @@ footer p{color:var(--muted);font-size:13px}
 [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
 [data-reveal].in{opacity:1;transform:none}
 
-@media(max-width:768px){nav,section,.hero,.features,.pricing,.cta-section,footer{padding-left:24px;padding-right:24px}.plans{grid-template-columns:1fr}.dashboard-body{grid-template-columns:1fr}}
+@media(max-width:768px){
+  nav,section,.hero,.features,.pricing,.cta-section,footer{padding-left:24px;padding-right:24px}
+  .nav-links,.nav-actions .btn-ghost{display:none}
+  .plans{grid-template-columns:1fr}.dashboard-body{grid-template-columns:1fr}
+  .marquee-wrap{height:auto;padding:16px 24px}
+  .marquee{position:static;width:100%;animation:none;white-space:normal;flex-wrap:wrap;justify-content:center;gap:10px 20px}
+  .marquee-item:nth-child(n+13){display:none}
+}
+@media(prefers-reduced-motion:reduce){.marquee{animation:none}[data-reveal]{opacity:1!important;transform:none!important;transition:none!important}}
 </style>
 </head>
 <body>

@@ -102,7 +102,8 @@ footer p{color:var(--muted);font-size:13px}
 [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
 [data-reveal].in{opacity:1;transform:none}
 
-@media(max-width:768px){nav,section,footer{padding-left:24px;padding-right:24px}.stats-row{grid-template-columns:repeat(2,1fr)}.ticker{gap:12px}.step::after{display:none}}
+@media(max-width:768px){nav,section,footer{padding-left:24px;padding-right:24px}.nav-links{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}.ticker{gap:12px}.step::after{display:none}}
+@media(prefers-reduced-motion:reduce){.glow{animation:none!important}[data-reveal]{opacity:1!important;transform:none!important;transition:none!important}}
 </style>
 </head>
 <body>
