@@ -16,20 +16,22 @@
   <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
 
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="Idris Dabyl, на главную">
-      <span class="brand-mark">ID</span><span>Idris Dabyl</span>
-    </a>
-    <nav aria-label="Основная навигация">
-      <a href="#products">Продукты</a>
-      <a href="#lab">Работы</a>
-      <a href="#contact">Контакт</a>
-    </nav>
-    <div class="header-actions">
-      <div class="language-switch" role="group" aria-label="Выбор языка">
-        <button type="button" data-lang="ru" aria-label="Переключить на русский язык" aria-pressed="true">RU</button>
-        <button type="button" data-lang="en" aria-label="Switch to English" aria-pressed="false">EN</button>
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Idris Dabyl, на главную">
+        <span class="brand-mark">ID</span><span>Idris Dabyl</span>
+      </a>
+      <nav aria-label="Основная навигация">
+        <a href="#products">Продукты</a>
+        <a href="#lab">Работы</a>
+        <a href="#contact">Контакт</a>
+      </nav>
+      <div class="header-actions">
+        <div class="language-switch" role="group" aria-label="Выбор языка">
+          <button type="button" data-lang="ru" aria-label="Переключить на русский язык" aria-pressed="true">RU</button>
+          <button type="button" data-lang="en" aria-label="Switch to English" aria-pressed="false">EN</button>
+        </div>
+        <a class="header-cta" href="#contact">Обсудить задачу</a>
       </div>
-      <a class="header-cta" href="#contact">Обсудить задачу</a>
     </div>
   </header>
 
@@ -51,32 +53,35 @@
       </div>
 
       <div class="hero-stage" aria-label="Два главных продукта">
+        <span class="key-light" aria-hidden="true"></span>
         <span class="card-backlight seller-backlight" aria-hidden="true"></span>
         <span class="card-backlight scout-backlight" aria-hidden="true"></span>
         <span class="floor-reflection seller-reflection" aria-hidden="true"></span>
         <span class="floor-reflection scout-reflection" aria-hidden="true"></span>
         <a class="mini-product seller glass-tilt" href="#ai-seller" data-tilt>
+          <span class="glass-depth" aria-hidden="true"></span>
           <span class="optical-surface" aria-hidden="true"></span>
           <span class="glass-shine" aria-hidden="true"></span>
           <span class="glass-refraction" aria-hidden="true"></span>
           <span class="edge-streak" aria-hidden="true"></span>
-          <span class="mini-top"><b>AI Seller</b><small>Avito · assist-first</small></span>
+          <span class="mini-top"><b>AI Seller</b><small>AI-приём заявок · квалификация</small></span>
           <span class="conversation" aria-hidden="true">
-            <i>Покупатель спрашивает о цене</i>
-            <i>Ответ собран по карточке</i>
-            <i>Готово к проверке оператора</i>
+            <i>Новая заявка</i>
+            <i>Проблема и контакты уточнены</i>
+            <i>Лид передан команде</i>
           </span>
           <span class="seller-telemetry" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
-          <span class="mini-foot"><i></i> Безопасный режим рекомендаций <b>Открыть кейс →</b></span>
+          <span class="mini-foot"><i></i> Передача человеку по правилам <b>Открыть кейс →</b></span>
         </a>
         <a class="mini-product scout glass-tilt" href="#leadscout" data-tilt>
+          <span class="glass-depth" aria-hidden="true"></span>
           <span class="optical-surface" aria-hidden="true"></span>
           <span class="glass-shine" aria-hidden="true"></span>
           <span class="glass-refraction" aria-hidden="true"></span>
           <span class="edge-streak" aria-hidden="true"></span>
-          <span class="mini-top"><b>LeadScout</b><small>Telegram · qualification</small></span>
+          <span class="mini-top"><b>LeadScout</b><small>Аналитика намерений · маршрутизация</small></span>
           <span class="signal" aria-hidden="true">
-            <i><b>Новый запрос</b><span>Нужен разработчик Telegram-бота…</span></i>
+            <i><b>Квалифицированная возможность</b><span>Коммерческий интерес · назначено команде</span></i>
             <strong>87%</strong>
           </span>
           <span class="scout-telemetry" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></span>
@@ -95,12 +100,12 @@
         <div class="case-copy">
           <p class="case-number">01 / AI SALES</p>
           <h3>AI Seller</h3>
-          <p class="case-subtitle">AI-продавец для входящих чатов Авито</p>
-          <p>Принимает официальный Messenger webhook, отвечает только по данным объявления, квалифицирует покупателя и передаёт владельцу горячий лид или сложный вопрос.</p>
+          <p class="case-subtitle">Приём и квалификация заявок для сервисного бизнеса</p>
+          <p>Быстро отвечает на входящий запрос, уточняет проблему, собирает контакт и необходимые детали, затем передаёт команде подготовленный к работе лид. Avito — первая канальная интеграция, а не граница продукта.</p>
           <ul class="feature-list">
             <li><span>01</span><div><b>Контролируемая автоматизация</b><small>Assist-режим: оператор подтверждает ответ перед отправкой.</small></div></li>
             <li><span>02</span><div><b>Надёжный поток сообщений</b><small>Очередь, SQLite-восстановление и защита от дублей.</small></div></li>
-            <li><span>03</span><div><b>Официальная интеграция</b><small>OAuth и Messenger API без парсинга закрытых данных.</small></div></li>
+            <li><span>03</span><div><b>Первая канальная интеграция</b><small>Avito Messenger API — стартовый канал; продуктовая логика не зависит от одной площадки.</small></div></li>
           </ul>
           <div class="case-meta"><span>Python</span><span>FastAPI</span><span>Pydantic AI</span><span>SQLite</span></div>
           <p class="status-note"><b>Статус:</b> MVP подготовлен к пилоту; для боевой проверки нужны доступ к Messenger API и реальный аккаунт пилота.</p>
@@ -127,12 +132,12 @@
         <div class="case-copy">
           <p class="case-number">02 / LEAD INTELLIGENCE</p>
           <h3>LeadScout</h3>
-          <p class="case-subtitle">Мониторинг и квалификация лидов в Telegram</p>
-          <p>Читает выбранные публичные источники через отдельный аккаунт-наблюдатель, отсеивает шум и отправляет владельцу интерактивные карточки релевантных запросов.</p>
+          <p class="case-subtitle">Аналитика намерений и маршрутизация лидов</p>
+          <p>Мониторит разрешённые источники, понимает коммерческое намерение в контексте, квалифицирует возможности и направляет готовые к действию лиды нужной команде, поддерживая их движение по воронке.</p>
           <ul class="feature-list">
-            <li><span>01</span><div><b>Централизованный мониторинг</b><small>Выбранные публичные источники без вступления клиента в десятки групп.</small></div></li>
+            <li><span>01</span><div><b>Мониторинг разрешённых источников</b><small>Telegram — первый источник; система спроектирована вокруг намерения, а не одной платформы.</small></div></li>
             <li><span>02</span><div><b>Двухэтапный фильтр</b><small>Быстрый prefilter, затем AI-классификация и confidence.</small></div></li>
-            <li><span>03</span><div><b>Петля обратной связи</b><small>👍/👎, причина ошибки и простая воронка прямо в Telegram.</small></div></li>
+            <li><span>03</span><div><b>Маршрутизация и воронка</b><small>Подтверждение качества, причина ошибки и передача возможности в работу.</small></div></li>
           </ul>
           <div class="case-meta"><span>Python</span><span>Telethon</span><span>aiogram</span><span>Gemini / Claude</span></div>
           <p class="status-note"><b>Статус:</b> технически готов к закрытому семидневному пилоту; это ещё не self-service SaaS.</p>
@@ -141,9 +146,9 @@
           <div class="ui-bar"><span>Lead stream</span><i></i><i></i></div>
           <div class="stream">
             <div class="source-row"><span>12 источников</span><span>prefilter active</span><span>no duplicates</span></div>
-            <article class="lead-card"><div><small>Новый запрос · 2 мин</small><b>Ищу разработчика AI-бота для квалификации заявок</b><p>Есть текущий процесс в Telegram, нужна автоматизация и передача тёплых лидов менеджеру.</p></div><strong>92<small>%</small></strong></article>
+            <article class="lead-card"><div><small>Квалифицированная возможность · 2 мин</small><b>Ищу разработчика AI-бота для квалификации заявок</b><p>Нужна автоматизация первичной квалификации и передача подготовленных лидов менеджеру.</p></div><strong>92<small>%</small></strong></article>
             <div class="lead-actions"><button type="button" tabindex="-1">👍 Подтвердить</button><button type="button" tabindex="-1">Черновик ответа</button><button type="button" tabindex="-1">В работу</button></div>
-            <div class="pipeline"><span><i style="width:78%"></i></span><small>сбор → фильтр → AI → карточка → обратная связь</small></div>
+            <div class="pipeline"><span><i style="width:78%"></i></span><small>источники → контекст → intent → маршрут → воронка</small></div>
           </div>
         </div>
       </article>
