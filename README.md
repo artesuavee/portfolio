@@ -1,8 +1,8 @@
 # Портфолио — лендинги, AI-агенты, Telegram-боты и мобильные приложения
 
-**EN:** Portfolio of 49 hand-built projects: 22 responsive landing pages (HTML/CSS/JS, Three.js), 10 Claude-powered AI agents (Python, Tool Use, RAG, FastAPI), 12 Telegram bots (aiogram 3) and 5 React Native / Expo apps. One bot runs live in production. Live showcase: **[artesuavee.github.io/portfolio](https://artesuavee.github.io/portfolio/)**
+**EN:** Portfolio of 49 projects built with AI coding agents (Claude Code / Codex) under my direction: 22 responsive landing pages (HTML/CSS/JS, Three.js), 10 Claude-powered AI agents (Python, Tool Use, keyword-based knowledge-base lookup, FastAPI), 12 Telegram bots (aiogram 3) and 5 React Native / Expo apps. One bot runs live in production. Live showcase: **[artesuavee.github.io/portfolio](https://artesuavee.github.io/portfolio/)**
 
-**49 авторских проектов**: адаптивные лендинги, мобильные приложения на Expo, Python AI-агенты на Claude API и Telegram-боты на aiogram 3. Бот поддержки работает в проде: [@artesuave_support_bot](https://t.me/artesuave_support_bot).
+**49 проектов, сделанных с AI-агентами (Claude Code / Codex) под моим руководством**: адаптивные лендинги, мобильные приложения на Expo, Python AI-агенты на Claude API и Telegram-боты на aiogram 3. Бот поддержки работает в проде: [@artesuave_support_bot](https://t.me/artesuave_support_bot).
 
 [![Живая витрина](assets/previews/main.jpg)](https://artesuavee.github.io/portfolio/)
 
@@ -50,7 +50,7 @@
 
 ## AI-агенты (10) — Python + Claude API
 
-Рабочий код: Tool Use, RAG, streaming, per-user контекст. Общий `ClaudeClient` в `core/`, единый веб-API на FastAPI в `api/`, smoke-тесты.
+Рабочий код: Tool Use, поиск по базе знаний по ключевым словам, per-user контекст. Общий `ClaudeClient` в `core/`, единый веб-API на FastAPI в `api/`, smoke-тесты.
 
 Три флагманских агента вынесены в отдельные репозитории с подробными английскими README: [claude-research-agent](https://github.com/artesuavee/claude-research-agent) (реальный веб-поиск и парсинг), [claude-support-agent](https://github.com/artesuavee/claude-support-agent), [claude-sales-agent](https://github.com/artesuavee/claude-sales-agent).
 
@@ -108,7 +108,7 @@
 
 **Frontend:** HTML5 / CSS3, Vanilla JS, Three.js, Canvas-анимации
 **Mobile:** React Native, Expo, AsyncStorage, React Navigation
-**AI Agents:** Python 3.12, Anthropic SDK, Tool Use, RAG, FastAPI
+**AI Agents:** Python 3.12, Anthropic SDK, Tool Use, FastAPI
 **Chatbots:** Python, aiogram 3.x, FSM, Claude API
 **Deploy:** GitHub Pages, Railway
 
